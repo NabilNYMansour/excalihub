@@ -1,0 +1,40 @@
+{
+  "name": "excalihub",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^5.2.2",
+    "@clerk/themes": "^2.1.10",
+    "@excalidraw/excalidraw": "^0.17.6",
+    "@mantine/core": "^7.10.1",
+    "@mantine/hooks": "^7.10.1",
+    "@types/better-sqlite3": "^7.6.11",
+    "axios": "^1.7.2",
+    "better-sqlite3": "^11.1.2",
+    "drizzle-orm": "^0.31.4",
+    "next": "14.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "sharp": "^0.33.4",
+    "shiki": "^1.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "drizzle-kit": "^0.22.8",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8.4.38",
+    "postcss-preset-mantine": "^1.15.0",
+    "postcss-simple-vars": "^7.0.1",
+    "typescript": "^5"
+  }
+}

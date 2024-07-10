@@ -1,0 +1,28 @@
+.rootHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: rem(70px);
+}
+
+.header {
+  padding: 5px;
+  background-color: light-dark(#EEEEF1, #26252A);
+  box-shadow: 0 0 0.1em rgba(0, 0, 0, 0.5);
+}
+
+.inner {
+  height: rem(56px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+}
