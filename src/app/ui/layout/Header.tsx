@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
-import { Badge, Container, Flex, Group, Skeleton, useComputedColorScheme } from '@mantine/core';
+import { Container, Group, Skeleton, useComputedColorScheme } from '@mantine/core';
 import { useDisclosure, useHover } from '@mantine/hooks';
 import { ThemeToggle } from '../components/buttons/ThemeToggle';
 import classes from './Header.module.css';
@@ -11,7 +11,6 @@ import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import SignInAction from '../components/buttons/SignInAction';
 import { dark } from '@clerk/themes';
 import { SiExcalidraw } from 'react-icons/si';
-import { Loader } from '@mantine/core';
 
 export function Header() {
   const currPath = usePathname();

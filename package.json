@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ngrok": "ngrok http http://localhost:3000",
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:migrate": "drizzle-kit migrate",
+    "drizzle:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.2",
@@ -23,7 +27,8 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
     "sharp": "^0.33.4",
-    "shiki": "^1.6.4"
+    "shiki": "^1.6.4",
+    "svix": "^1.24.0"
   },
   "devDependencies": {
     "@types/node": "^20",

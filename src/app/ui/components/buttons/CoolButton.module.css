@@ -14,6 +14,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
+  border: 1px solid transparent;
 }
 .butn::after {
   background: #fff;
@@ -37,7 +38,9 @@
 .butn:active {
   transform: translateY(-3px);
   color: #fff;
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3); */
+  border: 1px solid white;
+  box-shadow: 0 0 10px white;
 }
 
 .butn__new:hover::before {
