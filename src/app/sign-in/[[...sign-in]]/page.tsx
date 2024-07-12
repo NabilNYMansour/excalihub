@@ -1,14 +1,14 @@
 "use client";
 
 import { SignIn } from "@clerk/nextjs";
-import { Container, useComputedColorScheme } from "@mantine/core";
-import globalClasses from "@/app/globals.module.css";
+import { useComputedColorScheme } from "@mantine/core";
 import { dark } from "@clerk/themes";
+import CenterContainer from "@/app/ui/components/other/CenterContainer";
 
 export default function Page() {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
-  return <Container size="lg" className={globalClasses.centerContainer}>
+  return <CenterContainer>
     <SignIn appearance={{ baseTheme: computedColorScheme === "dark" ? dark : undefined }} />
-  </Container>
+  </CenterContainer>
 }

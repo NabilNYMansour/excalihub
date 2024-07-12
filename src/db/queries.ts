@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { eventsTable, InsertEvent, InsertUser, SelectUser, usersTable } from './schema';
+import { drawingsTable, eventsTable, InsertDrawing, InsertEvent, InsertUser, SelectUser, usersTable } from './schema';
 import { db } from '.';
 
 export async function createUser(data: InsertUser) {
@@ -12,6 +12,10 @@ export async function getUserById(id: SelectUser['id']): Promise<Array<{ id: num
 
 export async function deleteUserByClerkId(clerkId: SelectUser['clerkId']) {
   await db.delete(usersTable).where(eq(usersTable.clerkId, clerkId));
+}
+
+export async function createDrawing(data: InsertDrawing) {
+  await db.insert(drawingsTable).values(data);
 }
 
 export async function createEvent(payload: InsertEvent) {

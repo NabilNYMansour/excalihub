@@ -1,0 +1,17 @@
+.drawing {
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.drawingCard {
+  transition: all 0.2s ease-in-out;
+}
+
+.drawingCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px var(--mantine-color-main-9);
+}
+
+.drawing [class*="App-toolbar"] {
+  display: none;
+}

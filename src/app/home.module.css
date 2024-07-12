@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: light-dark(#eeeef1, #26252a); /* hardcoded */
-  overflow-y: scroll;
+  overflow-y: visible;
 }
 
 .app {
