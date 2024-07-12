@@ -3,13 +3,14 @@
 import React from 'react';
 import { Button, Container, Text, Timeline } from '@mantine/core';
 import { FaQuestionCircle } from 'react-icons/fa';
-import CoolButton from './buttons/CoolButton';
+import CoolButton from '../buttons/CoolButton';
 import { RiLinkM } from 'react-icons/ri';
 import { useMediaQuery } from '@mantine/hooks';
 
 import { Skeleton, useComputedColorScheme } from "@mantine/core";
 import dynamic from "next/dynamic";
-import { initialLandingExcaliData as initData } from "./Constants";
+import { initialLandingExcaliData as initData } from "../other/Constants";
+import CenterContainer from '../other/CenterContainer';
 
 const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,
@@ -35,11 +36,11 @@ function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
   );
 }
 
-const LandingPage = () => {
+const LandingPageComponent = () => {
   const isPhone = useMediaQuery('(max-width: 650px)');
 
   return (
-    <>
+    <CenterContainer>
       <h1>Hi there!</h1>
       <LandingExcalidraw isPhone={isPhone} />
       <Container size="sm">
@@ -90,8 +91,8 @@ const LandingPage = () => {
           </Timeline.Item>
         </Timeline>
       </Container>
-    </>
+    </CenterContainer>
   );
 };
 
-export default LandingPage;
+export default LandingPageComponent;
