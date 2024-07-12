@@ -1,22 +1,22 @@
-"use client";
-
-import { User } from "@clerk/nextjs/server";
 import CenterContainer from "../other/CenterContainer";
 import DrawingCard from "../cards/DrawingCard";
 import NewDrawingCard from "../cards/NewDrawingCard";
 import { Group } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { getAllUserDrawingsPaginatedGivenClerkId } from "@/db/queries";
+import { createDrawingAction } from "@/lib/actions";
 
+async function HomePageComponent({ name, clerkId }: { name: string | null, clerkId: string | null }) {
+  if (!name || !clerkId) throw new Error("User not found");
 
-const HomePageComponent = ({ name, id }: { name: string | null, id: string | null }) => {
-  const isPhone = useMediaQuery('(max-width: 650px)');
+  const drawings = await getAllUserDrawingsPaginatedGivenClerkId(clerkId, 0, 10);
+  console.log(drawings);
 
   return (
     <CenterContainer size="xl">
       Hi {name}!
-      <Group justify="center">
-        <DrawingCard isPhone={isPhone} />
-        <NewDrawingCard isPhone={isPhone} />
+      <Group justify="center" gap={10}>
+        {drawings.map((drawing, i) => <DrawingCard key={i} drawing={drawing} />)}
+        <NewDrawingCard clerkId={clerkId} createDrawingAction={createDrawingAction} />
       </Group>
     </CenterContainer>
   );

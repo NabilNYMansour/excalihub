@@ -3,13 +3,14 @@
 import { ActionIcon, Avatar, Button, Card, Group, Menu, Skeleton, Text, useComputedColorScheme } from '@mantine/core';
 import dynamic from 'next/dynamic';
 import React from 'react';
-import { initialLandingExcaliData } from '../other/Constants';
+import { emptuExcaliData, initialLandingExcaliData } from '../other/Constants';
 import { BsThreeDots } from 'react-icons/bs';
 import { FaEyeSlash, FaTrashAlt } from 'react-icons/fa';
 import classes from './DrawingCard.module.css';
 import { IoMdShare } from 'react-icons/io';
 import { IoOpenOutline } from 'react-icons/io5';
 import { MdPublic } from 'react-icons/md';
+import { useMediaQuery } from '@mantine/hooks';
 
 const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,
@@ -19,8 +20,15 @@ const Excalidraw = dynamic(
   },
 );
 
-const DrawingCard = ({ isPhone }: { isPhone: boolean | undefined }) => {
+const DrawingCard = ({ drawing }: {
+  drawing: {
+    name: string;
+    payload: string;
+    slug: string;
+  }
+}) => {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+  const isPhone = useMediaQuery('(max-width: 350px)');
 
   return (
     <Card withBorder className={classes.drawingCard}>
@@ -77,7 +85,9 @@ const DrawingCard = ({ isPhone }: { isPhone: boolean | undefined }) => {
           <Excalidraw theme={computedColorScheme}
             UIOptions={{ tools: { image: false } }}
             initialData={{
-              elements: initialLandingExcaliData.elements as any,
+              elements:
+                drawing.payload ? emptuExcaliData.elements as any :
+                  JSON.parse(drawing.payload).elements as any,
               scrollToContent: true,
               appState: { zoom: { value: 0.5 as any } }
             }} viewModeEnabled />

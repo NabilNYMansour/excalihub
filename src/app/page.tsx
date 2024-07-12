@@ -5,6 +5,5 @@ import HomePageComponent from "./ui/components/pages/HomePageComponent";
 export default async function HomePage() {
   const user = await currentUser();
 
-
-  return user ? <HomePageComponent name={user.fullName} id={user.id}/> : <LandingPageComponent />
+  return user ? <HomePageComponent name={user.fullName} clerkId={user.id}/> : <LandingPageComponent />
 }

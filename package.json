@@ -22,13 +22,15 @@
     "axios": "^1.7.2",
     "better-sqlite3": "^11.1.2",
     "drizzle-orm": "^0.31.4",
+    "drizzle-zod": "^0.5.1",
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
     "sharp": "^0.33.4",
     "shiki": "^1.6.4",
-    "svix": "^1.24.0"
+    "svix": "^1.24.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
