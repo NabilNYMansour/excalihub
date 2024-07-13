@@ -52,7 +52,7 @@ const LandingPageComponent = () => {
               style={{ backgroundImage: "linear-gradient(180deg, #6965DB, #908cff)", fontSize: "1.5rem", fontWeight: "900" }} />
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>🤔</div>} title={<h2>Why?</h2>}>
-            <p>I find Excalidraw useful but the free version doesn't let you have multiple saved drawings. So I thought I could make that myself.</p>
+            <p>I find Excalidraw useful but the free version doesn&apos;t let you have multiple saved drawings. So I thought I could make that myself.</p>
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>😮</div>} title={<h2>Oh so you are part of the Excali team?</h2>}>
             <Text size='1.75rem' fw={900} c="red.9">Nope :D</Text>

@@ -8,6 +8,7 @@ import localFont from 'next/font/local';
 import cx from 'clsx';
 import { theme } from "@/theme";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Notifications } from "@mantine/notifications";
 
 const CaviarDreams = localFont({ src: '../../public/CaviarDreams.ttf' });
 
@@ -28,6 +29,8 @@ export default function RootLayout({
         </head>
         <body className={cx(classes.body, CaviarDreams.className)}>
           <MantineProvider defaultColorScheme="dark" theme={theme}>
+            <Notifications className={classes.notifications} />
+
             <Header />
             <div className={classes.app}>
               {children}

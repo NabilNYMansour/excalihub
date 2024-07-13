@@ -2,31 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Container, Group, Skeleton, useComputedColorScheme } from '@mantine/core';
-import { useDisclosure, useHover } from '@mantine/hooks';
+import { useHover } from '@mantine/hooks';
 import { ThemeToggle } from '../components/buttons/ThemeToggle';
 import classes from './Header.module.css';
-import { usePathname } from 'next/navigation';
 import { UserButton, ClerkLoading, ClerkLoaded } from '@clerk/nextjs';
 import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import SignInAction from '../components/buttons/SignInAction';
 import { dark } from '@clerk/themes';
 import { SiExcalidraw } from 'react-icons/si';
+import Link from 'next/link';
 
 export function Header() {
-  const currPath = usePathname();
-  const [opened, { toggle }] = useDisclosure(false);
-  const [activeLink, setActiveLink] = useState(currPath);
   const [isHeaderVisible, setHeaderVisible] = useState(true);
   const [checkHeader, setCheckHeader] = useState(true);
   const [scrollDir, setScrollDir] = useState<'up' | 'down'>('up');
   const prevScrollVal = useRef(0);
   const headerHover = useHover();
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
-
-  useEffect(() => {
-    setActiveLink(currPath);
-    prevScrollVal.current = window.scrollY;
-  }, [currPath]);
 
   const handleScroll = () => {
     if (window.scrollY < 350) {
@@ -90,12 +82,14 @@ export function Header() {
               </SignedIn>
             </ClerkLoaded>
 
-            <Group ml="auto" mr="auto">
-              <SiExcalidraw size={40} />
-              <Group visibleFrom="sm">
-                <h1>ExcaliHub</h1>
+            <Link href="/" className={classes.appTitle}>
+              <Group ml="auto" mr="auto" c="main" >
+                <SiExcalidraw size={40} />
+                <Group visibleFrom="sm">
+                  <h1>ExcaliHub</h1>
+                </Group>
               </Group>
-            </Group>
+            </Link>
             <ThemeToggle />
           </Container>
         </div>
