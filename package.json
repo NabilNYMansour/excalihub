@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "ngrok": "ngrok http http://localhost:3000",
+    "seed": "node ./scripts/seed.js",
     "drizzle:generate": "drizzle-kit generate",
     "drizzle:migrate": "drizzle-kit migrate",
     "drizzle:studio": "drizzle-kit studio"
@@ -18,6 +19,7 @@
     "@excalidraw/excalidraw": "^0.17.6",
     "@mantine/core": "^7.10.1",
     "@mantine/hooks": "^7.10.1",
+    "@mantine/notifications": "^7.11.1",
     "@types/better-sqlite3": "^7.6.11",
     "axios": "^1.7.2",
     "better-sqlite3": "^11.1.2",

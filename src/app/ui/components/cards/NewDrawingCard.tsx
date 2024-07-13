@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Center, Checkbox, Flex, Group, Modal, Switch, Text, Textarea, TextInput, Tooltip } from '@mantine/core';
+import { Button, Card, Center, Flex, Group, Modal, Switch, Text, Textarea, TextInput, Tooltip } from '@mantine/core';
 
 import classes from './DrawingCard.module.css';
 import { FaCirclePlus } from 'react-icons/fa6';
@@ -20,6 +20,7 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
 
   return (
     <>
+      {/* Main card */}
       <Card withBorder className={classes.drawingCard} onClick={open} style={{ cursor: "pointer" }}>
         <Card.Section withBorder inheritPadding py="xs">
           <Group justify='center'>
@@ -38,6 +39,8 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
           </div>
         </Card.Section>
       </Card>
+
+      {/* Modal */}
       <Modal centered opened={opened} onClose={close} title={<Text fw={900}>+ Create New Drawing +</Text>}>
         <form action={async (formData: FormData) => {
           if (publicDrawing) {

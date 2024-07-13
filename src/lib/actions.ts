@@ -43,3 +43,25 @@ export async function createDrawingAction(formData: FormData) {
     return "";
   }
 }
+
+export async function togglePublicDrawingAction(slug: string) {
+  try {
+    await db.togglePublicDrawing(slug);
+    return true;
+  } catch (error) {
+    console.error("Error toggling public drawing at", new Date().toISOString());
+    console.error(error);
+    return false;
+  }
+}
+
+export async function deleteDrawingAction(slug: string) {
+  try {
+    await db.deleteDrawing(slug);
+    return true;
+  } catch (error) {
+    console.error("Error deleting drawing at", new Date().toISOString());
+    console.error(error);
+    return false;
+  }
+}
