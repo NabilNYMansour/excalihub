@@ -1,9 +1,8 @@
 "use client";
 
-import { ActionIcon, Button, Card, Flex, Group, Menu, Modal, Skeleton, Text, useComputedColorScheme } from '@mantine/core';
+import { ActionIcon, Button, Card, Flex, Group, Menu, Modal, Skeleton, Text, ThemeIcon, useComputedColorScheme } from '@mantine/core';
 import dynamic from 'next/dynamic';
 import React from 'react';
-import { emptuExcaliData } from '../other/Constants';
 import { BsThreeDots } from 'react-icons/bs';
 import { FaEyeSlash, FaTrashAlt } from 'react-icons/fa';
 import classes from './DrawingCard.module.css';
@@ -45,6 +44,13 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
     } else {
       alert("Error toggling drawing privacy. Please try again.");
     }
+    notifications.show({
+      title: <Flex align="center" gap={5}>
+        <ThemeIcon variant='transparent' size="sm">{drawing.isPublic === 1 ? <FaEyeSlash size={28} color='red' /> : <MdPublic size={28} color='green' />}</ThemeIcon>
+        Privacy changes
+      </Flex>,
+      message: drawing.name + ' is now ' + (drawing.isPublic === 1 ? 'private' : 'public'),
+    })
   };
 
   const handleDelete = async () => {
@@ -107,7 +113,6 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   Share Drawing
                 </Menu.Item>
 
-                {/* <form action={handleDelete}> */}
                 <Menu.Item
                   component='button'
                   onClick={open}
@@ -115,7 +120,6 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   color="#ff0000">
                   Delete Drawing
                 </Menu.Item>
-                {/* </form> */}
 
               </Menu.Dropdown>
             </Menu>
@@ -132,9 +136,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
               <Excalidraw theme={computedColorScheme}
                 UIOptions={{ tools: { image: false } }}
                 initialData={{
-                  elements:
-                    drawing.payload ? JSON.parse(drawing.payload).elements as any :
-                      emptuExcaliData.elements as any,
+                  elements: JSON.parse(drawing.payload).elements as any,
                   scrollToContent: true,
                   appState: { zoom: { value: 0.5 as any } }
                 }} viewModeEnabled />

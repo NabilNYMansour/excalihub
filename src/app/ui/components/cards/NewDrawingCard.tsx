@@ -18,6 +18,16 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
   const [publicDrawing, setPublicDrawing] = useState(false);
   const togglePublicDrawing = () => setPublicDrawing((prev) => !prev);
 
+  const handleNewDrawing = async (formData: FormData) => {
+    if (publicDrawing) {
+      formData.set('isPublic', '1');
+    }
+    formData.set('clerkId', clerkId);
+    const slug = await createDrawingAction(formData);
+    if (slug) { redirect("/excalidraw/" + slug, RedirectType.push) }
+    else { alert("Error creating drawing. Please try again.") }
+  }
+
   return (
     <>
       {/* Main card */}
@@ -42,15 +52,7 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
 
       {/* Modal */}
       <Modal centered opened={opened} onClose={close} title={<Text fw={900}>+ Create New Drawing +</Text>}>
-        <form action={async (formData: FormData) => {
-          if (publicDrawing) {
-            formData.set('isPublic', '1');
-          }
-          formData.set('clerkId', clerkId);
-          const slug = await createDrawingAction(formData);
-          if (slug) { redirect("/excalidraw/" + slug, RedirectType.push) }
-          else { alert("Error creating drawing. Please try again.") }
-        }}>
+        <form action={handleNewDrawing}>
           <Flex gap={10} direction="column">
             <TextInput label="Title" name='title' placeholder="Drawing title" required />
             <Textarea label="Description" name='description' placeholder="Drawing description" required />

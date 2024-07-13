@@ -9,7 +9,7 @@ import { useMediaQuery } from '@mantine/hooks';
 
 import { Skeleton, useComputedColorScheme } from "@mantine/core";
 import dynamic from "next/dynamic";
-import { initialLandingExcaliData as initData } from "../other/Constants";
+import { WELCOME_EXCALI_DATA } from "../other/Constants";
 import CenterContainer from '../other/CenterContainer';
 
 const Excalidraw = dynamic(
@@ -28,10 +28,10 @@ function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
       <Excalidraw theme={computedColorScheme}
         UIOptions={{ tools: { image: false } }}
         initialData={{
-          elements: initData.elements as any,
+          elements: WELCOME_EXCALI_DATA.elements as any,
           scrollToContent: true,
           appState: { zoom: { value: (isPhone ? .5 : 1) as any } }
-        }} zenModeEnabled viewModeEnabled />
+        }} zenModeEnabled />
     </div>
   );
 }
