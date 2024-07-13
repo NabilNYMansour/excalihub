@@ -32,7 +32,7 @@ const seedDrawings = () => {
       isPublic: i % 2 === 0 ? 1 : 0,
       createAt: new Date().toISOString(),
       payload: "",
-      slug: "drawing-" + i
+      slug: crypto.randomUUID().replace(/-/g, '')
     });
   }
 }
