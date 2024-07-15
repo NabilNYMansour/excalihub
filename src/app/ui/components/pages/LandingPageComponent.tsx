@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import { useState } from 'react';
 import { Button, Container, Text, Timeline } from '@mantine/core';
 import { FaQuestionCircle } from 'react-icons/fa';
 import CoolButton from '../buttons/CoolButton';
@@ -23,17 +23,21 @@ const Excalidraw = dynamic(
 // TODO: redesign this component
 
 function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
+  const [viewModeEnabled, setViewModeEnabled] = useState(true);
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
   return (
-    <div style={{ width: "100%", height: "50vh", borderRadius: "12px", overflow: "hidden" }}>
+    <div
+      onMouseEnter={() => setViewModeEnabled(false)}
+      onMouseLeave={() => setViewModeEnabled(true)}
+      style={{ width: "100%", height: "50vh", borderRadius: "12px", overflow: "hidden" }}>
       <Excalidraw theme={computedColorScheme}
         UIOptions={{ tools: { image: false } }}
         initialData={{
           elements: WELCOME_EXCALI_DATA.elements as any,
           scrollToContent: true,
           appState: { zoom: { value: (isPhone ? .5 : 1) as any } }
-        }} zenModeEnabled />
+        }} zenModeEnabled viewModeEnabled={viewModeEnabled} />
     </div>
   );
 }

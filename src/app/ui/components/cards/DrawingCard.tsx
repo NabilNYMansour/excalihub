@@ -21,7 +21,7 @@ const Excalidraw = dynamic(
   },
 );
 
-const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
+const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
   toggleAction: (formData: FormData, slug: string) => Promise<boolean>;
   deleteAction: (formData: FormData, slug: string) => Promise<boolean>;
   drawing: {
@@ -29,7 +29,8 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
     payload: string;
     slug: string;
     isPublic: number;
-  },
+  };
+  clerkId: string;
 }) => {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
   const [opened, { open, close }] = useDisclosure(false);
@@ -37,6 +38,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
   const router = useRouter();
 
   const handleTogglePrivacy = async (formData: FormData) => {
+    formData.set('clerkId', clerkId);
     const res = await toggleAction(formData, drawing.slug);
     if (res) {
       router.refresh();
@@ -52,7 +54,8 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
     })
   };
 
-  const handleDelete = async (formData:FormData) => {
+  const handleDelete = async (formData: FormData) => {
+    formData.set('clerkId', clerkId);
     const res = await deleteAction(formData, drawing.slug);
     if (res) {
       router.refresh();
@@ -68,7 +71,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
         <Card.Section withBorder inheritPadding py="xs">
           <Group justify='space-between'>
 
-            {drawing.isPublic === 0 ? <FaEyeSlash size={20} color='red' /> : <MdPublic size={20} color='green' />}
+            {drawing.isPublic === 1 ? <MdPublic size={20} color='green' /> : <FaEyeSlash size={20} color='red' />}
             <Text size={isPhone ? "md" : 'xl'} fw={700}>{drawing.name}</Text>
 
             <Menu withinPortal position="bottom-end" shadow="sm">
