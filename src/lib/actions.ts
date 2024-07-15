@@ -5,6 +5,8 @@ import * as schemaDB from "@/db/schema";
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
+// TODO: make sure to limit the payload size, description, and name
+
 const NEW_DRAWING = { "elements": [{ "id": "gudG2BE25zfp57R7XXKfA", "type": "text", "x": 813, "y": 385, "width": 215.02809143066406, "height": 45, "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 1, "opacity": 100, "groupIds": [], "frameId": null, "roundness": null, "seed": 2009499878, "version": 93, "versionNonce": 1038612262, "isDeleted": false, "boundElements": null, "updated": 1720881617151, "link": null, "locked": false, "text": "New Drawing", "fontSize": 36, "fontFamily": 1, "textAlign": "center", "verticalAlign": "top", "baseline": 32, "containerId": null, "originalText": "New Drawing", "lineHeight": 1.25 }] }
 const drawingSchema = createInsertSchema(schemaDB.drawingsTable);
 export async function createDrawingAction(formData: FormData) {
@@ -43,6 +45,50 @@ export async function createDrawingAction(formData: FormData) {
     return slug;
   } catch (error) {
     console.error("Error creating drawing at", new Date().toISOString());
+    console.error(error);
+    return "";
+  }
+}
+
+export async function forkDrawingAction(formData: FormData, slug: string) {
+  try {
+    const drawing = await db.getDrawingBySlug(slug);
+    if (drawing[0].isPublic !== 1) {
+      console.error("Unauthorized access to fork drawing at", new Date().toISOString());
+      return "";
+    }
+    const clerkId = formData.get('clerkId') as string;
+    const userId = (await db.getUserIdByClerkId(clerkId))[0].id;
+    const name = drawing[0].name;
+    const description = drawing[0].description;
+    const isPublic = 1;
+    const createAt = new Date().toISOString();
+    const payload = formData.get('payload') as string;
+    const newSlug = crypto.randomUUID().replace(/-/g, '');
+
+    drawingSchema.parse({
+      userId,
+      name,
+      description,
+      isPublic,
+      createAt,
+      payload,
+      slug: newSlug
+    });
+
+    await db.createDrawing({
+      userId,
+      name,
+      description,
+      isPublic,
+      createAt,
+      payload,
+      slug: newSlug
+    });
+
+    return newSlug;
+  } catch (error) {
+    console.error("Error forking drawing at", new Date().toISOString());
     console.error(error);
     return "";
   }
@@ -93,9 +139,8 @@ export async function togglePublicDrawingAction(formData: FormData, slug: string
 }
 export async function deleteDrawingAction(formData: FormData, slug: string) {
   try {
-    console.log(formData.get('clerkId') as string);
     if (!await isAuthorized(slug, formData.get('clerkId') as string)) {
-      
+
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
@@ -109,21 +154,23 @@ export async function deleteDrawingAction(formData: FormData, slug: string) {
   }
 }
 
-const nameChangeSchema = z.object({
+const updateDrawingInfoSchema = z.object({
   slug: z.string(),
-  name: z.string()
+  name: z.string(),
+  description: z.string(),
+  isPublic: z.boolean()
 });
-export async function updateDrawingNameAction(formData: FormData, slug: string, name: string) {
+export async function updateDrawingInfoAction(formData: FormData, slug: string, name: string, description: string, isPublic: boolean) {
   try {
     if (!await isAuthorized(slug, formData.get('clerkId') as string)) {
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
-    nameChangeSchema.parse({ slug, name });
-    await db.updateDrawingName(slug, name);
+    updateDrawingInfoSchema.parse({ slug, name, description, isPublic });
+    await db.updateDrawingInfo(slug, name, description, isPublic);
     return true;
   } catch (error) {
-    console.error("Error updating drawing name at", new Date().toISOString());
+    console.error("Error updating drawing info at", new Date().toISOString());
     console.error(error);
     return false;
   }

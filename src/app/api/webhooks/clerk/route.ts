@@ -1,6 +1,6 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { UserJSON, UserWebhookEvent, WebhookEvent } from '@clerk/nextjs/server'
+import { UserJSON, WebhookEvent } from '@clerk/nextjs/server'
 import * as db from '@/db/queries'
 
 export async function POST(req: Request) {
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
   }
 
   // Update events
-  db.createEvent({ payload: JSON.stringify(evt), createAt: new Date().toISOString()});
+  await db.createEvent({ payload: JSON.stringify(evt), createAt: new Date().toISOString()});
 
   let clerkId: string;
   switch (evt.type) {
@@ -57,12 +57,12 @@ export async function POST(req: Request) {
       clerkId = evt.data.id;
       const email = JSON.parse(body).data.email_addresses[0].email_address;
       const name = (evt.data as UserJSON).first_name + ' ' + (evt.data as UserJSON).last_name;
-      db.createUser({ email: email, name: name, clerkId: clerkId, createAt: new Date().toISOString() });
+      await db.createUser({ email: email, name: name, clerkId: clerkId, createAt: new Date().toISOString() });
       break;
 
     case 'user.deleted':
       clerkId = evt.data.id!;
-      db.deleteUserByClerkId(clerkId);
+      await db.deleteUserByClerkId(clerkId);
       break;
   }
 
