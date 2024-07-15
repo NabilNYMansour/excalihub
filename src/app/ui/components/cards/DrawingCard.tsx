@@ -1,9 +1,8 @@
 "use client";
 
-import { ActionIcon, Button, Card, Flex, Group, Menu, Modal, Skeleton, Text, useComputedColorScheme } from '@mantine/core';
+import { ActionIcon, Button, Card, Flex, Group, Menu, Modal, Skeleton, Text, ThemeIcon, useComputedColorScheme } from '@mantine/core';
 import dynamic from 'next/dynamic';
 import React from 'react';
-import { emptuExcaliData } from '../other/Constants';
 import { BsThreeDots } from 'react-icons/bs';
 import { FaEyeSlash, FaTrashAlt } from 'react-icons/fa';
 import classes from './DrawingCard.module.css';
@@ -11,7 +10,6 @@ import { IoMdShare } from 'react-icons/io';
 import { IoOpenOutline } from 'react-icons/io5';
 import { MdOutlineCancel, MdPublic } from 'react-icons/md';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 
@@ -24,8 +22,8 @@ const Excalidraw = dynamic(
 );
 
 const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
-  toggleAction: (slug: string) => Promise<boolean>;
-  deleteAction: (slug: string) => Promise<boolean>;
+  toggleAction: (formData: FormData, slug: string) => Promise<boolean>;
+  deleteAction: (formData: FormData, slug: string) => Promise<boolean>;
   drawing: {
     name: string;
     payload: string;
@@ -38,17 +36,24 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
   const isPhone = useMediaQuery('(max-width: 350px)');
   const router = useRouter();
 
-  const handleTogglePrivacy = async () => {
-    const res = await toggleAction(drawing.slug);
+  const handleTogglePrivacy = async (formData: FormData) => {
+    const res = await toggleAction(formData, drawing.slug);
     if (res) {
       router.refresh();
     } else {
       alert("Error toggling drawing privacy. Please try again.");
     }
+    notifications.show({
+      title: <Flex align="center" gap={5}>
+        <ThemeIcon variant='transparent' size="sm">{drawing.isPublic === 1 ? <FaEyeSlash size={28} color='red' /> : <MdPublic size={28} color='green' />}</ThemeIcon>
+        Privacy changes
+      </Flex>,
+      message: '"' + drawing.name + '" is now ' + (drawing.isPublic === 1 ? 'private' : 'public'),
+    })
   };
 
-  const handleDelete = async () => {
-    const res = await deleteAction(drawing.slug);
+  const handleDelete = async (formData:FormData) => {
+    const res = await deleteAction(formData, drawing.slug);
     if (res) {
       router.refresh();
       close();
@@ -75,6 +80,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
 
               <Menu.Dropdown>
 
+                {/* Open in a new tab */}
                 <Menu.Item
                   component='a'
                   href={`/excalidraw/${drawing.slug}`}
@@ -83,7 +89,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   Open in a new tab
                 </Menu.Item>
 
-
+                {/* Toggle Privacy */}
                 <form action={handleTogglePrivacy}>
                   <Menu.Item
                     component='button'
@@ -94,20 +100,21 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   </Menu.Item>
                 </form>
 
+                {/* Share Drawing */}
                 <Menu.Item
                   component='button'
                   onClick={() => {
                     navigator.clipboard.writeText(`${window.location.origin}/excalidraw/${drawing.slug}`);
                     notifications.show({
                       title: 'Share Drawing',
-                      message: 'Link for ' + drawing.name + ' copied to clipboard 👍',
+                      message: 'Link for "' + drawing.name + '" copied to clipboard 👍',
                     })
                   }}
                   leftSection={<IoMdShare size={14} />}>
                   Share Drawing
                 </Menu.Item>
 
-                {/* <form action={handleDelete}> */}
+                {/* Delete Drawing */}
                 <Menu.Item
                   component='button'
                   onClick={open}
@@ -115,7 +122,6 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   color="#ff0000">
                   Delete Drawing
                 </Menu.Item>
-                {/* </form> */}
 
               </Menu.Dropdown>
             </Menu>
@@ -123,7 +129,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
           </Group>
         </Card.Section>
         <Card.Section withBorder inheritPadding p={0} style={{ cursor: "pointer" }}>
-          <Link href={`/excalidraw/${drawing.slug}`}>
+          <a href={`/excalidraw/${drawing.slug}`} >
             <div className={classes.drawing}
               style={{
                 width: isPhone ? "250px" : "350px",
@@ -132,14 +138,12 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
               <Excalidraw theme={computedColorScheme}
                 UIOptions={{ tools: { image: false } }}
                 initialData={{
-                  elements:
-                    drawing.payload ? JSON.parse(drawing.payload).elements as any :
-                      emptuExcaliData.elements as any,
+                  elements: JSON.parse(drawing.payload).elements as any,
                   scrollToContent: true,
                   appState: { zoom: { value: 0.5 as any } }
                 }} viewModeEnabled />
             </div>
-          </Link>
+          </a>
         </Card.Section>
       </Card>
 
@@ -151,7 +155,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
         }}
         title={
           <Text fw={900} c="#ff0000">
-            {"Delete " + drawing.name + "?"}
+            {'Delete "' + drawing.name + '"?'}
           </Text>
         }>
         <Flex direction="column" gap={10}>

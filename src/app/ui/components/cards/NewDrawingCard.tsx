@@ -18,13 +18,23 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
   const [publicDrawing, setPublicDrawing] = useState(false);
   const togglePublicDrawing = () => setPublicDrawing((prev) => !prev);
 
+  const handleNewDrawing = async (formData: FormData) => {
+    if (publicDrawing) {
+      formData.set('isPublic', '1');
+    }
+    formData.set('clerkId', clerkId);
+    const slug = await createDrawingAction(formData);
+    if (slug) { redirect("/excalidraw/" + slug, RedirectType.push) }
+    else { alert("Error creating drawing. Please try again.") }
+  }
+
   return (
     <>
       {/* Main card */}
       <Card withBorder className={classes.drawingCard} onClick={open} style={{ cursor: "pointer" }}>
         <Card.Section withBorder inheritPadding py="xs">
           <Group justify='center'>
-            <Text size='xl' fw={700} c="main">+ New Drawing +</Text>
+            <Text size='xl' fw={700} c="main">New Drawing</Text>
           </Group>
         </Card.Section>
         <Card.Section withBorder inheritPadding p={0}>
@@ -41,16 +51,8 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
       </Card>
 
       {/* Modal */}
-      <Modal centered opened={opened} onClose={close} title={<Text fw={900}>+ Create New Drawing +</Text>}>
-        <form action={async (formData: FormData) => {
-          if (publicDrawing) {
-            formData.set('isPublic', '1');
-          }
-          formData.set('clerkId', clerkId);
-          const slug = await createDrawingAction(formData);
-          if (slug) { redirect("/excalidraw/" + slug, RedirectType.push) }
-          else { alert("Error creating drawing. Please try again.") }
-        }}>
+      <Modal centered opened={opened} onClose={close} title={<Text fw={900}>Create New Drawing</Text>}>
+        <form action={handleNewDrawing}>
           <Flex gap={10} direction="column">
             <TextInput label="Title" name='title' placeholder="Drawing title" required />
             <Textarea label="Description" name='description' placeholder="Drawing description" required />

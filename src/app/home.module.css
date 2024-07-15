@@ -13,98 +13,9 @@
   display: flex;
 }
 
-.profile {
-  border-radius: 50%;
-}
-
-.important {
-  font-size: larger;
-  font-weight: bold;
-}
-
-.youtubeAnchor {
-  color: white;
-  text-decoration: none;
-  padding: 5px;
-  border-radius: var(--mantine-radius-default);
-  background-color: #ff0000;
-
-  @mixin hover {
-    background-color: #aa0000;
-  }
-}
-
-.saluteTitle {
-  display: flex;
-  gap: 5px;
-}
-
-@keyframes wave-animation {
-  0% {
-    transform: rotate(0deg);
-  }
-  10% {
-    transform: rotate(14deg);
-  } /* The following five values can be played with to make the waving more or less extreme */
-  20% {
-    transform: rotate(-8deg);
-  }
-  30% {
-    transform: rotate(14deg);
-  }
-  40% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(10deg);
-  }
-  60% {
-    transform: rotate(0deg);
-  } /* Reset for the last half to pause */
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-.wave {
-  animation-name: wave-animation;
-  animation-duration: 2.5s;
-  animation-iteration-count: infinite;
-  transform-origin: 70% 70%;
-  display: inline-block;
-}
-
-.backgroundImageWrapper {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: -100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-mask-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(rgba(0, 0, 0, 0.3)),
-    to(rgba(0, 0, 0, 0))
-  );
-  overflow: hidden;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
-}
-
-.backgroundImage {
-  position: relative;
-  width: 1920px;
-  height: 1080px;
-}
-
 .notifications {
   position: fixed;
-  bottom: 0;
+  top: 80px;
   right: 0;
   width: fit-content;
   height: fit-content;

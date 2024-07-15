@@ -8,13 +8,12 @@
 }
 
 .header {
-  padding: 5px;
   background-color: light-dark(#EEEEF1, #26252A);
   box-shadow: 0 0 0.1em rgba(0, 0, 0, 0.5);
 }
 
 .inner {
-  height: rem(56px);
+  height: rem(70px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,4 +28,25 @@
 
 .appTitle {
   text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.appTitle:hover {
+  scale: 1.1;
+}
+
+.appTitle div {
+  transition: all 0.2s ease-in-out;
+}
+
+.appTitle svg {
+  transition: all 0.2s ease-in-out;
+}
+
+.appTitle:hover div {
+  color: light-dark(black, white);
+}
+
+.appTitle:hover svg {
+  color: light-dark(black, white);
 }
