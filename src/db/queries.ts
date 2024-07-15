@@ -1,4 +1,6 @@
-import { eq, count } from 'drizzle-orm';
+"use server";
+
+import { eq, count, desc } from 'drizzle-orm';
 import { drawingsTable, eventsTable, InsertDrawing, InsertEvent, InsertUser, SelectUser, usersTable } from './schema';
 import { db } from '.';
 
@@ -47,8 +49,8 @@ export async function getDrawingBySlug(slug: string) {
     {
       name: drawingsTable.name,
       payload: drawingsTable.payload,
-      slug: drawingsTable.slug,
       isPublic: drawingsTable.isPublic,
+      description: drawingsTable.description,
       userId: drawingsTable.userId,
     }
   ).from(drawingsTable).where(eq(drawingsTable.slug, slug));
@@ -61,6 +63,14 @@ export async function getDrawingsCountGivenClerkId(clerkId: string) {
 
 export async function deleteDrawing(slug: string) {
   await db.delete(drawingsTable).where(eq(drawingsTable.slug, slug));
+}
+
+export async function updateDrawingPayload(slug: string, payload: string) {
+  await db.update(drawingsTable).set({ payload }).where(eq(drawingsTable.slug, slug));
+}
+
+export async function updateDrawingName(slug: string, name: string) {
+  await db.update(drawingsTable).set({ name }).where(eq(drawingsTable.slug, slug));
 }
 
 //====================Events queries====================//

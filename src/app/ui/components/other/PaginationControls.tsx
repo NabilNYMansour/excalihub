@@ -8,11 +8,11 @@ const PaginationControls = ({ currentPage, numberOfPages }: { currentPage: numbe
   const router = useRouter();
 
   useEffect(() => {
-    router.push(`?page=${currentPage}`);
+    router.push(`?page=${Math.min(currentPage, numberOfPages)}`);
   });
 
-  return <Pagination.Root disabled={numberOfPages === 0} total={numberOfPages} onChange={(newPage) => router.push(`?page=${newPage}`)
-  } value={currentPage} >
+  return <Pagination.Root disabled={numberOfPages === 0} total={numberOfPages}
+    onChange={(newPage) => window.location.href = `?page=${newPage}`} value={currentPage} >
     <Group justify="center" gap={5}>
       <Pagination.First />
       <Pagination.Previous />

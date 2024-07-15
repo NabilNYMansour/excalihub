@@ -2,6 +2,9 @@ import { getDrawingBySlug, getUserIdByClerkId } from '@/db/queries';
 import { currentUser } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';
 import ExcalidrawMain from '@/app/ui/components/excaliCore/ExcalidrawMain';
+import { saveDrawingAction, togglePublicDrawingAction } from '@/lib/actions';
+
+// TODO: organize authorization
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const drawing = await getDrawingBySlug(params.slug);
@@ -17,5 +20,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
     notFound(); // not found
   }
 
-  return <ExcalidrawMain payload={drawing[0].payload} isOwner={isOwner} />
+  return <ExcalidrawMain
+    slug={params.slug}
+    title={drawing[0].name}
+    description={drawing[0].description}
+    payload={drawing[0].payload}
+    clerkId={clerkId}
+    isPublic={drawing[0].isPublic === 1}
+    isOwner={isOwner} 
+    saveDrawingAction={saveDrawingAction} 
+    toggleAction={togglePublicDrawingAction}/>
 };

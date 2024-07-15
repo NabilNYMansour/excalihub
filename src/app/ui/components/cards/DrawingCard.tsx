@@ -10,7 +10,6 @@ import { IoMdShare } from 'react-icons/io';
 import { IoOpenOutline } from 'react-icons/io5';
 import { MdOutlineCancel, MdPublic } from 'react-icons/md';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 
@@ -23,8 +22,8 @@ const Excalidraw = dynamic(
 );
 
 const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
-  toggleAction: (slug: string) => Promise<boolean>;
-  deleteAction: (slug: string) => Promise<boolean>;
+  toggleAction: (formData: FormData, slug: string) => Promise<boolean>;
+  deleteAction: (formData: FormData, slug: string) => Promise<boolean>;
   drawing: {
     name: string;
     payload: string;
@@ -37,8 +36,8 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
   const isPhone = useMediaQuery('(max-width: 350px)');
   const router = useRouter();
 
-  const handleTogglePrivacy = async () => {
-    const res = await toggleAction(drawing.slug);
+  const handleTogglePrivacy = async (formData: FormData) => {
+    const res = await toggleAction(formData, drawing.slug);
     if (res) {
       router.refresh();
     } else {
@@ -49,12 +48,12 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
         <ThemeIcon variant='transparent' size="sm">{drawing.isPublic === 1 ? <FaEyeSlash size={28} color='red' /> : <MdPublic size={28} color='green' />}</ThemeIcon>
         Privacy changes
       </Flex>,
-      message: drawing.name + ' is now ' + (drawing.isPublic === 1 ? 'private' : 'public'),
+      message: '"' + drawing.name + '" is now ' + (drawing.isPublic === 1 ? 'private' : 'public'),
     })
   };
 
-  const handleDelete = async () => {
-    const res = await deleteAction(drawing.slug);
+  const handleDelete = async (formData:FormData) => {
+    const res = await deleteAction(formData, drawing.slug);
     if (res) {
       router.refresh();
       close();
@@ -81,6 +80,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
 
               <Menu.Dropdown>
 
+                {/* Open in a new tab */}
                 <Menu.Item
                   component='a'
                   href={`/excalidraw/${drawing.slug}`}
@@ -89,7 +89,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   Open in a new tab
                 </Menu.Item>
 
-
+                {/* Toggle Privacy */}
                 <form action={handleTogglePrivacy}>
                   <Menu.Item
                     component='button'
@@ -100,19 +100,21 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   </Menu.Item>
                 </form>
 
+                {/* Share Drawing */}
                 <Menu.Item
                   component='button'
                   onClick={() => {
                     navigator.clipboard.writeText(`${window.location.origin}/excalidraw/${drawing.slug}`);
                     notifications.show({
                       title: 'Share Drawing',
-                      message: 'Link for ' + drawing.name + ' copied to clipboard 👍',
+                      message: 'Link for "' + drawing.name + '" copied to clipboard 👍',
                     })
                   }}
                   leftSection={<IoMdShare size={14} />}>
                   Share Drawing
                 </Menu.Item>
 
+                {/* Delete Drawing */}
                 <Menu.Item
                   component='button'
                   onClick={open}
@@ -127,7 +129,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
           </Group>
         </Card.Section>
         <Card.Section withBorder inheritPadding p={0} style={{ cursor: "pointer" }}>
-          <Link href={`/excalidraw/${drawing.slug}`}>
+          <a href={`/excalidraw/${drawing.slug}`} >
             <div className={classes.drawing}
               style={{
                 width: isPhone ? "250px" : "350px",
@@ -141,7 +143,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
                   appState: { zoom: { value: 0.5 as any } }
                 }} viewModeEnabled />
             </div>
-          </Link>
+          </a>
         </Card.Section>
       </Card>
 
@@ -153,7 +155,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction }: {
         }}
         title={
           <Text fw={900} c="#ff0000">
-            {"Delete " + drawing.name + "?"}
+            {'Delete "' + drawing.name + '"?'}
           </Text>
         }>
         <Flex direction="column" gap={10}>

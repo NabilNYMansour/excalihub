@@ -20,6 +20,8 @@ const Excalidraw = dynamic(
   },
 );
 
+// TODO: redesign this component
+
 function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
