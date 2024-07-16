@@ -29,7 +29,7 @@ const ExcalidrawMain = (
     saveDrawingAction, updateDrawingInfoAction, forkDrawingAction
   }: {
     slug: string, payload: string, clerkId: string, isOwner: boolean,
-    initPrivacy: boolean, initTitle: string, initDescription: string, ownerUsername: string,
+    initPrivacy: boolean, initTitle: string, initDescription: string, ownerUsername?: string,
     saveDrawingAction: (formData: FormData, slug: string, payload: string) => Promise<boolean>,
     updateDrawingInfoAction: (formData: FormData, slug: string, name: string, description: string, isPublic: boolean) => Promise<boolean>
     forkDrawingAction: (formData: FormData, slug: string) => Promise<string>
@@ -118,7 +118,7 @@ const ExcalidrawMain = (
           clerkId={clerkId} slug={slug} initDescription={description} initPrivacy={isPublic}
           updateDrawingInfoAction={updateDrawingInfoAction}
           handleInfoStatesChange={handleInfoStatesChange} /> :
-        <AnonModal ownerUsername={ownerUsername} opened={opened}
+        <AnonModal ownerUsername={ownerUsername!} opened={opened} // we can be certain ownerUsername is defined
           close={close} title={title} description={description} />}
     </>
   );
