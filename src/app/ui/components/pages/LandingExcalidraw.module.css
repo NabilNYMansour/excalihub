@@ -1,0 +1,4 @@
+.drawing footer [class*="App-toolbar"] {
+  border: 5px solid red;
+  display: none;
+}

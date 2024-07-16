@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from 'react';
-import { Button, Container, Text, Timeline } from '@mantine/core';
+import { Box, Button, Container, Text, Timeline } from '@mantine/core';
 import { FaQuestionCircle } from 'react-icons/fa';
 import CoolButton from '../buttons/CoolButton';
 import { RiLinkM } from 'react-icons/ri';
 import { useMediaQuery } from '@mantine/hooks';
-
 import { Skeleton, useComputedColorScheme } from "@mantine/core";
 import dynamic from "next/dynamic";
 import { WELCOME_EXCALI_DATA } from "../other/Constants";
 import CenterContainer from '../other/CenterContainer';
+import excaliClasses from './LandingExcalidraw.module.css';
 
 const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,
@@ -20,24 +20,25 @@ const Excalidraw = dynamic(
   },
 );
 
-// TODO: redesign this component
-
 function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
   const [viewModeEnabled, setViewModeEnabled] = useState(true);
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
   return (
     <div
+      className={excaliClasses.drawing}
       onMouseEnter={() => setViewModeEnabled(false)}
       onMouseLeave={() => setViewModeEnabled(true)}
-      style={{ width: "100%", height: "50vh", borderRadius: "12px", overflow: "hidden" }}>
+      style={{ width: "100%", height: "35vh", borderRadius: "12px", overflow: "hidden", marginTop: "25px" }}>
       <Excalidraw theme={computedColorScheme}
         UIOptions={{ tools: { image: false } }}
         initialData={{
           elements: WELCOME_EXCALI_DATA.elements as any,
           scrollToContent: true,
           appState: { zoom: { value: (isPhone ? .5 : 1) as any } }
-        }} zenModeEnabled viewModeEnabled={viewModeEnabled} />
+        }} zenModeEnabled
+        viewModeEnabled={viewModeEnabled}
+      />
     </div>
   );
 }
@@ -46,8 +47,7 @@ const LandingPageComponent = () => {
   const isPhone = useMediaQuery('(max-width: 650px)');
 
   return (
-    <CenterContainer>
-      <h1>Hi there!</h1>
+    <CenterContainer size="md">
       <LandingExcalidraw isPhone={isPhone} />
       <Container size="sm">
         <Timeline active={100} lineWidth={3} bulletSize={40}>
@@ -56,13 +56,16 @@ const LandingPageComponent = () => {
             <p>To start, you just need to:</p>
             <CoolButton href='/sign-up' text='Sign up'
               style={{ backgroundImage: "linear-gradient(180deg, #6965DB, #908cff)", fontSize: "1.5rem", fontWeight: "900" }} />
+            <p>Or if you already have an account:</p>
+            <CoolButton href='/sign-in' text='Sign in'
+              style={{ backgroundImage: "linear-gradient(180deg, #6965DB, #908cff)", fontSize: "1rem", fontWeight: "900" }} />
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>🤔</div>} title={<h2>Why?</h2>}>
             <p>I find Excalidraw useful but the free version doesn&apos;t let you have multiple saved drawings. So I thought I could make that myself.</p>
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>😮</div>} title={<h2>Oh so you are part of the Excali team?</h2>}>
-            <Text size='1.75rem' fw={900} c="red.9">Nope :D</Text>
-            <p>But I would like to...</p>
+            <Text size='1.75rem' fw={900} c="red.9" span>Nope :D </Text>
+            <span>But I would like to be...</span>
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>👨‍💻</div>} title={<h2>So who are you?</h2>}>
             <p>Just a guy. You can know more about me on my <span>
@@ -80,6 +83,7 @@ const LandingPageComponent = () => {
             <CoolButton
               href="https://buymeacoffee.com/nabilmansour"
               text="☕️ Buy me coffee ツ"
+              target='_blank'
               style={{
                 borderRadius: "100px",
                 backgroundColor: "var(--mantine-color-main-filled)",
@@ -90,7 +94,7 @@ const LandingPageComponent = () => {
             />
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>🧐</div>} title={<h2>Are you trying to replace Excalidraw?</h2>}>
-            <p>Uhhh no. I am making this for myself but would probably use Excalidraw if I want all the fancy features.
+            <p>Of course not. I am making this for myself but would probably use Excalidraw if I want all the fancy features.
               This is just to have multiple drawings saved in one place.
               I recommend using the <a target='_blank' href='https://plus.excalidraw.com/'>
                 original Excalidraw platform if you want the other features</a>.</p>

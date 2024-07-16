@@ -2,23 +2,27 @@
 
 import { Button, Flex, Group, Modal, Switch, Text, Textarea, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
 import { MdPublic } from "react-icons/md";
 
-const OwnerModal = ({ opened, close, initTitle, initDescription, initPrivacy, updateDrawingInfoAction, clerkId, slug }: {
-  opened: boolean, close: () => void,
-  initTitle: string, initDescription: string, initPrivacy: boolean,
-  updateDrawingInfoAction: (formData: FormData, slug: string, title: string, description: string, privacy: boolean) => Promise<boolean>,
-  clerkId: string, slug: string
-}) => {
+const OwnerModal = ({
+  opened, close, initTitle, initDescription,
+  initPrivacy, updateDrawingInfoAction, clerkId,
+  handleInfoStatesChange, slug }: {
+    opened: boolean, close: () => void,
+    initTitle: string, initDescription: string, initPrivacy: boolean,
+    updateDrawingInfoAction: (
+      formData: FormData, slug: string, title: string, description: string, privacy: boolean
+    ) => Promise<boolean>,
+    handleInfoStatesChange: (title: string, description: string, privacy: boolean) => void,
+    clerkId: string, slug: string
+  }) => {
   const [title, setTitle] = useState(initTitle);
   const [description, setDescription] = useState(initDescription);
   const [hasChanged, setHasChanged] = useState(false);
   const [privacy, setPrivacy] = useState(initPrivacy);
-  const router = useRouter();
 
   const handleDrawingInfoChange = async (formData: FormData) => {
     formData.set('clerkId', clerkId);
@@ -29,7 +33,7 @@ const OwnerModal = ({ opened, close, initTitle, initDescription, initPrivacy, up
         message: 'Changes have been saved',
       })
       setHasChanged(false);
-      router.refresh();
+      handleInfoStatesChange(title, description, privacy);
     } else {
       alert("Error saving drawing info. Please try again.");
     }

@@ -24,13 +24,12 @@ const Excalidraw = dynamic(
 
 const ExcalidrawMain = (
   {
-    slug, payload, clerkId,
-    isPublic, isOwner, title,
-    description, saveDrawingAction, updateDrawingInfoAction, forkDrawingAction
+    slug, payload, clerkId, isOwner,
+    initPrivacy, initTitle, initDescription, ownerUsername,
+    saveDrawingAction, updateDrawingInfoAction, forkDrawingAction
   }: {
-    slug: string, payload: string, clerkId: string,
-    isPublic: boolean, isOwner: boolean, title: string,
-    description: string,
+    slug: string, payload: string, clerkId: string, isOwner: boolean,
+    initPrivacy: boolean, initTitle: string, initDescription: string, ownerUsername: string,
     saveDrawingAction: (formData: FormData, slug: string, payload: string) => Promise<boolean>,
     updateDrawingInfoAction: (formData: FormData, slug: string, name: string, description: string, isPublic: boolean) => Promise<boolean>
     forkDrawingAction: (formData: FormData, slug: string) => Promise<string>
@@ -40,6 +39,10 @@ const ExcalidrawMain = (
   const [elements, setElements] = useDebouncedState<string>(payload, 100);
   const [pointerHit, setPointerHit] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
+
+  const [title, setTitle] = useState(initTitle);
+  const [description, setDescription] = useState(initDescription);
+  const [isPublic, setIsPublic] = useState(initPrivacy);
 
   useEffect(() => {
     if (pointerHit) {
@@ -79,6 +82,12 @@ const ExcalidrawMain = (
     })
   }
 
+  const handleInfoStatesChange = (title: string, description: string, isPublic: boolean) => {
+    setTitle(title);
+    setDescription(description);
+    setIsPublic(isPublic);
+  }
+
   return (
     <>
       {/* Main */}
@@ -105,9 +114,12 @@ const ExcalidrawMain = (
 
       {/* Modal */}
       {isOwner ?
-        <OwnerModal opened={opened} close={close} initTitle={title} clerkId={clerkId} slug={slug}
-          initDescription={description} initPrivacy={isPublic} updateDrawingInfoAction={updateDrawingInfoAction} /> :
-        <AnonModal opened={opened} close={close} title={title} description={description} />}
+        <OwnerModal opened={opened} close={close} initTitle={title}
+          clerkId={clerkId} slug={slug} initDescription={description} initPrivacy={isPublic}
+          updateDrawingInfoAction={updateDrawingInfoAction}
+          handleInfoStatesChange={handleInfoStatesChange} /> :
+        <AnonModal ownerUsername={ownerUsername} opened={opened}
+          close={close} title={title} description={description} />}
     </>
   );
 };

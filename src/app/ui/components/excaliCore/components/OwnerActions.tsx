@@ -1,4 +1,5 @@
 import { ActionIcon, Tooltip } from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IoIosSave } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -11,6 +12,20 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
     setHasChanged: (hasChanged: boolean) => void
   }
 ) => {
+  useHotkeys([
+    ['mod+s', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (hasChanged) {
+        handleChangesSaved(new FormData());
+      } else {
+        notifications.show({
+          title: 'No changes',
+          message: 'No changes to save',
+        })
+      }
+    }]
+  ]);
 
   const handleChangesSaved = async (formData: FormData) => {
     formData.set('clerkId', clerkId);
@@ -37,6 +52,7 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
       <Tooltip label={hasChanged ? "Save changes" : "No changes"} position="left" withArrow>
         <form action={handleChangesSaved}>
           <ActionIcon size="lg" radius="md" color='green'
+            onKeyDownCapture={(e) => { console.log('keydown', e) }}
             disabled={!hasChanged}
             type='submit'>
             <IoIosSave />

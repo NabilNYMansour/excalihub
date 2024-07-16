@@ -10,17 +10,21 @@ export async function createUser(data: InsertUser) {
 }
 
 export async function getUserById(id: SelectUser['id']): Promise<Array<{ id: number, name: string, email: string, clerkId: string }>> {
-  return db.select().from(usersTable).where(eq(usersTable.id, id));
+  return await db.select().from(usersTable).where(eq(usersTable.id, id));
 }
 
 export async function getUserIdByClerkId(clerkId: SelectUser['clerkId']): Promise<Array<{ id: number }>> {
-  return db.select({ id: usersTable.id }).from(usersTable).where(eq(usersTable.clerkId, clerkId));
+  return await db.select({ id: usersTable.id }).from(usersTable).where(eq(usersTable.clerkId, clerkId));
 }
 
 export async function deleteUserByClerkId(clerkId: SelectUser['clerkId']) {
   const userId = (await getUserIdByClerkId(clerkId))[0].id;
   await db.delete(drawingsTable).where(eq(drawingsTable.userId, userId));
   await db.delete(usersTable).where(eq(usersTable.id, userId));
+}
+
+export async function getClerkIdGivenId(id: SelectUser['id']): Promise<Array<{ clerkId: string }>> {
+  return await db.select({ clerkId: usersTable.clerkId }).from(usersTable).where(eq(usersTable.id, id));
 }
 
 //====================Drawing queries====================//
@@ -30,7 +34,7 @@ export async function createDrawing(data: InsertDrawing) {
 
 export async function getAllUserDrawingsPaginated(userId: number, page: number, limit: number) {
   const actualPage = Math.max(page - 1, 0);
-  return db.select(
+  return await db.select(
     {
       name: drawingsTable.name,
       payload: drawingsTable.payload,
@@ -41,16 +45,16 @@ export async function getAllUserDrawingsPaginated(userId: number, page: number, 
 }
 
 export async function getDrawingsCount(userId: number) {
-  return db.select({ count: count() }).from(drawingsTable).where(eq(drawingsTable.userId, userId));
+  return await db.select({ count: count() }).from(drawingsTable).where(eq(drawingsTable.userId, userId));
 }
 
 export async function togglePublicDrawing(slug: string) {
   const drawing = await db.select().from(drawingsTable).where(eq(drawingsTable.slug, slug));
-  await db.update(drawingsTable).set({ isPublic: drawing[0].isPublic === 1 ? 0 : 1 }).where(eq(drawingsTable.slug, slug));
+  await await db.update(drawingsTable).set({ isPublic: drawing[0].isPublic === 1 ? 0 : 1 }).where(eq(drawingsTable.slug, slug));
 }
 
 export async function getDrawingBySlug(slug: string) {
-  return db.select(
+  return await db.select(
     {
       name: drawingsTable.name,
       payload: drawingsTable.payload,
@@ -62,7 +66,7 @@ export async function getDrawingBySlug(slug: string) {
 }
 
 export async function deleteDrawing(slug: string) {
-  await db.delete(drawingsTable).where(eq(drawingsTable.slug, slug));
+  await await db.delete(drawingsTable).where(eq(drawingsTable.slug, slug));
 }
 
 export async function updateDrawingPayload(slug: string, payload: string) {

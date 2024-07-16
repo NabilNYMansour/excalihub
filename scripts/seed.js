@@ -26,7 +26,7 @@ async function createDrawing(data) {
 
 // Will assume that you have made a user with userId=1
 const seedDrawings = () => {
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 100; i++) {
     createDrawing({
       userId: 1,
       name: "Drawing" + i,
