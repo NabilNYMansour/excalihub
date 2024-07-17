@@ -19,7 +19,10 @@ jobs:
           script: |
             cd excalihub
             git pull
-            source ~/.bashrc
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            nvm --version
+            node --version
             npm --version
             npm i
             npm run build
