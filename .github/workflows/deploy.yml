@@ -19,5 +19,9 @@ jobs:
           script: |
             cd excalihub
             git pull
-            echo "Hello world"
+            ls
+            npm --version
+            npm i
+            npm run build
+            pm2 restart all
             exit
