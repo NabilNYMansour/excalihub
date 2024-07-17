@@ -99,6 +99,11 @@ const LandingPageComponent = () => {
               I recommend using the <a target='_blank' href='https://plus.excalidraw.com/'>
                 original Excalidraw platform if you want the other features</a>.</p>
           </Timeline.Item>
+          <Timeline.Item bullet={<div style={{ scale: "3.5" }}>🥼</div>} title={<h2>❗WORK IN PROGRESS❗</h2>}>
+            <p>Please note that this app is still work in progress. If you have any suggestions, you can contact me
+              on my website.
+            </p>
+          </Timeline.Item>
         </Timeline>
       </Container>
     </CenterContainer>

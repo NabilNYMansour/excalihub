@@ -15,7 +15,11 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
+          # Will assume basic setup has been done on the server
           script: |
-            mkdir test
-            cd test
-            echo "Hello, Excalihub!" > hello.txt
+            cd excalihub
+            git pull
+            npm i
+            npm run build
+            pm2 restart all
+            exit
