@@ -21,10 +21,8 @@ jobs:
             git pull
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            nvm --version
-            node --version
-            npm --version
             npm i
             npm run build
             pm2 restart all
+            pm2 save
             exit
