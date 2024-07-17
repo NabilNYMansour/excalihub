@@ -18,4 +18,4 @@ jobs:
           script: |
             mkdir test
             cd test
-            echo "Hello, World!" > hello.txt
+            echo "Hello, Excalihub!" > hello.txt
