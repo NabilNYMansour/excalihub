@@ -19,7 +19,7 @@ jobs:
           script: |
             cd excalihub
             git pull
-            ls
+            source ~/.bashrc
             npm --version
             npm i
             npm run build
