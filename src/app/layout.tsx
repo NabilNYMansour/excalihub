@@ -24,13 +24,11 @@ export default function RootLayout({
           <ColorSchemeScript defaultColorScheme="dark" />
           <link rel="shortcut icon" href={`/favicon.ico`} />
           <link rel="apple-touch-icon" href={`/favicon.ico`} />
-          <meta name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=yes" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </head>
         <body className={cx(classes.body, CaviarDreams.className)}>
           <MantineProvider defaultColorScheme="dark" theme={theme}>
             <Notifications className={classes.notifications} />
-
             <Header />
             <div className={classes.app}>
               {children}

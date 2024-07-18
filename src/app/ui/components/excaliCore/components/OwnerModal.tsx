@@ -35,6 +35,7 @@ const OwnerModal = ({
       })
       setHasChanged(false);
       handleInfoStatesChange(title, description, privacy);
+      close();
     } else {
       alert("Error saving drawing info. Please try again.");
     }
@@ -53,10 +54,12 @@ const OwnerModal = ({
     <Modal opened={opened} onClose={close} title={<Text fw={900} size='xl'>Drawing Settings</Text>} centered>
       <Flex gap={10} direction="column">
         <TextInput
+          size="lg"
           label="Title" name='title'
           placeholder="Drawing title" onChange={(e) => setTitle(e.currentTarget.value)}
           required value={title} />
         <Textarea
+          size="lg"
           label="Description" name='description'
           placeholder="Drawing description" onChange={(e) => setDescription(e.currentTarget.value)}
           value={description} required autosize maxRows={5} />
