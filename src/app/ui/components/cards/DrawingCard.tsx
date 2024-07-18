@@ -1,8 +1,8 @@
 "use client";
 
-import { ActionIcon, Button, Card, Flex, Group, Menu, Modal, Skeleton, Text, ThemeIcon, useComputedColorScheme } from '@mantine/core';
+import { ActionIcon, Box, Button, Card, Flex, Group, LoadingOverlay, Menu, Modal, Skeleton, Text, ThemeIcon, useComputedColorScheme } from '@mantine/core';
 import dynamic from 'next/dynamic';
-import React from 'react';
+import { useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { FaEyeSlash, FaTrashAlt } from 'react-icons/fa';
 import classes from './DrawingCard.module.css';
@@ -36,22 +36,24 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
   const [opened, { open, close }] = useDisclosure(false);
   const isPhone = useMediaQuery('(max-width: 350px)');
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleTogglePrivacy = async (formData: FormData) => {
     formData.set('clerkId', clerkId);
     const res = await toggleAction(formData, drawing.slug);
     if (res) {
       router.refresh();
+      notifications.show({
+        title: <Flex align="center" gap={5}>
+          <ThemeIcon variant='transparent' size="sm">{drawing.isPublic === 1 ? <FaEyeSlash size={28} color='red' /> : <MdPublic size={28} color='green' />}</ThemeIcon>
+          Privacy changes
+        </Flex>,
+        message: '"' + drawing.name + '" is now ' + (drawing.isPublic === 1 ? 'private' : 'public'),
+      });
     } else {
       alert("Error toggling drawing privacy. Please try again.");
     }
-    notifications.show({
-      title: <Flex align="center" gap={5}>
-        <ThemeIcon variant='transparent' size="sm">{drawing.isPublic === 1 ? <FaEyeSlash size={28} color='red' /> : <MdPublic size={28} color='green' />}</ThemeIcon>
-        Privacy changes
-      </Flex>,
-      message: '"' + drawing.name + '" is now ' + (drawing.isPublic === 1 ? 'private' : 'public'),
-    })
+    setLoading(false);
   };
 
   const handleDelete = async (formData: FormData) => {
@@ -59,9 +61,15 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
     const res = await deleteAction(formData, drawing.slug);
     if (res) {
       router.refresh();
-      close();
+      notifications.show({
+        title: <Flex align="center" gap={5}>
+          Drawing deleted 🗑️
+        </Flex>,
+        message: '"' + drawing.name + '" is now deleted',
+      });
     } else {
       alert("Error deleting drawing. Please try again.");
+      setLoading(false); // only need to set loading to false if there was an error when deleting
     }
   }
 
@@ -69,6 +77,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
     <>
       <Card withBorder className={classes.drawingCard}>
         <Card.Section withBorder inheritPadding py="xs">
+          <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 1 }} />
           <Group justify='space-between'>
 
             {drawing.isPublic === 1 ? <MdPublic size={20} color='green' /> : <FaEyeSlash size={20} color='red' />}
@@ -93,7 +102,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
                 </Menu.Item>
 
                 {/* Toggle Privacy */}
-                <form action={handleTogglePrivacy}>
+                <form action={handleTogglePrivacy} onSubmit={() => setLoading(true)}>
                   <Menu.Item
                     component='button'
                     type='submit'
@@ -165,7 +174,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
           <Text>Are you sure you want to delete this drawing?</Text>
           <Group justify='right' w="100%">
             <Button onClick={close} variant="light" rightSection={<MdOutlineCancel />}>Cancel</Button>
-            <form action={handleDelete}>
+            <form action={handleDelete} onSubmit={() => {setLoading(true); close();}}>
               <Button type="submit" variant="filled" color='red' rightSection={<FaTrashAlt />}>Delete Drawing</Button>
             </form>
           </Group>

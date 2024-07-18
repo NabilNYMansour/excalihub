@@ -140,7 +140,6 @@ export async function togglePublicDrawingAction(formData: FormData, slug: string
 export async function deleteDrawingAction(formData: FormData, slug: string) {
   try {
     if (!await isAuthorized(slug, formData.get('clerkId') as string)) {
-
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
