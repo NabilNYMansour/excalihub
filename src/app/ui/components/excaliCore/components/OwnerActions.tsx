@@ -1,6 +1,9 @@
+"use client";
+
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
+import { useState } from "react";
 import { IoIosSave } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 
@@ -12,8 +15,11 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
     setHasChanged: (hasChanged: boolean) => void
   }
 ) => {
+  const [loadingSave, setLoadingSave] = useState(false);
+
   useHotkeys([
     ['mod+s', (e) => {
+      setLoadingSave(true);
       e.preventDefault();
       e.stopPropagation();
       if (hasChanged) {
@@ -39,6 +45,7 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
     } else {
       alert("Error saving drawing. Please try again.");
     }
+    setLoadingSave(false);
   }
 
   return (
@@ -50,11 +57,12 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
       </Tooltip>
 
       <Tooltip label={hasChanged ? "Save changes" : "No changes"} position="left" withArrow>
-        <form action={handleChangesSaved}>
+        <form action={handleChangesSaved} onSubmit={() => setLoadingSave(true)}>
           <ActionIcon size="lg" radius="md" color='green'
             onKeyDownCapture={(e) => { console.log('keydown', e) }}
             disabled={!hasChanged}
-            type='submit'>
+            type='submit'
+            loading={loadingSave}>
             <IoIosSave />
           </ActionIcon>
         </form>

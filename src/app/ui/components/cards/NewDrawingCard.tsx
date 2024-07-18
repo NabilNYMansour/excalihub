@@ -14,6 +14,7 @@ import { redirect, RedirectType } from 'next/navigation';
 const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, createDrawingAction: (formData: FormData) => Promise<string> }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const isPhone = useMediaQuery('(max-width: 350px)');
+  const [loading, setLoading] = useState(false);
 
   const [publicDrawing, setPublicDrawing] = useState(false);
   const togglePublicDrawing = () => setPublicDrawing((prev) => !prev);
@@ -26,6 +27,7 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
     const slug = await createDrawingAction(formData);
     if (slug) { redirect("/excalidraw/" + slug, RedirectType.push) }
     else { alert("Error creating drawing. Please try again.") }
+    setLoading(false);
   }
 
   return (
@@ -52,7 +54,7 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
 
       {/* Modal */}
       <Modal centered opened={opened} onClose={close} title={<Text fw={900}>Create New Drawing</Text>}>
-        <form action={handleNewDrawing}>
+        <form action={handleNewDrawing} onSubmit={() => setLoading(true)}>
           <Flex gap={10} direction="column">
             <TextInput label="Title" name='title' placeholder="Drawing title" required />
             <Textarea label="Description" name='description' placeholder="Drawing description" required />
@@ -65,7 +67,7 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
                 color='green' size='md' onChange={togglePublicDrawing} name='isPublic' />
             </Group>
             <Group justify='right' w="100%">
-              <Button type="submit" variant="light" rightSection={<IoMdSend />}>Create Drawing</Button>
+              <Button loading={loading} type="submit" variant="light" rightSection={<IoMdSend />}>Create Drawing</Button>
             </Group>
           </Flex>
         </form>

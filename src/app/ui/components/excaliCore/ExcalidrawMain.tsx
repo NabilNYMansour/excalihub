@@ -44,6 +44,8 @@ const ExcalidrawMain = (
   const [description, setDescription] = useState(initDescription);
   const [isPublic, setIsPublic] = useState(initPrivacy);
 
+  const [loadingFork, setLoadingFork] = useState(false);
+
   useEffect(() => {
     if (pointerHit) {
       setHasChanged(true);
@@ -72,6 +74,7 @@ const ExcalidrawMain = (
       redirect("/excalidraw/" + newSlug, RedirectType.push);
     }
     else { alert("Error forking drawing. Please try again.") }
+    setLoadingFork(false);
   }
 
   const handleShareDrawing = () => {
@@ -98,7 +101,7 @@ const ExcalidrawMain = (
               clerkId={clerkId} slug={slug} elements={elements}
               saveDrawingAction={saveDrawingAction} setHasChanged={setHasChanged}
               hasChanged={hasChanged} openModal={open} /> :
-            <AnonActions handleForkDrawing={handleForkDrawing} openModal={open} clerkIdExists={clerkId !== ""} />}
+            <AnonActions loadingFork={loadingFork} setLoadingFork={setLoadingFork} handleForkDrawing={handleForkDrawing} openModal={open} clerkIdExists={clerkId !== ""} />}
           <Tooltip label="Share Drawing" position="left" withArrow>
             <ActionIcon size="lg" radius="md" variant='default' onClick={handleShareDrawing}>
               <IoMdShare />

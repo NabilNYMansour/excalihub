@@ -23,6 +23,7 @@ const OwnerModal = ({
   const [description, setDescription] = useState(initDescription);
   const [hasChanged, setHasChanged] = useState(false);
   const [privacy, setPrivacy] = useState(initPrivacy);
+  const [loading, setLoading] = useState(false);
 
   const handleDrawingInfoChange = async (formData: FormData) => {
     formData.set('clerkId', clerkId);
@@ -37,6 +38,7 @@ const OwnerModal = ({
     } else {
       alert("Error saving drawing info. Please try again.");
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -67,8 +69,8 @@ const OwnerModal = ({
             color='green' size='md' name='isPublic' onChange={() => setPrivacy(!privacy)} />
         </Group>
         <Group justify='right' w="100%">
-          <form action={handleDrawingInfoChange}>
-            <Button type="submit" variant="filled"
+          <form action={handleDrawingInfoChange} onSubmit={() => setLoading(true)}>
+            <Button type="submit" variant="filled" loading={loading}
               disabled={!hasChanged} rightSection={<IoMdSend />}>
               Confirm changes
             </Button>
