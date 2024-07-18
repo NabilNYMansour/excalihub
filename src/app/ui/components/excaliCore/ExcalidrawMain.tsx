@@ -13,6 +13,8 @@ import AnonModal from './components/AnonModal';
 import { redirect, RedirectType } from 'next/navigation';
 import { IoMdShare } from 'react-icons/io';
 import { notifications } from '@mantine/notifications';
+import { ThemeToggle } from '../buttons/ThemeToggle';
+import { IoHome } from 'react-icons/io5';
 
 const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,
@@ -94,25 +96,36 @@ const ExcalidrawMain = (
   return (
     <>
       {/* Main */}
-      <Box w="100%" h="100%">
-        <div className={classes.main}>
-          {isOwner ?
-            <OwnerActions
-              clerkId={clerkId} slug={slug} elements={elements}
-              saveDrawingAction={saveDrawingAction} setHasChanged={setHasChanged}
-              hasChanged={hasChanged} openModal={open} /> :
-            <AnonActions loadingFork={loadingFork} setLoadingFork={setLoadingFork} handleForkDrawing={handleForkDrawing} openModal={open} clerkIdExists={clerkId !== ""} />}
-          <Tooltip label="Share Drawing" position="left" withArrow>
-            <ActionIcon size="lg" radius="md" variant='default' onClick={handleShareDrawing}>
-              <IoMdShare />
-            </ActionIcon>
-          </Tooltip>
+      <Box w="100%" h="100%" className={classes.main}>
+        <div className={classes.actionsWrapper}>
+          <div className={classes.actions}>
+            {isOwner ?
+              <OwnerActions
+                clerkId={clerkId} slug={slug} elements={elements}
+                saveDrawingAction={saveDrawingAction} setHasChanged={setHasChanged}
+                hasChanged={hasChanged} openModal={open} /> :
+              <AnonActions loadingFork={loadingFork} setLoadingFork={setLoadingFork} handleForkDrawing={handleForkDrawing} openModal={open} clerkIdExists={clerkId !== ""} />}
+            <Tooltip label="Share Drawing" position="left" withArrow>
+              <ActionIcon size="lg" radius="md" variant='default' onClick={handleShareDrawing}>
+                <IoMdShare />
+              </ActionIcon>
+            </Tooltip>
+            <ThemeToggle size='lg' toolTipPos='left' variant='light' />
+            <Tooltip label="Home" position="left" withArrow>
+              <ActionIcon component='a' href='/' size="lg" radius="md" variant='filled'>
+                <IoHome />
+              </ActionIcon>
+            </Tooltip>
+          </div>
         </div>
 
         <Excalidraw theme={computedColorScheme}
-          initialData={{ elements: JSON.parse(payload).elements }}
-          onChange={onExcaliChange} onPointerDown={() => setPointerHit(true)}
-          UIOptions={{ tools: { image: false } }} />
+          UIOptions={{ tools: { image: false } }}
+          initialData={{
+            elements: JSON.parse(payload).elements,
+            scrollToContent: true,
+          }}
+          onChange={onExcaliChange} onPointerDown={() => setPointerHit(true)} />
       </Box>
 
       {/* Modal */}

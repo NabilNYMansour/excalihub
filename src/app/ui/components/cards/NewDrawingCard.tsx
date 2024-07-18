@@ -56,8 +56,8 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
       <Modal centered opened={opened} onClose={close} title={<Text fw={900}>Create New Drawing</Text>}>
         <form action={handleNewDrawing} onSubmit={() => setLoading(true)}>
           <Flex gap={10} direction="column">
-            <TextInput label="Title" name='title' placeholder="Drawing title" required />
-            <Textarea label="Description" name='description' placeholder="Drawing description" required />
+            <TextInput size='lg' label="Title" name='title' placeholder="Drawing title" required />
+            <Textarea size='lg' label="Description" name='description' placeholder="Drawing description" required />
             <Group>
               {publicDrawing ?
                 <MdPublic size={20} color='green' /> :

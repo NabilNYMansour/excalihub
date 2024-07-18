@@ -1,9 +1,7 @@
 "use client";
 
 import { ActionIcon, Tooltip } from "@mantine/core";
-import { FaCircleInfo } from "react-icons/fa6";
-import { CgGitFork } from "react-icons/cg";
-import { useState } from "react";
+import { FaCircleInfo, FaCodeFork } from "react-icons/fa6";
 
 const AnonActions = ({ openModal, clerkIdExists, handleForkDrawing, loadingFork, setLoadingFork }: {
   openModal: () => void, clerkIdExists: boolean,
@@ -19,8 +17,8 @@ const AnonActions = ({ openModal, clerkIdExists, handleForkDrawing, loadingFork,
       </Tooltip>
       {clerkIdExists && <Tooltip label="Fork Drawing" position="left" withArrow>
         <form action={handleForkDrawing} onSubmit={() => setLoadingFork(true)}>
-          <ActionIcon loading={loadingFork} type="submit" size="lg" radius="md" variant="default">
-            <CgGitFork size={24} />
+          <ActionIcon loading={loadingFork} type="submit" size="lg" radius="md" variant="light">
+            <FaCodeFork />
           </ActionIcon>
         </form>
       </Tooltip>}

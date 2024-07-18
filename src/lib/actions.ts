@@ -31,7 +31,6 @@ export async function createDrawingAction(formData: FormData) {
       slug
     });
 
-
     await db.createDrawing({
       userId,
       name,

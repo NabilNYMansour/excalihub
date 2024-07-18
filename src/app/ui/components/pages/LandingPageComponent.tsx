@@ -21,14 +21,11 @@ const Excalidraw = dynamic(
 );
 
 function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
-  const [viewModeEnabled, setViewModeEnabled] = useState(true);
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
   return (
     <div
       className={excaliClasses.drawing}
-      onMouseEnter={() => setViewModeEnabled(false)}
-      onMouseLeave={() => setViewModeEnabled(true)}
       style={{ width: "100%", height: "35vh", borderRadius: "12px", overflow: "hidden", marginTop: "25px" }}>
       <Excalidraw theme={computedColorScheme}
         UIOptions={{ tools: { image: false } }}
@@ -36,9 +33,7 @@ function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
           elements: WELCOME_EXCALI_DATA.elements as any,
           scrollToContent: true,
           appState: { zoom: { value: (isPhone ? .5 : 1) as any } }
-        }} zenModeEnabled
-        viewModeEnabled={viewModeEnabled}
-      />
+        }} zenModeEnabled viewModeEnabled />
     </div>
   );
 }
