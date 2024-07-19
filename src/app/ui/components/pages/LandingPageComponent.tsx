@@ -38,6 +38,16 @@ function LandingExcalidraw({ isPhone }: { isPhone: boolean | undefined }) {
   );
 }
 
+const myWebsiteLink = <Button
+  component='a'
+  href='https://nabilmansour.com'
+  target='_blank'
+  size='xs' p={1}
+  variant='light'
+  leftSection={<RiLinkM size={28} />}>
+  <Text fw={900} span size='1.5rem'>Website</Text>
+</Button>
+
 const LandingPageComponent = () => {
   const isPhone = useMediaQuery('(max-width: 650px)');
 
@@ -64,15 +74,7 @@ const LandingPageComponent = () => {
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>👨‍💻</div>} title={<h2>So who are you?</h2>}>
             <p>Just a guy. You can know more about me on my <span>
-              <Button
-                component='a'
-                href='https://nabilmansour.com'
-                target='_blank'
-                size='xs' p={1}
-                variant='light'
-                leftSection={<RiLinkM size={28} />}>
-                <Text fw={900} span size='1.5rem'>Website</Text>
-              </Button>
+              {myWebsiteLink}
             </span></p>
             <p>One thing to note is that I am self-hosting this site. So if you find it useful consider to</p>
             <CoolButton
@@ -94,9 +96,8 @@ const LandingPageComponent = () => {
               I recommend using the <a target='_blank' href='https://plus.excalidraw.com/'>
                 original Excalidraw platform if you want the other features</a>.</p>
           </Timeline.Item>
-          <Timeline.Item bullet={<div style={{ scale: "3.5" }}>🥼</div>} title={<h2>❗WORK IN PROGRESS❗</h2>}>
-            <p>Please note that this app is still work in progress. If you have any suggestions, you can contact me
-              on my website.
+          <Timeline.Item bullet={<div style={{ scale: "3.5" }}>🥼</div>} title={<h2>Feedback</h2>}>
+            <p>If you have any feedback or suggestions, feel free to reach out to me on my {myWebsiteLink}
             </p>
           </Timeline.Item>
         </Timeline>

@@ -27,6 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${MAIN_URL}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.8,
+    },
+    {
       url: `${MAIN_URL}/excalidraw`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
