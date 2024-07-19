@@ -15,7 +15,7 @@ git clone https://github.com/NabilNYMansour/excalihub
 ```
 2. Navigate to the project directory:
 ```bash
-cd medium-to-markdown
+cd excalihub
 ```
 3. Install the dependencies:
 ```bash
