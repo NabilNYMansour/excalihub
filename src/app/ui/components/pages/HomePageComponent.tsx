@@ -10,9 +10,9 @@ import UserBeingProcessed from "../other/UserBeingProcessed";
 async function HomePageComponent({ searchParams, name, clerkId }: { searchParams: SearchParams, name: string | null, clerkId: string | null }) {
   if (!name || !clerkId) throw new Error("User not found");
 
-  const page = searchParams["page"] ?? "1";
   const userIdQuery = await getUserIdByClerkId(clerkId);
   if (userIdQuery.length > 0) {
+    const page = searchParams["page"] ?? "1";
     const userId = userIdQuery[0].id;
     const drawings = await getAllUserDrawingsPaginated(userId, Number(page), 5);
     const numberOfDrawings = await getDrawingsCount(userId);

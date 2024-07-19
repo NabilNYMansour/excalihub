@@ -9,8 +9,48 @@ import cx from 'clsx';
 import { theme } from "@/theme";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Notifications } from "@mantine/notifications";
+import { Metadata } from "next";
+import { APP_DESCRIPTION } from "./ui/components/other/Constants";
 
 const CaviarDreams = localFont({ src: '../../public/CaviarDreams.ttf' });
+
+const MAIN_URL = process.env.MAIN_URL;
+
+const description = APP_DESCRIPTION;
+const title = "Excalihub";
+const author = "Nabil Mansour";
+const keywords = "Excalihub, Excalidraw, drawings, sharing, platform, Nabil Mansour, open source, free";
+const imageLink = `${MAIN_URL}/ExcalihubLogoTitle.png`;
+
+export const metadata: Metadata = {
+  title: {
+    default: title,
+    template: "%s | " + title,
+  },
+  description: description,
+  alternates: {
+    canonical: `${MAIN_URL}`
+  },
+  keywords: keywords,
+  openGraph: {
+    title: title,
+    description: description,
+    url: `${MAIN_URL}`,
+    type: "website",
+    images: [{ url: imageLink, alt: title, }],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: title,
+    description: description,
+    images: [imageLink],
+  },
+  authors: { name: author },
+  creator: author,
+  publisher: author,
+  manifest: `${MAIN_URL}/manifest.json`,
+};
 
 export default function RootLayout({
   children,

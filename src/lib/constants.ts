@@ -1,6 +1,4 @@
-export const DEVELOPER_URL = "https://nabilmansour.com/"
-export const GITHUB_URL = "https://github.com/NabilNYMansour/excalihub"
-export const MAIN_URL = "https://excalihub.dev"
+export const NEW_DRAWING = { "elements": [{ "id": "gudG2BE25zfp57R7XXKfA", "type": "text", "x": 813, "y": 385, "width": 215.02809143066406, "height": 45, "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 1, "opacity": 100, "groupIds": [], "frameId": null, "roundness": null, "seed": 2009499878, "version": 93, "versionNonce": 1038612262, "isDeleted": false, "boundElements": null, "updated": 1720881617151, "link": null, "locked": false, "text": "New Drawing", "fontSize": 36, "fontFamily": 1, "textAlign": "center", "verticalAlign": "top", "baseline": 32, "containerId": null, "originalText": "New Drawing", "lineHeight": 1.25 }] }
 
 export const APP_DESCRIPTION = "ExcaliHub is a platform for creating and sharing Excalidraw drawings.";
 

@@ -2,8 +2,8 @@
 
 import * as db from "@/db/queries";
 import * as checks from "./checks";
+import { APP_DESCRIPTION, NEW_DRAWING } from "./constants";
 
-const NEW_DRAWING = { "elements": [{ "id": "gudG2BE25zfp57R7XXKfA", "type": "text", "x": 813, "y": 385, "width": 215.02809143066406, "height": 45, "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 1, "opacity": 100, "groupIds": [], "frameId": null, "roundness": null, "seed": 2009499878, "version": 93, "versionNonce": 1038612262, "isDeleted": false, "boundElements": null, "updated": 1720881617151, "link": null, "locked": false, "text": "New Drawing", "fontSize": 36, "fontFamily": 1, "textAlign": "center", "verticalAlign": "top", "baseline": 32, "containerId": null, "originalText": "New Drawing", "lineHeight": 1.25 }] }
 export async function createDrawingAction(formData: FormData) {
   try {
     const clerkId = formData.get('clerkId') as string;
@@ -87,6 +87,48 @@ export async function forkDrawingAction(formData: FormData, slug: string) {
     return newSlug;
   } catch (error) {
     console.error("Error forking drawing at", new Date().toISOString());
+    console.error(error);
+    return "";
+  }
+}
+
+export async function forkWelcomeDrawingAction(formData: FormData) {
+  try {
+    const clerkId = formData.get('clerkId') as string;
+    const userId = (await db.getUserIdByClerkId(clerkId))[0].id;
+    const name = "Welcome to ExcaliHub";
+    const description = APP_DESCRIPTION;
+    const isPublic = 1;
+    const createAt = new Date().toISOString();
+    const payload = formData.get('payload') as string;
+    const newSlug = crypto.randomUUID().replace(/-/g, '');
+
+    checks.drawingSchema.parse({
+      userId,
+      name,
+      description,
+      isPublic,
+      createAt,
+      payload,
+      slug: newSlug
+    });
+
+    // No need to check strings in drawing schema as they are hardcoded
+    // checks.stringsInDrawingSchema.parse({ name, description });
+
+    await db.createDrawing({
+      userId,
+      name,
+      description,
+      isPublic,
+      createAt,
+      payload,
+      slug: newSlug
+    });
+
+    return newSlug;
+  } catch (error) {
+    console.error("Error forking welcome drawing at", new Date().toISOString());
     console.error(error);
     return "";
   }
