@@ -115,7 +115,7 @@ export function Header() {
               </ClerkLoaded>
             </Group>
 
-            <a href="/" className={classes.appTitle}>
+            <a href="/landing" className={classes.appTitle}>
               <Group ml="auto" mr="auto" c="main">
                 <SiExcalidraw size={40} />
                 <Group visibleFrom="sm">
