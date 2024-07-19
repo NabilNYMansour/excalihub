@@ -1,14 +1,9 @@
 "use server";
 
 import * as db from "@/db/queries";
-import * as schemaDB from "@/db/schema";
-import { createInsertSchema } from 'drizzle-zod';
-import { z } from 'zod';
-
-// TODO: make sure to limit the payload size, description, and name
+import * as checks from "./checks";
 
 const NEW_DRAWING = { "elements": [{ "id": "gudG2BE25zfp57R7XXKfA", "type": "text", "x": 813, "y": 385, "width": 215.02809143066406, "height": 45, "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 1, "opacity": 100, "groupIds": [], "frameId": null, "roundness": null, "seed": 2009499878, "version": 93, "versionNonce": 1038612262, "isDeleted": false, "boundElements": null, "updated": 1720881617151, "link": null, "locked": false, "text": "New Drawing", "fontSize": 36, "fontFamily": 1, "textAlign": "center", "verticalAlign": "top", "baseline": 32, "containerId": null, "originalText": "New Drawing", "lineHeight": 1.25 }] }
-const drawingSchema = createInsertSchema(schemaDB.drawingsTable);
 export async function createDrawingAction(formData: FormData) {
   try {
     const clerkId = formData.get('clerkId') as string;
@@ -21,7 +16,7 @@ export async function createDrawingAction(formData: FormData) {
 
     // no auth is required past this point
 
-    drawingSchema.parse({
+    checks.drawingSchema.parse({
       userId,
       name,
       description,
@@ -30,6 +25,8 @@ export async function createDrawingAction(formData: FormData) {
       payload: '',
       slug
     });
+
+    checks.stringsInDrawingSchema.parse({ name, description });
 
     await db.createDrawing({
       userId,
@@ -65,7 +62,7 @@ export async function forkDrawingAction(formData: FormData, slug: string) {
     const payload = formData.get('payload') as string;
     const newSlug = crypto.randomUUID().replace(/-/g, '');
 
-    drawingSchema.parse({
+    checks.drawingSchema.parse({
       userId,
       name,
       description,
@@ -74,6 +71,8 @@ export async function forkDrawingAction(formData: FormData, slug: string) {
       payload,
       slug: newSlug
     });
+
+    checks.stringsInDrawingSchema.parse({ name, description });
 
     await db.createDrawing({
       userId,
@@ -93,22 +92,13 @@ export async function forkDrawingAction(formData: FormData, slug: string) {
   }
 }
 
-const isAuthorized = async (slug: string, clerkId: string) => {
-  const userId = (await db.getUserIdByClerkId(clerkId))[0].id;
-  const drawing = await db.getDrawingBySlug(slug);
-  return userId === drawing[0].userId;
-}
-const updateDrawingSchema = z.object({
-  slug: z.string(),
-  payload: z.string()
-});
 export const saveDrawingAction = async (formData: FormData, slug: string, payload: string) => {
   try {
-    if (!await isAuthorized(slug, formData.get('clerkId') as string)) {
+    if (!await checks.isAuthorized(slug, formData.get('clerkId') as string)) {
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
-    updateDrawingSchema.parse({ slug, payload });
+    checks.updateDrawingSchema.parse({ slug, payload });
     await db.updateDrawingPayload(slug, payload);
   } catch (error) {
     console.error("Error checking authorization to save drawing at", new Date().toISOString());
@@ -118,16 +108,13 @@ export const saveDrawingAction = async (formData: FormData, slug: string, payloa
   return true;
 }
 
-const slugScheme = z.object({
-  slug: z.string()
-});
 export async function togglePublicDrawingAction(formData: FormData, slug: string) {
   try {
-    if (!await isAuthorized(slug, formData.get('clerkId') as string)) {
+    if (!await checks.isAuthorized(slug, formData.get('clerkId') as string)) {
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
-    slugScheme.parse({ slug });
+    checks.slugScheme.parse({ slug });
     await db.togglePublicDrawing(slug);
     return true;
   } catch (error) {
@@ -138,11 +125,11 @@ export async function togglePublicDrawingAction(formData: FormData, slug: string
 }
 export async function deleteDrawingAction(formData: FormData, slug: string) {
   try {
-    if (!await isAuthorized(slug, formData.get('clerkId') as string)) {
+    if (!await checks.isAuthorized(slug, formData.get('clerkId') as string)) {
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
-    slugScheme.parse({ slug });
+    checks.slugScheme.parse({ slug });
     await db.deleteDrawing(slug);
     return true;
   } catch (error) {
@@ -152,19 +139,14 @@ export async function deleteDrawingAction(formData: FormData, slug: string) {
   }
 }
 
-const updateDrawingInfoSchema = z.object({
-  slug: z.string(),
-  name: z.string(),
-  description: z.string(),
-  isPublic: z.boolean()
-});
 export async function updateDrawingInfoAction(formData: FormData, slug: string, name: string, description: string, isPublic: boolean) {
   try {
-    if (!await isAuthorized(slug, formData.get('clerkId') as string)) {
+    if (!await checks.isAuthorized(slug, formData.get('clerkId') as string)) {
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
-    updateDrawingInfoSchema.parse({ slug, name, description, isPublic });
+    checks.updateDrawingInfoSchema.parse({ slug, name, description, isPublic });
+    checks.stringsInDrawingSchema.parse({ name, description });
     await db.updateDrawingInfo(slug, name, description, isPublic);
     return true;
   } catch (error) {
