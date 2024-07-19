@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from 'react';
-import { Box, Button, Container, Text, Timeline } from '@mantine/core';
+import { Button, Container, Text, Timeline } from '@mantine/core';
 import { FaQuestionCircle } from 'react-icons/fa';
 import CoolButton from '../buttons/CoolButton';
 import { RiLinkM } from 'react-icons/ri';
@@ -54,6 +53,7 @@ const LandingPageComponent = () => {
   return (
     <CenterContainer size="md">
       <LandingExcalidraw isPhone={isPhone} />
+      <CoolButton href='/excalidraw' text='Demo' style={{backgroundColor:"var(--mantine-primary-color-filled)"}}/>
       <Container size="sm">
         <Timeline active={100} lineWidth={3} bulletSize={40}>
           <Timeline.Item bullet={<FaQuestionCircle size={28} />} title={<h2>What is Excalihub?</h2>}>
