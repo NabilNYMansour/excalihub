@@ -77,6 +77,10 @@ export async function updateDrawingInfo(slug: string, name: string, description:
   await db.update(drawingsTable).set({ name, description, isPublic: isPublic ? 1 : 0 }).where(eq(drawingsTable.slug, slug));
 }
 
+export async function getAllPublicDrawingsSlugs() {
+  return await db.select({ slug: drawingsTable.slug }).from(drawingsTable).where(eq(drawingsTable.isPublic, 1));
+}
+
 //====================Events queries====================//
 export async function createEvent(payload: InsertEvent) {
   await db.insert(eventsTable).values(payload);
