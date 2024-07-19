@@ -69,8 +69,8 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
       });
     } else {
       alert("Error deleting drawing. Please try again.");
-      setLoading(false); // only need to set loading to false if there was an error when deleting
     }
+    setLoading(false);
   }
 
   return (
@@ -81,7 +81,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
           <Group justify='space-between'>
 
             {drawing.isPublic === 1 ? <MdPublic size={20} color='green' /> : <FaEyeSlash size={20} color='red' />}
-            <Text size={isPhone ? "md" : 'xl'} fw={700}>{drawing.name}</Text>
+            <Text size={isPhone ? "md" : 'xl'} maw={150} fw={700} truncate="end">{drawing.name}</Text>
 
             <Menu withinPortal position="bottom-end" shadow="sm">
               <Menu.Target>
@@ -174,7 +174,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
           <Text>Are you sure you want to delete this drawing?</Text>
           <Group justify='right' w="100%">
             <Button onClick={close} variant="light" rightSection={<MdOutlineCancel />}>Cancel</Button>
-            <form action={handleDelete} onSubmit={() => {setLoading(true); close();}}>
+            <form action={handleDelete} onSubmit={() => { setLoading(true); close(); }}>
               <Button type="submit" variant="filled" color='red' rightSection={<FaTrashAlt />}>Delete Drawing</Button>
             </form>
           </Group>
