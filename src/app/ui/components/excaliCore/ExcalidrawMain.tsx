@@ -99,6 +99,11 @@ const ExcalidrawMain = (
       <Box w="100%" h="100%" className={classes.main}>
         <div className={classes.actionsWrapper}>
           <div className={classes.actions}>
+            <Tooltip label="Home" position="left" withArrow>
+              <ActionIcon component='a' href='/' size="lg" radius="md" variant='filled'>
+                <IoHome />
+              </ActionIcon>
+            </Tooltip>
             {isOwner ?
               <OwnerActions
                 clerkId={clerkId} slug={slug} elements={elements}
@@ -111,11 +116,6 @@ const ExcalidrawMain = (
               </ActionIcon>
             </Tooltip>
             <ThemeToggle size='lg' toolTipPos='left' variant='light' />
-            <Tooltip label="Home" position="left" withArrow>
-              <ActionIcon component='a' href='/' size="lg" radius="md" variant='filled'>
-                <IoHome />
-              </ActionIcon>
-            </Tooltip>
           </div>
         </div>
 
