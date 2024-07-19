@@ -23,7 +23,11 @@ export async function generateMetadata(
     notFound(); // not found
   }
 
-  const title = drawing[0].name;
+  const ownerClerkId = (await getClerkIdGivenId(drawing[0].userId))[0].clerkId;
+  const owerUserObject = await clerkClient().users.getUser(ownerClerkId);
+  const ownerUsername = owerUserObject.username!;
+
+  const title = drawing[0].name + " by " + ownerUsername;
   const description = drawing[0].description;
   const imageLink = `${MAIN_URL}/ExcalihubLogoTitle.png`;
 
