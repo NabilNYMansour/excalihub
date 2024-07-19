@@ -62,7 +62,7 @@ const OwnerModal = ({
           size="lg"
           label="Description" name='description'
           placeholder="Drawing description" onChange={(e) => setDescription(e.currentTarget.value)}
-          value={description} required autosize maxRows={5} />
+          value={description} autosize maxRows={5} />
         <Group>
           {privacy ?
             <MdPublic size={20} color='green' /> :
