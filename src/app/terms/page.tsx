@@ -5,7 +5,7 @@ const Page = () => {
     <h1>Privacy Policy and Terms of Service</h1>
     <h2>What license do my drawings have?</h2>
     <p>All the drawings you create in Excalihub are owned by you. You decide which license applies to every drawing you create.
-      We recommend you paste your preferred license inside your description, if you don't place a license on a drawing,
+      We recommend you paste your preferred license inside your description, if you don&apos;t place a license on a drawing,
       it will be protected by <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a>
     </p>
     <p>
@@ -13,19 +13,19 @@ const Page = () => {
     </p>
 
     <h2>Your Public Information</h2>
-    <p>Excalihub is a public platform. As such, all the drawings and content you share as "Public" becomes visible to everybody. In particular,</p>
+    <p>Excalihub is a public platform. As such, all the drawings and content you share as &quot;Public&quot; becomes visible to everybody. In particular,</p>
     <ul>
       <li>
-        Content shared as <b>"Public"</b> is visible to anyone and will contain the title, description and username of its creator. It is also indexed by search engines.
+        Content shared as <b>&quot;Public&quot;</b> is visible to anyone and will contain the title, description and username of its creator. It is also indexed by search engines.
       </li>
       <li>
-        Content kept as <b>"Private"</b> is not shared with anybody, as described below in the Privacy Policy.
+        Content kept as <b>&quot;Private&quot;</b> is not shared with anybody, as described below in the Privacy Policy.
       </li>
     </ul>
 
     <h2>Your Private Information</h2>
     <p>
-      Excalihub respects the privacy of its users and will not use data in its databases to compete with its users, market to its user's clients, advertise to, or contact them for any other means of profit.
+      Excalihub respects the privacy of its users and will not use data in its databases to compete with its users, market to its user&apos;s clients, advertise to, or contact them for any other means of profit.
     </p>
 
     <p>
@@ -50,7 +50,7 @@ const Page = () => {
 
     <h2>Cookies and Analytics</h2>
     <p>
-      Cookies are required to use Excalihub, they are used to help the system identify users and mantain their session open while they work in the website. Without cookies Excalihub won't operate.
+      Cookies are required to use Excalihub, they are used to help the system identify users and mantain their session open while they work in the website. Without cookies Excalihub won&apos;t operate.
     </p>
     <p>
       Excalihub does not use cookies to track any of the users actions in the site, or store any of the content they type of search for.
@@ -64,7 +64,7 @@ const Page = () => {
 
     <h2>Changes to This Policy</h2>
     <p>
-      Excalihub's Privacy Policy may change from time to time. Excalihub will not reduce its user's rights under this policy without explicit consent. Excalihub will post any privacy policy changes on this page and, if the changes are significant, Excalihub will provide a more prominent notice.
+      Excalihub&apos;s Privacy Policy may change from time to time. Excalihub will not reduce its user&apos;s rights under this policy without explicit consent. Excalihub will post any privacy policy changes on this page and, if the changes are significant, Excalihub will provide a more prominent notice.
     </p>
     <p>
       If Excalihub is acquired by or merged with another company, Excalihub will notify the user before any personal information is transferred and becomes subject to a different privacy policy.
@@ -72,7 +72,7 @@ const Page = () => {
 
     <h2>Terms of Service</h2>
     <p>
-      You must be at least 13 years old in order to use Excalihub. If Excalihub becomes aware that you aren't, and that therefore we have unknowingly collected some personal information about you, we will delete your account without further notice.
+      You must be at least 13 years old in order to use Excalihub. If Excalihub becomes aware that you aren&apos;t, and that therefore we have unknowingly collected some personal information about you, we will delete your account without further notice.
     </p>
     <p>
       Excalihub is not responsible for the content you create. You are responsible for that content. Excalihub reserves the right to suspend any user account without further notice and, in the same way, Excalihub reserves the right to block any drawings or assets without further notice. We encourage freedom of speech and diversity of opinions and believes, but we will not tolerate content that threatens people or communities.
@@ -81,7 +81,7 @@ const Page = () => {
       Excalihub or its contributors are not responsible for content shared on the website that can potentially damage hardware and/or software. The user agrees that the web is a delicate technology and you will assume all the risk when browsing, playing or editing the drawings. However, Excalihub is fully committed to provide a good browsing experience.
     </p>
     <p>
-      Although Excalihub owns the data storage, databases and the Excalihub site, the users retain all rights to their creations and can decide a specific license for it (section "What license will my drawings have?" above).
+      Although Excalihub owns the data storage, databases and the Excalihub site, the users retain all rights to their creations and can decide a specific license for it (section &quot;What license will my drawings have?&quot; above).
     </p>
 
     <h2>Excalihub Uses</h2>
