@@ -21,9 +21,9 @@ export function Footer() {
               Home
             </Text>
           </Link>
-          <Link href='/privacy' style={{ color: "inherit" }}>
+          <Link href='/terms' style={{ color: "inherit" }}>
             <Text fz="xs" lh="md">
-              Privacy
+              Terms
             </Text>
           </Link>
         </Flex>

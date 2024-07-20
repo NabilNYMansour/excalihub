@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy",
-  description: "Privacy Policy for Excalihub web app.",
+  title: "Terms",
+  description: "Terms of Service  and Privacy Policy for Excalihub web app.",
   alternates: {
-    canonical: `${process.env.MAIN_URL}/privacy`,
+    canonical: `${process.env.MAIN_URL}/terms`,
   }
 };
 
