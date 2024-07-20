@@ -112,7 +112,9 @@ export function Header() {
                     <SignInAction />
                   </SignedOut>
                   <SignedIn>
-                    <UserButton aria-label="Authenticator" appearance={{ baseTheme: computedColorScheme === "dark" ? dark : undefined }} />
+                    <UserButton aria-label="Authenticator" userProfileMode='navigation' userProfileUrl='/user-profile' appearance={{
+                      baseTheme: computedColorScheme === "dark" ? dark : undefined,
+                    }} />
                   </SignedIn>
                 </ClerkLoaded>
               </div>
@@ -120,7 +122,7 @@ export function Header() {
 
             <a href="/landing" className={classes.appTitle}>
               <Group ml="auto" mr="auto" c="main">
-                <SiExcalidraw size={40} />
+                <SiExcalidraw size={40} aria-label="Excalidraw"/>
                 <Group visibleFrom="sm">
                   <h1>ExcaliHub</h1>
                 </Group>
