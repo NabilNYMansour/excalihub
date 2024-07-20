@@ -82,7 +82,9 @@ async function main() {
           payload: drawingsTable.payload,
         }
       ).from(drawingsTable).where(eq(drawingsTable.slug, drawingSlug));
-      console.log(drawingPayload);
+      drawingPayload.forEach(drawing => {
+        console.log(drawing);
+      });
       break;
 
     case 'delete-drawing':
