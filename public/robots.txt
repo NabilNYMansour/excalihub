@@ -1,3 +1,2 @@
-# Keep things hidden for now
 User-Agent: *
-Disallow: / 
+Allow: /
