@@ -36,6 +36,7 @@ const GitHubAction =
       <ActionIcon
         component="a"
         href={GITHUB_URL}
+        aria-label="GitHub Repo"
         target='_blank'
         variant='default' size="xl">
         <AiFillGithub size="2em" />
@@ -102,17 +103,19 @@ export function Header() {
           <Container size="xl" className={classes.inner}>
 
             <Group w="33%">
-              <ClerkLoading>
-                <Skeleton height={28} circle />
-              </ClerkLoading>
-              <ClerkLoaded>
-                <SignedOut>
-                  <SignInAction />
-                </SignedOut>
-                <SignedIn>
-                  <UserButton appearance={{ baseTheme: computedColorScheme === "dark" ? dark : undefined }} />
-                </SignedIn>
-              </ClerkLoaded>
+              <div style={{ scale: "1.25" }} >
+                <ClerkLoading>
+                  <Skeleton height={28} circle />
+                </ClerkLoading>
+                <ClerkLoaded>
+                  <SignedOut>
+                    <SignInAction />
+                  </SignedOut>
+                  <SignedIn>
+                    <UserButton aria-label="Authenticator" appearance={{ baseTheme: computedColorScheme === "dark" ? dark : undefined }} />
+                  </SignedIn>
+                </ClerkLoaded>
+              </div>
             </Group>
 
             <a href="/landing" className={classes.appTitle}>

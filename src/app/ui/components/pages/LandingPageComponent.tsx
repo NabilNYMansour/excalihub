@@ -69,7 +69,7 @@ const LandingPageComponent = () => {
             <p>I find Excalidraw useful but the free version doesn&apos;t let you have multiple saved drawings. So I thought I could make that myself.</p>
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>😮</div>} title={<h2>Oh so you are part of the Excali team?</h2>}>
-            <Text size='1.75rem' fw={900} c="red.9" span>Nope :D </Text>
+            <Text size='1.75rem' fw={900} c="#ff0000" span>Nope :D </Text>
             <span>But I would like to be...</span>
           </Timeline.Item>
           <Timeline.Item bullet={<div style={{ scale: "2.5" }}>👨‍💻</div>} title={<h2>So who are you?</h2>}>
