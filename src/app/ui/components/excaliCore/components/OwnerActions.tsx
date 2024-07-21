@@ -19,10 +19,10 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
 
   useHotkeys([
     ['mod+s', (e) => {
-      setLoadingSave(true);
-      e.preventDefault();
-      e.stopPropagation();
       if (hasChanged) {
+        setLoadingSave(true);
+        e.preventDefault();
+        e.stopPropagation();
         handleChangesSaved(new FormData());
       } else {
         notifications.show({
