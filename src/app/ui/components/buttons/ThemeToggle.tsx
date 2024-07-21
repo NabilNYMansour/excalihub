@@ -3,9 +3,10 @@ import { ActionIcon, useMantineColorScheme, useComputedColorScheme, Group, Toolt
 import classes from './ThemeToggle.module.css';
 import { LuMoon, LuSun } from 'react-icons/lu';
 
-export function ThemeToggle({ size = "xl", toolTipPos, variant = "subtle", ...props }: {
+export function ThemeToggle({ size = "xl", toolTipPos, variant = "subtle", radius = "sm", ...props }: {
   size?: "xs" | "sm" | "md" | "lg" | "xl", toolTipPos?: 'top' | 'right' | 'bottom' | 'left',
-  variant?: ActionIconVariant
+  variant?: ActionIconVariant,
+  radius?: "xs" | "sm" | "md" | "lg" | "xl"
 }) {
   // These are not hooks
   const { setColorScheme } = useMantineColorScheme();
@@ -22,6 +23,7 @@ export function ThemeToggle({ size = "xl", toolTipPos, variant = "subtle", ...pr
           onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
           size={size}
           variant={variant}
+          radius={radius}
           aria-label="Toggle color scheme"
         >
           <LuSun className={cx(classes.icon, classes.light)} />

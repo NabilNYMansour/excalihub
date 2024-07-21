@@ -115,7 +115,7 @@ const ExcalidrawMain = (
                 <IoMdShare />
               </ActionIcon>
             </Tooltip>
-            <ThemeToggle size='lg' toolTipPos='left' variant='light' />
+            <ThemeToggle size='lg' toolTipPos='left' variant='default' radius='md'/>
           </div>
         </div>
 
