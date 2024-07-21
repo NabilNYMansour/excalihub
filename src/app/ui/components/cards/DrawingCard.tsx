@@ -152,7 +152,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
                 initialData={{
                   elements: JSON.parse(drawing.payload).elements as any,
                   scrollToContent: true,
-                  appState: { zoom: { value: 0.5 as any } }
+                  appState: { zoom: { value: 0.25 as any } }
                 }} viewModeEnabled />
             </div>
           </a>
