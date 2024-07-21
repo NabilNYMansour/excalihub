@@ -1,9 +1,9 @@
 "use client";
 
 import { ActionIcon, Tooltip } from "@mantine/core";
-import { useHotkeys } from "@mantine/hooks";
+import { useHotkeys, useIdle } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosSave } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 
@@ -16,13 +16,15 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
   }
 ) => {
   const [loadingSave, setLoadingSave] = useState(false);
+  const idle = useIdle(2000);
 
   useHotkeys([
     ['mod+s', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
       if (hasChanged) {
         setLoadingSave(true);
-        e.preventDefault();
-        e.stopPropagation();
         handleChangesSaved(new FormData());
       } else {
         notifications.show({
@@ -32,6 +34,13 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
       }
     }]
   ]);
+
+  useEffect(() => {
+    if (idle && hasChanged) {
+      setLoadingSave(true);
+      handleChangesSaved(new FormData());
+    }
+  }, [idle]);
 
   const handleChangesSaved = async (formData: FormData) => {
     formData.set('clerkId', clerkId);
