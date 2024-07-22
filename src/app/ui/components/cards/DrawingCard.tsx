@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionIcon, Box, Button, Card, Flex, Group, LoadingOverlay, Menu, Modal, Skeleton, Text, ThemeIcon, useComputedColorScheme } from '@mantine/core';
+import { ActionIcon, Button, Card, Flex, Group, LoadingOverlay, Menu, Modal, Skeleton, Text, ThemeIcon, useComputedColorScheme } from '@mantine/core';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
@@ -9,8 +9,8 @@ import classes from './DrawingCard.module.css';
 import { IoMdShare } from 'react-icons/io';
 import { IoOpenOutline } from 'react-icons/io5';
 import { MdOutlineCancel, MdPublic } from 'react-icons/md';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { useRouter } from 'next/navigation';
+import { useDisclosure, useMediaQuery, useWindowScroll } from '@mantine/hooks';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 
 const Excalidraw = dynamic(
@@ -34,15 +34,18 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
 }) => {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
   const [opened, { open, close }] = useDisclosure(false);
-  const isPhone = useMediaQuery('(max-width: 350px)');
-  const router = useRouter();
+  const isSmallScreen = useMediaQuery('(max-width: 400px)');
   const [loading, setLoading] = useState(false);
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
   const handleTogglePrivacy = async (formData: FormData) => {
     formData.set('clerkId', clerkId);
     const res = await toggleAction(formData, drawing.slug);
     if (res) {
-      router.refresh();
+      drawing.isPublic = drawing.isPublic === 1 ? 0 : 1;
       notifications.show({
         title: <Flex align="center" gap={5}>
           <ThemeIcon variant='transparent' size="sm">{drawing.isPublic === 1 ? <FaEyeSlash size={28} color='red' /> : <MdPublic size={28} color='green' />}</ThemeIcon>
@@ -60,13 +63,13 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
     formData.set('clerkId', clerkId);
     const res = await deleteAction(formData, drawing.slug);
     if (res) {
-      router.refresh();
       notifications.show({
         title: <Flex align="center" gap={5}>
           Drawing deleted 🗑️
         </Flex>,
         message: '"' + drawing.name + '" is now deleted',
       });
+      replace(`${pathname}?${searchParams.toString()}`, { scroll: false });
     } else {
       alert("Error deleting drawing. Please try again.");
     }
@@ -81,7 +84,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
           <Group justify='space-between'>
 
             {drawing.isPublic === 1 ? <MdPublic size={20} color='green' /> : <FaEyeSlash size={20} color='red' />}
-            <Text size={isPhone ? "md" : 'xl'} maw={150} fw={700} truncate="end">{drawing.name}</Text>
+            <Text size={isSmallScreen ? "md" : 'xl'} maw={150} fw={700} truncate="end">{drawing.name}</Text>
 
             <Menu withinPortal position="bottom-end" shadow="sm">
               <Menu.Target>
@@ -140,19 +143,17 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
 
           </Group>
         </Card.Section>
-        <Card.Section withBorder inheritPadding p={0} style={{ cursor: "pointer" }}>
+        <Card.Section withBorder inheritPadding p={0}
+          style={{ display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
           <a href={`/excalidraw/${drawing.slug}`} >
             <div className={classes.drawing}
-              style={{
-                width: isPhone ? "250px" : "350px",
-                height: "200px"
-              }}>
+              style={{ width: "350px", height: "200px" }}>
               <Excalidraw theme={computedColorScheme}
                 UIOptions={{ tools: { image: false } }}
                 initialData={{
                   elements: JSON.parse(drawing.payload).elements as any,
                   scrollToContent: true,
-                  appState: { zoom: { value: 0.25 as any } }
+                  appState: { zoom: { value: 0.5 as any } }
                 }} viewModeEnabled />
             </div>
           </a>

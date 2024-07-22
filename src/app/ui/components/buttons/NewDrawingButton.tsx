@@ -1,9 +1,7 @@
 "use client";
 
-import { Button, Card, Center, Flex, Group, Modal, Switch, Text, Textarea, TextInput, Tooltip } from '@mantine/core';
-
-import classes from './DrawingCard.module.css';
-import { FaCirclePlus } from 'react-icons/fa6';
+import { ActionIcon, Button, Card, Center, Flex, Group, Modal, Switch, Text, Textarea, TextInput, Tooltip } from '@mantine/core';
+import { FaCirclePlus, FaPlus } from 'react-icons/fa6';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { FaEyeSlash } from 'react-icons/fa';
 import { useState } from 'react';
@@ -11,9 +9,9 @@ import { MdPublic } from 'react-icons/md';
 import { IoMdSend } from 'react-icons/io';
 import { redirect, RedirectType } from 'next/navigation';
 
-const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, createDrawingAction: (formData: FormData) => Promise<string> }) => {
+const NewDrawingButton = ({ clerkId, createDrawingAction }: { clerkId: string, createDrawingAction: (formData: FormData) => Promise<string> }) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const isPhone = useMediaQuery('(max-width: 350px)');
+  const isPhone = useMediaQuery('(max-width: 650px)');
   const [loading, setLoading] = useState(false);
 
   const [publicDrawing, setPublicDrawing] = useState(false);
@@ -32,25 +30,15 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
 
   return (
     <>
-      {/* Main card */}
-      <Card withBorder className={classes.drawingCard} onClick={open} style={{ cursor: "pointer" }}>
-        <Card.Section withBorder inheritPadding py="xs">
-          <Group justify='center'>
-            <Text size='xl' fw={700} c="main">New Drawing</Text>
-          </Group>
-        </Card.Section>
-        <Card.Section withBorder inheritPadding p={0}>
-          <div className={classes.drawing}
-            style={{
-              width: isPhone ? "250px" : "350px",
-              height: "200px"
-            }}>
-            <Center h="100%" c="main">
-              <FaCirclePlus size={85} />
-            </Center>
-          </div>
-        </Card.Section>
-      </Card>
+      {isPhone ?
+        <Tooltip withArrow label="New Drawing">
+          <ActionIcon onClick={open} size="xl">
+            <FaCirclePlus size={24} />
+          </ActionIcon>
+        </Tooltip>
+        :
+        <Button size='md' onClick={open} rightSection={<FaPlus />}>New Drawing</Button>
+      }
 
       {/* Modal */}
       <Modal centered opened={opened} onClose={close} title={<Text fw={900}>Create New Drawing</Text>}>
@@ -78,4 +66,4 @@ const NewDrawingCard = ({ clerkId, createDrawingAction }: { clerkId: string, cre
   );
 };
 
-export default NewDrawingCard;
+export default NewDrawingButton;

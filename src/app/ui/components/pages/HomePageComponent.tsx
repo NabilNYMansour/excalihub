@@ -1,11 +1,12 @@
 import CenterContainer from "../other/CenterContainer";
 import DrawingCard from "../cards/DrawingCard";
-import NewDrawingCard from "../cards/NewDrawingCard";
-import { Flex, Group } from "@mantine/core";
-import { getAllUserDrawingsPaginated, getDrawingsCount, getUserIdByClerkId } from "@/db/queries";
+import { Box, Card, Flex, Group, Text } from "@mantine/core";
+import { getAllUserDrawingsPaginatedWithSearchTerm, getDrawingsCountWithSearchTerm, getUserIdByClerkId } from "@/db/queries";
 import { createDrawingAction, deleteDrawingAction, togglePublicDrawingAction } from "@/lib/actions";
 import PaginationControls from "../other/PaginationControls";
 import UserBeingProcessed from "../other/UserBeingProcessed";
+import SearchDrawings from "../excaliCore/components/SearchDrawings";
+import NewDrawingButton from "../buttons/NewDrawingButton";
 
 async function HomePageComponent({ searchParams, name, clerkId }: { searchParams: SearchParams, name: string | null, clerkId: string | null }) {
   if (!name || !clerkId) throw new Error("User not found");
@@ -13,25 +14,43 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
   const userIdQuery = await getUserIdByClerkId(clerkId);
   if (userIdQuery.length > 0) {
     const page = searchParams["page"] ?? "1";
+    const searchTerm = searchParams["search"] ?? "";
     const userId = userIdQuery[0].id;
-    const drawings = await getAllUserDrawingsPaginated(userId, Number(page), 5);
-    const numberOfDrawings = await getDrawingsCount(userId);
-    const numberOfPages = Math.ceil(numberOfDrawings[0].count / 5);
+    const limit = 6
+    const drawings = await getAllUserDrawingsPaginatedWithSearchTerm(userId, String(searchTerm), Number(page), limit);
+
+    const numberOfDrawings = await getDrawingsCountWithSearchTerm(userId, String(searchTerm));
+    const numberOfPages = Math.ceil(numberOfDrawings[0].count / limit);
 
     return (
       <CenterContainer size="xl">
-        <Flex direction="column" align="center" justify="space-between" h="100%" gap={10}>
-          <Flex p={25}>
-            Hi {name}! 👋
-          </Flex>
-          <Group justify="center" gap={10}>
-            {drawings.map((drawing, i) => <DrawingCard key={i} drawing={drawing}
-              deleteAction={deleteDrawingAction}
-              toggleAction={togglePublicDrawingAction}
-              clerkId={clerkId} />)}
-            <NewDrawingCard clerkId={clerkId} createDrawingAction={createDrawingAction} />
-          </Group>
-          <PaginationControls currentPage={Number(page)} numberOfPages={numberOfPages} />
+        <Flex direction="column" align="center" h="100%" w="100%" >
+          <Text p={25}>Hi {name}! 👋</Text>
+
+          <Card shadow="xs" padding="md" radius="md" w="100%" maw={1108}>
+            <Flex direction="column" gap={10} w="100%">
+
+              {/*=============Search and new drawing=============*/}
+              <Flex w="100%" gap={10} align="center">
+                <Box flex={4}><SearchDrawings /></Box>
+                <NewDrawingButton clerkId={clerkId} createDrawingAction={createDrawingAction} />
+              </Flex>
+
+              {/*=============The drawings=============*/}
+              <Group justify="center" gap={10}>
+                {drawings.map((drawing, i) => <DrawingCard drawing={drawing}
+                  key={drawing.name + drawing.isPublic + drawing.slug + i}
+                  deleteAction={deleteDrawingAction}
+                  toggleAction={togglePublicDrawingAction}
+                  clerkId={clerkId} />)}
+              </Group>
+
+              {/*=============Pagination=============*/}
+              <PaginationControls currentPage={Number(page)} numberOfPages={numberOfPages} />
+
+            </Flex>
+          </Card>
+
         </Flex>
       </CenterContainer>
     );
