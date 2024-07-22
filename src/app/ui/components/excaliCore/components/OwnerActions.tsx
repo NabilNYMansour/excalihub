@@ -68,7 +68,6 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
       <Tooltip label={hasChanged ? "Save changes" : "No changes"} position="left" withArrow>
         <form action={handleChangesSaved} onSubmit={() => setLoadingSave(true)}>
           <ActionIcon size="lg" radius="md" color='green'
-            onKeyDownCapture={(e) => { console.log('keydown', e) }}
             disabled={!hasChanged}
             type='submit'
             loading={loadingSave}>

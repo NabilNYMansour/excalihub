@@ -1,6 +1,6 @@
 "use server";
 
-import { eq, count } from 'drizzle-orm';
+import { eq, count, and, like } from 'drizzle-orm';
 import { drawingsTable, eventsTable, InsertDrawing, InsertEvent, InsertUser, SelectUser, usersTable } from './schema';
 import { db } from '.';
 
@@ -32,7 +32,7 @@ export async function createDrawing(data: InsertDrawing) {
   await db.insert(drawingsTable).values(data);
 }
 
-export async function getAllUserDrawingsPaginated(userId: number, page: number, limit: number) {
+export async function getAllUserDrawingsPaginatedWithSearchTerm(userId: number, searchTerm: string, page: number, limit: number) {
   const actualPage = Math.max(page - 1, 0);
   return await db.select(
     {
@@ -41,11 +41,14 @@ export async function getAllUserDrawingsPaginated(userId: number, page: number, 
       slug: drawingsTable.slug,
       isPublic: drawingsTable.isPublic,
     }
-  ).from(drawingsTable).where(eq(drawingsTable.userId, userId)).limit(limit).offset(actualPage * limit);
+  ).from(drawingsTable)
+    .where(and(eq(drawingsTable.userId, userId), like(drawingsTable.name, `%${searchTerm}%`)))
+    .limit(limit).offset(actualPage * limit);
 }
 
-export async function getDrawingsCount(userId: number) {
-  return await db.select({ count: count() }).from(drawingsTable).where(eq(drawingsTable.userId, userId));
+export async function getDrawingsCountWithSearchTerm(userId: number, searchTerm: string) {
+  return await db.select({ count: count() }).from(drawingsTable)
+    .where(and(eq(drawingsTable.userId, userId), like(drawingsTable.name, `%${searchTerm}%`)));
 }
 
 export async function togglePublicDrawing(slug: string) {
