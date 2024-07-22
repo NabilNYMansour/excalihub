@@ -6,12 +6,12 @@ const MAIN_URL = process.env.MAIN_URL;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicDrawingsSlugs = await fetchAllPublicDrawings();
 
-  const drawingsUrls: MetadataRoute.Sitemap = publicDrawingsSlugs.map((object) => ({
-    url: `${MAIN_URL}/excalidraw/${object.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.7,
-  }));
+  // const drawingsUrls: MetadataRoute.Sitemap = publicDrawingsSlugs.map((object) => ({
+  //   url: `${MAIN_URL}/excalidraw/${object.slug}`,
+  //   lastModified: new Date(),
+  //   changeFrequency: 'weekly',
+  //   priority: 0.7,
+  // }));
 
   return [
     {
@@ -50,6 +50,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly',
       priority: 0.8,
     },
-    ...drawingsUrls,
+    // ...drawingsUrls,
   ];
 }
