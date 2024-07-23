@@ -24,12 +24,12 @@ async function createDrawing(data) {
   await db.insert(drawingsTable).values(data);
 }
 
-// Will assume that you have made a user with userId=1
+const userId = 1; // script will run for this userId
 const seedDrawings = () => {
   for (let i = 1; i <= 100; i++) {
     createDrawing({
-      userId: 1,
-      name: "Drawing" + i,
+      userId: userId,
+      name: "Drawing " + i,
       description: "Description for Drawing" + i,
       isPublic: i % 2 === 0 ? 1 : 0,
       createAt: new Date().toISOString(),

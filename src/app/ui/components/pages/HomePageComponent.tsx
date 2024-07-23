@@ -38,11 +38,15 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
 
               {/*=============The drawings=============*/}
               <Group justify="center" gap={10}>
-                {drawings.map((drawing, i) => <DrawingCard drawing={drawing}
+                {drawings.length > 0 ? drawings.map((drawing, i) => <DrawingCard drawing={drawing}
                   key={drawing.name + drawing.isPublic + drawing.slug + i}
                   deleteAction={deleteDrawingAction}
                   toggleAction={togglePublicDrawingAction}
-                  clerkId={clerkId} />)}
+                  clerkId={clerkId} />) :
+                  <Text size='xl' fw={900}>
+                    Time to make some drawings... ᕕ(ᐛ)ᕗ
+                  </Text>
+                }
               </Group>
 
               {/*=============Pagination=============*/}

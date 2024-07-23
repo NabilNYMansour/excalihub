@@ -10,7 +10,7 @@ import OwnerActions from './components/OwnerActions';
 import AnonActions from './components/AnonActions';
 import OwnerModal from './components/OwnerModal';
 import AnonModal from './components/AnonModal';
-import { redirect, RedirectType } from 'next/navigation';
+import { redirect, RedirectType, usePathname } from 'next/navigation';
 import { IoMdShare } from 'react-icons/io';
 import { notifications } from '@mantine/notifications';
 import { ThemeToggle } from '../buttons/ThemeToggle';
@@ -48,6 +48,8 @@ const ExcalidrawMain = (
   const [isPublic, setIsPublic] = useState(initPrivacy);
 
   const [loadingFork, setLoadingFork] = useState(false);
+
+  const pathname = usePathname();
 
   useEffect(() => {
     if (pointerHit) {
@@ -135,7 +137,7 @@ const ExcalidrawMain = (
           clerkId={clerkId} slug={slug} initDescription={description} initPrivacy={isPublic}
           updateDrawingInfoAction={updateDrawingInfoAction}
           handleInfoStatesChange={handleInfoStatesChange} /> :
-        <AnonModal ownerUsername={ownerUsername!} opened={opened} // we can be certain ownerUsername is defined
+        <AnonModal isDemo={/\/excalidraw/.test(pathname)} ownerUsername={ownerUsername!} opened={opened} // we can be certain ownerUsername is defined
           close={close} title={title} description={description} />}
     </>
   );

@@ -51,6 +51,26 @@ export async function getDrawingsCountWithSearchTerm(userId: number, searchTerm:
     .where(and(eq(drawingsTable.userId, userId), like(drawingsTable.name, `%${searchTerm}%`)));
 }
 
+export async function getAllUserDrawingsPaginatedWithSearchTermPublicOnly(userId: number, searchTerm: string, page: number, limit: number) {
+  const actualPage = Math.max(page - 1, 0);
+  return await db.select(
+    {
+      name: drawingsTable.name,
+      payload: drawingsTable.payload,
+      slug: drawingsTable.slug,
+      isPublic: drawingsTable.isPublic,
+    }
+  ).from(drawingsTable)
+    .where(and(eq(drawingsTable.userId, userId), like(drawingsTable.name, `%${searchTerm}%`), eq(drawingsTable.isPublic, 1)))
+    .limit(limit).offset(actualPage * limit);
+}
+
+export async function getDrawingsCountWithSearchTermPublicOnly(userId: number, searchTerm: string) {
+  return await db.select({ count: count() }).from(drawingsTable)
+    .where(and(eq(drawingsTable.userId, userId), like(drawingsTable.name, `%${searchTerm}%`), eq(drawingsTable.isPublic, 1)));
+}
+
+
 export async function togglePublicDrawing(slug: string) {
   const drawing = await db.select().from(drawingsTable).where(eq(drawingsTable.slug, slug));
   await await db.update(drawingsTable).set({ isPublic: drawing[0].isPublic === 1 ? 0 : 1 }).where(eq(drawingsTable.slug, slug));
