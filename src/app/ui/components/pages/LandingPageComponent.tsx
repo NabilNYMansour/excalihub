@@ -53,7 +53,10 @@ const LandingPageComponent = () => {
   return (
     <CenterContainer size="md">
       <LandingExcalidraw isPhone={isPhone} />
-      <CoolButton href='/excalidraw' text='Demo' style={{backgroundColor:"var(--mantine-primary-color-filled)"}}/>
+      <CoolButton href='/excalidraw' text='Try the Demo' style={{
+        backgroundImage: "linear-gradient(180deg, #ffd034, #b6871d)",
+        fontSize: "1.5rem", fontWeight: "900",
+      }} />
       <Container size="sm">
         <Timeline active={100} lineWidth={3} bulletSize={40}>
           <Timeline.Item bullet={<FaQuestionCircle size={28} />} title={<h2>What is Excalihub?</h2>}>
