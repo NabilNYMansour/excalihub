@@ -55,6 +55,7 @@ export async function generateMetadata(
       description: description,
       images: imageLink,
     },
+    creator: ownerUsername,
   }
 }
 

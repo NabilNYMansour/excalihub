@@ -1,12 +1,56 @@
 import DrawingPublicCard from '@/app/ui/components/cards/DrawingPublicCard';
 import SearchDrawings from '@/app/ui/components/excaliCore/components/SearchDrawings';
 import CenterContainer from '@/app/ui/components/other/CenterContainer';
+import { MAIN_URL } from '@/app/ui/components/other/Constants';
 import PaginationControls from '@/app/ui/components/other/PaginationControls';
 import { getAllUserDrawingsPaginatedWithSearchTermPublicOnly, getDrawingsCountWithSearchTermPublicOnly, getUserIdByClerkId } from '@/db/queries';
 import { clerkClient } from '@clerk/nextjs/server';
 import { Box, Card, Flex, Group, Text } from '@mantine/core';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import React from 'react';
+
+export async function generateMetadata(
+  { params }: { params: { username: string } }
+): Promise<Metadata> {
+  let clerkId = "";
+  const clerkUserQuery = await clerkClient().users.getUserList({ username: [params.username] });
+  if (clerkUserQuery.totalCount === 0) {
+    notFound();
+  } else {
+    clerkId = clerkUserQuery.data[0].id;
+  }
+
+  const title = params.username+"'s Drawings";
+  const description = "View all of "+params.username+"'s public drawings.";
+  const imageLink = `${MAIN_URL}/ExcalihubLogoTitle.png`;
+
+  return {
+    title: title,
+    description: description,
+    alternates: {
+      canonical: `${process.env.MAIN_URL}/profile/${params.username}`
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${process.env.MAIN_URL}/profile/${params.username}`,
+      type: "article",
+      images: [
+        {
+          url: imageLink,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: imageLink,
+    },
+  }
+}
 
 const Page = async ({ params, searchParams }: { params: { username: string }, searchParams: SearchParams }) => {
   let clerkId = "";
