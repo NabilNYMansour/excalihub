@@ -1,7 +1,7 @@
 import CenterContainer from "../other/CenterContainer";
 import DrawingCard from "../cards/DrawingCard";
 import { Box, Card, Flex, Group, Text } from "@mantine/core";
-import { getAllUserDrawingsPaginatedWithSearchTerm, getDrawingsCountWithSearchTerm, getUserIdByClerkId } from "@/db/queries";
+import { getUserDrawings, getUserDrawingsCount, getUserIdByClerkId } from "@/db/queries";
 import { createDrawingAction, deleteDrawingAction, togglePublicDrawingAction } from "@/lib/actions";
 import PaginationControls from "../other/PaginationControls";
 import UserBeingProcessed from "../other/UserBeingProcessed";
@@ -17,9 +17,9 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
     const searchTerm = searchParams["search"] ?? "";
     const userId = userIdQuery[0].id;
     const limit = 6
-    const drawings = await getAllUserDrawingsPaginatedWithSearchTerm(userId, String(searchTerm), Number(page), limit);
+    const drawings = await getUserDrawings(userId, String(searchTerm), Number(page), limit);
 
-    const numberOfDrawings = await getDrawingsCountWithSearchTerm(userId, String(searchTerm));
+    const numberOfDrawings = await getUserDrawingsCount(userId, String(searchTerm));
     const numberOfPages = Math.ceil(numberOfDrawings[0].count / limit);
 
     return (

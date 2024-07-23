@@ -3,7 +3,7 @@ import SearchDrawings from '@/app/ui/components/excaliCore/components/SearchDraw
 import CenterContainer from '@/app/ui/components/other/CenterContainer';
 import { MAIN_URL } from '@/app/ui/components/other/Constants';
 import PaginationControls from '@/app/ui/components/other/PaginationControls';
-import { getAllUserDrawingsPaginatedWithSearchTermPublicOnly, getDrawingsCountWithSearchTermPublicOnly, getUserIdByClerkId } from '@/db/queries';
+import { getUserPublicDrawings, getUserPublicDrawingsCount, getUserIdByClerkId } from '@/db/queries';
 import { clerkClient } from '@clerk/nextjs/server';
 import { Box, Card, Flex, Group, Text } from '@mantine/core';
 import { Metadata } from 'next';
@@ -69,9 +69,9 @@ const Page = async ({ params, searchParams }: { params: { username: string }, se
     const searchTerm = searchParams["search"] ?? "";
     const userId = userIdQuery[0].id;
     const limit = 6
-    const drawings = await getAllUserDrawingsPaginatedWithSearchTermPublicOnly(userId, String(searchTerm), Number(page), limit);
+    const drawings = await getUserPublicDrawings(userId, String(searchTerm), Number(page), limit);
 
-    const numberOfDrawings = await getDrawingsCountWithSearchTermPublicOnly(userId, String(searchTerm));
+    const numberOfDrawings = await getUserPublicDrawingsCount(userId, String(searchTerm));
     const numberOfPages = Math.ceil(numberOfDrawings[0].count / limit);
 
     return (

@@ -32,7 +32,7 @@ export async function createDrawing(data: InsertDrawing) {
   await db.insert(drawingsTable).values(data);
 }
 
-export async function getAllUserDrawingsPaginatedWithSearchTerm(userId: number, searchTerm: string, page: number, limit: number) {
+export async function getUserDrawings(userId: number, searchTerm: string, page: number, limit: number) {
   const actualPage = Math.max(page - 1, 0);
   return await db.select(
     {
@@ -46,12 +46,12 @@ export async function getAllUserDrawingsPaginatedWithSearchTerm(userId: number, 
     .limit(limit).offset(actualPage * limit);
 }
 
-export async function getDrawingsCountWithSearchTerm(userId: number, searchTerm: string) {
+export async function getUserDrawingsCount(userId: number, searchTerm: string) {
   return await db.select({ count: count() }).from(drawingsTable)
     .where(and(eq(drawingsTable.userId, userId), like(drawingsTable.name, `%${searchTerm}%`)));
 }
 
-export async function getAllUserDrawingsPaginatedWithSearchTermPublicOnly(userId: number, searchTerm: string, page: number, limit: number) {
+export async function getUserPublicDrawings(userId: number, searchTerm: string, page: number, limit: number) {
   const actualPage = Math.max(page - 1, 0);
   return await db.select(
     {
@@ -65,7 +65,7 @@ export async function getAllUserDrawingsPaginatedWithSearchTermPublicOnly(userId
     .limit(limit).offset(actualPage * limit);
 }
 
-export async function getDrawingsCountWithSearchTermPublicOnly(userId: number, searchTerm: string) {
+export async function getUserPublicDrawingsCount(userId: number, searchTerm: string) {
   return await db.select({ count: count() }).from(drawingsTable)
     .where(and(eq(drawingsTable.userId, userId), like(drawingsTable.name, `%${searchTerm}%`), eq(drawingsTable.isPublic, 1)));
 }
