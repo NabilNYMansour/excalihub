@@ -15,12 +15,13 @@ import { IoMdShare } from 'react-icons/io';
 import { notifications } from '@mantine/notifications';
 import { ThemeToggle } from '../buttons/ThemeToggle';
 import { IoHome } from 'react-icons/io5';
+import ExcalidrawMainSkeleton from './ExcalidrawMainSkeleton';
 
 const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,
   {
     ssr: false,
-    loading: () => <Skeleton height="100%" width="100%" />
+    loading: () => <ExcalidrawMainSkeleton />
   },
 );
 
@@ -115,17 +116,17 @@ const ExcalidrawMain = (
                 <IoMdShare />
               </ActionIcon>
             </Tooltip>
-            <ThemeToggle size='lg' toolTipPos='left' variant='default' radius='md'/>
+            <ThemeToggle size='lg' toolTipPos='left' variant='default' radius='md' />
           </div>
         </div>
 
         <Excalidraw theme={computedColorScheme}
           UIOptions={{ tools: { image: false } }}
+          onChange={onExcaliChange} onPointerDown={() => setPointerHit(true)}
           initialData={{
             elements: JSON.parse(payload).elements,
-            scrollToContent: true,
-          }}
-          onChange={onExcaliChange} onPointerDown={() => setPointerHit(true)} />
+            scrollToContent: true
+          }} />
       </Box>
 
       {/* Modal */}
