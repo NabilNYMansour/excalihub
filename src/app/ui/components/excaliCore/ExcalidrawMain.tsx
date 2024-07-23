@@ -137,7 +137,7 @@ const ExcalidrawMain = (
           clerkId={clerkId} slug={slug} initDescription={description} initPrivacy={isPublic}
           updateDrawingInfoAction={updateDrawingInfoAction}
           handleInfoStatesChange={handleInfoStatesChange} /> :
-        <AnonModal isDemo={/\/excalidraw/.test(pathname)} ownerUsername={ownerUsername!} opened={opened} // we can be certain ownerUsername is defined
+        <AnonModal isDemo={pathname === "/excalidraw"} ownerUsername={ownerUsername!} opened={opened} // we can be certain ownerUsername is defined
           close={close} title={title} description={description} />}
     </>
   );
