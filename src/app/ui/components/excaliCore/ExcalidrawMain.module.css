@@ -6,7 +6,7 @@
 
 .actionsWrapper {
   position: absolute;
-  bottom: 7.5%;
+  top: 76px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,9 +25,9 @@
   overflow: hidden;
 }
 
-@media (pointer: none), (pointer: coarse), (max-width: 350px) {
+@media (max-width: 729px) {
   .actionsWrapper {
-    bottom: 7rem;
+    top: 72px;
   }
   .actions {
     margin-left: 0;
