@@ -9,12 +9,12 @@ export default async function Page() {
   return <ExcalidrawMain
     slug={""}
     initTitle={"Welcome to ExcaliHub"}
-    initDescription={"ExcaliHub is a platform for sharing and collaborating on Excalidraw drawings."}
+    initDescription={"ExcaliHub is a free platform for sharing and collaborating on Excalidraw drawings."}
     payload={JSON.stringify(WELCOME_EXCALI_DATA)}
     clerkId={clerkId}
     initPrivacy={true}
     isOwner={false}
-    ownerUsername={"excalihub"}
+    ownerUsername={""}
     saveDrawingAction={saveDrawingAction}
     updateDrawingInfoAction={updateDrawingInfoAction}
     forkDrawingAction={forkWelcomeDrawingAction} />
