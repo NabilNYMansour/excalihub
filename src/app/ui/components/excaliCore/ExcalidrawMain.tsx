@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import { ActionIcon, Box, Skeleton, Tooltip, useComputedColorScheme } from '@mantine/core';
+import { ActionIcon, Box, Tooltip, useComputedColorScheme } from '@mantine/core';
 import { ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types';
 import { useEffect, useState } from 'react';
 import { useDebouncedState, useDisclosure } from '@mantine/hooks';

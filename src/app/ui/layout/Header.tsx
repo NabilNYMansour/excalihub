@@ -13,6 +13,7 @@ import { SiExcalidraw } from 'react-icons/si';
 import { DEVELOPER_URL, GITHUB_URL } from '../components/other/Constants';
 import Image from 'next/image';
 import { AiFillGithub } from 'react-icons/ai';
+import Link from 'next/link';
 
 const DeveloperAction =
   () => (
@@ -120,14 +121,14 @@ export function Header() {
               </div>
             </Group>
 
-            <a href="/landing" className={classes.appTitle}>
+            <Link href="/" className={classes.appTitle}>
               <Group ml="auto" mr="auto" c="main">
                 <SiExcalidraw size={40} aria-label="Excalidraw"/>
                 <Group visibleFrom="sm">
                   <h1>ExcaliHub</h1>
                 </Group>
               </Group>
-            </a>
+            </Link>
 
             {/* PC */}
             <Group justify='right' align='center' gap={10} w="33%" visibleFrom='xs'>

@@ -1,6 +1,6 @@
 {
   "name": "excalihub",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,6 +9,7 @@
     "lint": "next lint",
     "ngrok": "ngrok http http://localhost:3000",
     "seed": "node ./scripts/seed.js",
+    "drawing": "node ./scripts/drawings.js",
     "drizzle:generate": "drizzle-kit generate",
     "drizzle:migrate": "drizzle-kit migrate",
     "drizzle:studio": "drizzle-kit studio"
