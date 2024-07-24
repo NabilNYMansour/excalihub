@@ -6,6 +6,7 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { RxCross1 } from "react-icons/rx";
+import classes from './SearchDrawings.module.css';
 
 export default function SearchDrawings() {
   const searchParams = useSearchParams();
@@ -31,12 +32,16 @@ export default function SearchDrawings() {
 
   return (
     <TextInput
+      className={classes.search}
       size="lg"
       value={searchValue}
       placeholder='Search Drawings'
       leftSection={<FaMagnifyingGlass />}
       rightSection={
-        <ActionIcon variant='subtle' radius="xl" onClick={() => setSearchValue("")}>
+        <ActionIcon variant='subtle' radius="xl"
+          aria-label="Clear input"
+          onClick={() => setSearchValue("")}
+          style={{ display: searchValue ? undefined : 'none' }}>
           <RxCross1 />
         </ActionIcon>
       }

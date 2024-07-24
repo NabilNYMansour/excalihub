@@ -1,0 +1,8 @@
+.search {
+  transition: none;
+  &:focus-within {
+    outline: 2px solid var(--mantine-color-main-light);
+    /* border-color: transparent; */
+    border-radius: 5px;
+  }
+}
