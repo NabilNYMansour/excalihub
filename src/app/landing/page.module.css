@@ -1,0 +1,19 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.drawing footer [class*="App-toolbar"] {
+  border: 5px solid red;
+  display: none;
+}
+
+.drawing {
+  pointer-events: none;
+  animation: fadeIn 0.25s ease-in-out;
+}

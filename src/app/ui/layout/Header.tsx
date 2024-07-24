@@ -10,10 +10,10 @@ import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import SignInAction from '../components/buttons/SignInAction';
 import { dark } from '@clerk/themes';
 import { SiExcalidraw } from 'react-icons/si';
-import { DEVELOPER_URL, GITHUB_URL } from '../components/other/Constants';
 import Image from 'next/image';
 import { AiFillGithub } from 'react-icons/ai';
 import Link from 'next/link';
+import { DEVELOPER_URL, GITHUB_URL } from '@/lib/constants';
 
 const DeveloperAction =
   () => (

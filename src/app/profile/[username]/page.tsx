@@ -1,7 +1,6 @@
 import DrawingPublicCard from '@/app/ui/components/cards/DrawingPublicCard';
 import SearchDrawings from '@/app/ui/components/excaliCore/components/SearchDrawings';
 import CenterContainer from '@/app/ui/components/other/CenterContainer';
-import { MAIN_URL } from '@/app/ui/components/other/Constants';
 import PaginationControls from '@/app/ui/components/other/PaginationControls';
 import { getUserPublicDrawings, getUserPublicDrawingsCount, getUserIdByClerkId } from '@/db/queries';
 import { clerkClient } from '@clerk/nextjs/server';
@@ -9,6 +8,8 @@ import { Box, Card, Flex, Group, Text } from '@mantine/core';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import React from 'react';
+
+const MAIN_URL = process.env.MAIN_URL;
 
 export async function generateMetadata(
   { params }: { params: { username: string } }

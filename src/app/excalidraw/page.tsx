@@ -1,6 +1,6 @@
 import ExcalidrawMain from '@/app/ui/components/excaliCore/ExcalidrawMain';
 import { forkWelcomeDrawingAction, saveDrawingAction, updateDrawingInfoAction } from '@/lib/actions';
-import { WELCOME_EXCALI_DATA } from '../ui/components/other/Constants';
+import { WELCOME_EXCALI_DATA } from '@/lib/constants';
 import { currentUser } from '@clerk/nextjs/server';
 
 export default async function Page() {

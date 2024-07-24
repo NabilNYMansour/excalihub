@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import ExcalidrawMain from '@/app/ui/components/excaliCore/ExcalidrawMain';
 import { forkDrawingAction, saveDrawingAction, updateDrawingInfoAction } from '@/lib/actions';
 import { Metadata } from 'next';
-import { MAIN_URL } from '@/app/ui/components/other/Constants';
+
+const MAIN_URL = process.env.MAIN_URL;
 
 export async function generateMetadata(
   { params }: { params: { slug: string } }

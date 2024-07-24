@@ -10,7 +10,7 @@ import { theme } from "@/theme";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Notifications } from "@mantine/notifications";
 import { Metadata } from "next";
-import { APP_DESCRIPTION } from "./ui/components/other/Constants";
+import { APP_DESCRIPTION } from "@/lib/constants";
 
 const CaviarDreams = localFont({ src: '../../public/CaviarDreams.ttf' });
 
