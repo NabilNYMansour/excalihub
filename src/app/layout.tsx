@@ -10,11 +10,9 @@ import { theme } from "@/theme";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Notifications } from "@mantine/notifications";
 import { Metadata } from "next";
-import { APP_DESCRIPTION } from "@/lib/constants";
+import { APP_DESCRIPTION, MAIN_URL } from "@/lib/constants";
 
 const CaviarDreams = localFont({ src: '../../public/CaviarDreams.ttf' });
-
-const MAIN_URL = process.env.MAIN_URL;
 
 const description = APP_DESCRIPTION;
 const title = "Excalihub";

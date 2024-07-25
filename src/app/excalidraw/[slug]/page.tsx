@@ -4,8 +4,7 @@ import { notFound } from 'next/navigation';
 import ExcalidrawMain from '@/app/ui/components/excaliCore/ExcalidrawMain';
 import { forkDrawingAction, saveDrawingAction, updateDrawingInfoAction } from '@/lib/actions';
 import { Metadata } from 'next';
-
-const MAIN_URL = process.env.MAIN_URL;
+import { MAIN_URL } from '@/lib/constants';
 
 export async function generateMetadata(
   { params }: { params: { slug: string } }
@@ -36,12 +35,12 @@ export async function generateMetadata(
     title: title,
     description: description,
     alternates: {
-      canonical: `${process.env.MAIN_URL}/excalidraw/${params.slug}`
+      canonical: `${MAIN_URL}/excalidraw/${params.slug}`
     },
     openGraph: {
       title: title,
       description: description,
-      url: `${process.env.MAIN_URL}/excalidraw/${params.slug}`,
+      url: `${MAIN_URL}/excalidraw/${params.slug}`,
       type: "article",
       images: [
         {

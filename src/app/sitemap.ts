@@ -1,8 +1,7 @@
 import { fetchAllPublicDrawings } from '@/lib/data';
 import { MetadataRoute } from 'next'
 import { unstable_noStore as noStore } from 'next/cache';
-
-const MAIN_URL = process.env.MAIN_URL;
+import { MAIN_URL } from '@/lib/constants';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   noStore();

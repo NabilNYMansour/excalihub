@@ -3,13 +3,12 @@ import SearchDrawings from '@/app/ui/components/excaliCore/components/SearchDraw
 import CenterContainer from '@/app/ui/components/other/CenterContainer';
 import PaginationControls from '@/app/ui/components/other/PaginationControls';
 import { getUserPublicDrawings, getUserPublicDrawingsCount, getUserIdByClerkId } from '@/db/queries';
+import { MAIN_URL } from '@/lib/constants';
 import { clerkClient } from '@clerk/nextjs/server';
 import { Box, Card, Flex, Group, Text } from '@mantine/core';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import React from 'react';
-
-const MAIN_URL = process.env.MAIN_URL;
 
 export async function generateMetadata(
   { params }: { params: { username: string } }
@@ -30,12 +29,12 @@ export async function generateMetadata(
     title: title,
     description: description,
     alternates: {
-      canonical: `${process.env.MAIN_URL}/profile/${params.username}`
+      canonical: `${MAIN_URL}/profile/${params.username}`
     },
     openGraph: {
       title: title,
       description: description,
-      url: `${process.env.MAIN_URL}/profile/${params.username}`,
+      url: `${MAIN_URL}/profile/${params.username}`,
       type: "article",
       images: [
         {
