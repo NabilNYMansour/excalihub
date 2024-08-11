@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider, Flex, Text } from '@mantine/core';
+import { Flex, Text } from '@mantine/core';
 import classes from './Footer.module.css';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';

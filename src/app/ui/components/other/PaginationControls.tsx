@@ -9,19 +9,25 @@ const PaginationControls = ({ currentPage, numberOfPages }: { currentPage: numbe
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = (newPage: number, scroll: boolean) => {
     const params = new URLSearchParams(searchParams);
-    params.set('page', Math.min(Math.max(newPage, 1), numberOfPages).toString()); // minimum of 1 and maximum of numberOfPages
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
+    // minimum of 1 and maximum of numberOfPages
+    const page = Math.max(Math.min(newPage, numberOfPages), 1);
+    if (page === 1) {
+      params.delete('page');
+    } else {
+      params.set('page', page.toString());
+    }
+    replace(`${pathname}?${params.toString()}`, { scroll });
   }
 
   useEffect(() => {
-    handlePageChange(currentPage);
+    handlePageChange(currentPage, false);
   });
 
   return <Pagination.Root disabled={numberOfPages === 0} total={numberOfPages} value={currentPage}
     onChange={(newPage) => {
-      handlePageChange(newPage);
+      handlePageChange(newPage, true);
     }}>
     <Group justify="center" gap={5}>
       <Pagination.First />
