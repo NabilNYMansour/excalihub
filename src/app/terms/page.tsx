@@ -16,7 +16,7 @@ const Page = () => {
     <p>Excalihub is a public platform. As such, all the drawings and content you share as &quot;Public&quot; becomes visible to everybody. In particular,</p>
     <ul>
       <li>
-        Content shared as <b>&quot;Public&quot;</b> is visible to anyone and will contain the title, description and username of its creator. It is also indexed by search engines.
+        Content shared as <b>&quot;Public&quot;</b> is visible to anyone and will contain the title, description and username of its creator.
       </li>
       <li>
         Content kept as <b>&quot;Private&quot;</b> is not shared with anybody, as described below in the Privacy Policy.

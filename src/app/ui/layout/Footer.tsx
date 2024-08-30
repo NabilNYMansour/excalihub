@@ -15,30 +15,30 @@ export function Footer() {
     <Flex direction="column" justify="center" align="center" pt="xl" pb="md">
       <Divider my="md" w="80%" />
 
-      <Flex wrap="wrap" justify="center" w="80%">
+      <Flex wrap="wrap" justify="center" w="80%" mb={10}>
         <Link href='/landing' style={{ textDecoration: "none" }}>
-          <Text fz="xs" lh="md" mx="xs">
+          <Text fz="md" lh="md" mx="xs">
             Landing
           </Text>
         </Link>
 
         <Link href='/excalidraw' style={{ textDecoration: "none" }}>
-          <Text fz="xs" lh="md" mx="xs">
-          Demo
+          <Text fz="md" lh="md" mx="xs">
+            Demo
           </Text>
         </Link>
 
 
         <Link href='/terms' style={{ textDecoration: "none" }}>
-          <Text fz="xs" lh="md" mx="xs">
+          <Text fz="md" lh="md" mx="xs">
             Terms
           </Text>
         </Link>
+      </Flex>
 
-        <Divider orientation="vertical" mx="sm" />
-
+      <Flex wrap="wrap" justify="center" w="80%">
         <Text fz="xs" lh="md">
-          © Copyright {new Date().getFullYear()} ExcaliHub.
+          © Copyright {new Date().getFullYear()} ExcaliHub
         </Text>
 
         <Divider orientation="vertical" mx="sm" />

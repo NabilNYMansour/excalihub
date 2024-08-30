@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  Badge,
-  Group,
   Title,
   Text,
   Card,
@@ -12,29 +10,27 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import classes from "./FeaturesCards.module.css";
-import { FaCookie } from "react-icons/fa";
-import { FaGaugeHigh, FaUser } from "react-icons/fa6";
-import { SiMaterialdesignicons } from "react-icons/si";
-import { GrSecure } from "react-icons/gr";
+import { FaCouch, FaMousePointer } from "react-icons/fa";
+import { GiButterfly } from "react-icons/gi";
 
 const mockdata = [
   {
-    title: "Modern design",
+    title: "To the point",
     description:
-    "OffloadRx is designed with the latest technologies to ensure that you have a seamless experience.",
-    icon: SiMaterialdesignicons,
+    "You log in, you see your whiteboards, you can create new ones, and you can share them with others. Nothing more, nothing less.",
+    icon: FaMousePointer,
   },
   {
-    title: "User friendly",
+    title: "Completely Free",
     description:
-    "We have made the marketplace as user friendly as possible to ensure that you have a great experience.",
-    icon: FaUser,
+    "The aim of ExcaliHub is to provide a free service to all users. No hidden fees, no premium plans.",
+    icon: GiButterfly,
   },
   {
-    title: "Secure",
+    title: "No ads, no tracking",
     description:
-    "We use the latest security protocols to ensure that your information is safe and secure.",
-    icon: GrSecure,
+    "We don't track you, we don't show you ads. We don't even have a newsletter. We just want to provide a service.",
+    icon: FaCouch,
   },
 ];
 
@@ -46,10 +42,10 @@ export function FeaturesCards() {
         style={{ width: rem(30), height: rem(30) }}
         color={theme.colors.main[6]}
       />
-      <Text fz="lg" fw={500} className={classes.cardTitle} mt="md">
+      <Text fz="lg" fw={700} className={classes.cardTitle} mt="md">
         {feature.title}
       </Text>
-      <Text fz="sm" c="dimmed" mt="sm">
+      <Text fz="sm" mt="sm">
         {feature.description}
       </Text>
     </Card>
@@ -59,12 +55,11 @@ export function FeaturesCards() {
     <Container size="lg" py={60}>
 
       <Title order={2} className={classes.title} ta="center" mt="sm">
-        Never let valuable resources go to waste again
+        Have all your whiteboards in one place
       </Title>
 
-      <Text c="dimmed" className={classes.description} ta="center" mt="md">
-        Why allow your resources to go to waste when you can make the most of them? OffloadRx provides a marketplace for pharmacies to connect and share resources.
-        Reducing waste and helping patients get the medications they need.
+      <Text className={classes.description} ta="center" mt="md">
+        If you are a fan of Excalidraw, and just want a place to store all your whiteboards, then ExcaliHub is made for you.
       </Text>
 
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>

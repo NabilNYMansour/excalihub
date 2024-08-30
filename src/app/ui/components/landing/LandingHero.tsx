@@ -30,8 +30,12 @@ const LandingHero = () => {
           component={Link}
           href='/sign-up'
           style={{ transition: "all 0.2s" }}
-          radius="md" w="100%" size='lg'>
-          Get started right now! 🤩
+          radius="md" w="100%" size='md'>
+          Get started right now! It's &nbsp;
+          <Text fw={900} size="25px" c="lime" style={{textShadow: "0 0 10px lime"}}>
+            Free
+          </Text>
+          &nbsp;&nbsp;🤩
         </Button>
       </Flex>
 

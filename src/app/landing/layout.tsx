@@ -2,7 +2,6 @@ import { MAIN_URL } from "@/lib/constants";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Landing",
   alternates: {
     canonical: `${MAIN_URL}/landing`,
   }
