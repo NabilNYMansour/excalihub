@@ -1,7 +1,6 @@
 "use client";
 
-import { Flex, Text } from '@mantine/core';
-import classes from './Footer.module.css';
+import { Anchor, Divider, Flex, Text } from '@mantine/core';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -13,34 +12,45 @@ export function Footer() {
   }
 
   return (
-    <div className={classes.footer}>
-      <Flex direction="column" justify="center" align="center">
-        <Flex gap={10}>
-          <Link href='/' style={{ color: "inherit" }}>
-            <Text fz="lg" lh="md">
-              Home
-            </Text>
-          </Link>
-          <Link href='/landing' style={{ color: "inherit" }}>
-            <Text fz="lg" lh="md">
-              Landing
-            </Text>
-          </Link>
-          <Link href='/excalidraw' style={{ color: "inherit" }}>
-            <Text fz="lg" lh="md">
-              Demo
-            </Text>
-          </Link>
-          <Link href='/terms' style={{ color: "inherit" }}>
-            <Text fz="lg" lh="md">
-              Terms
-            </Text>
-          </Link>
-        </Flex>
+    <Flex direction="column" justify="center" align="center" pt="xl" pb="md">
+      <Divider my="md" w="80%" />
+
+      <Flex wrap="wrap" justify="center" w="80%">
+        <Link href='/landing' style={{ textDecoration: "none" }}>
+          <Text fz="xs" lh="md" mx="xs">
+            Landing
+          </Text>
+        </Link>
+
+        <Link href='/excalidraw' style={{ textDecoration: "none" }}>
+          <Text fz="xs" lh="md" mx="xs">
+          Demo
+          </Text>
+        </Link>
+
+
+        <Link href='/terms' style={{ textDecoration: "none" }}>
+          <Text fz="xs" lh="md" mx="xs">
+            Terms
+          </Text>
+        </Link>
+
+        <Divider orientation="vertical" mx="sm" />
+
         <Text fz="xs" lh="md">
-          © {new Date().getFullYear()} Nabil Mansour
+          © Copyright {new Date().getFullYear()} ExcaliHub.
         </Text>
+
+        <Divider orientation="vertical" mx="sm" />
+
+        <Text fz="xs" lh="md">Developed by &nbsp;</Text>
+
+        <Link href="https://nabilmansour.com/" target="_blank" style={{ textDecoration: "none" }}>
+          <Text fz="xs" lh="md">
+            Nabil Mansour
+          </Text>
+        </Link>
       </Flex>
-    </div>
+    </Flex>
   );
 }

@@ -30,7 +30,9 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
         <Flex direction="column" align="center" h="100%" w="100%" >
           <Text p={25}>Hi {name}! 👋</Text>
 
-          <Card className={classes.slideUp} shadow="xs" padding="md" radius="md" w="100%" maw={1108}>
+          <Card className={classes.slideUp}
+            shadow="xs" padding="md" radius="md" w="100%" maw={1108}
+            bg="light-dark(#fff, #313036)">
             <Flex direction="column" gap={10} w="100%">
 
               {/*=============Search and new drawing=============*/}

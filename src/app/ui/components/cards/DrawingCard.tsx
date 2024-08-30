@@ -89,8 +89,8 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
 
             <Menu withinPortal position="bottom-end" shadow="sm">
               <Menu.Target>
-                <ActionIcon variant="subtle" color="gray">
-                  <BsThreeDots size={24} />
+                <ActionIcon variant="subtle" color="gray" style={{ transition: "all 0.2s" }}>
+                  <BsThreeDots size={20} />
                 </ActionIcon>
               </Menu.Target>
 
@@ -99,7 +99,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
                 {/* Open in a new tab */}
                 <Menu.Item
                   component='a'
-                  href={`/excalidraw/${drawing.slug}`}
+                  href={`/excalidraw/${drawing.slug}`}  
                   target='_blank'
                   leftSection={<IoOpenOutline size={14} />}>
                   Open in a new tab
@@ -175,9 +175,11 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
         <Flex direction="column" gap={10}>
           <Text>Are you sure you want to delete this drawing?</Text>
           <Group justify='right' w="100%">
-            <Button onClick={close} variant="light" rightSection={<MdOutlineCancel />}>Cancel</Button>
+            <Button style={{ transition: "all 0.2s" }}
+              onClick={close} variant="light" rightSection={<MdOutlineCancel />}>Cancel</Button>
             <form action={handleDelete} onSubmit={() => { setLoading(true); close(); }}>
-              <Button type="submit" variant="filled" color='red' rightSection={<FaTrashAlt />}>Delete Drawing</Button>
+              <Button style={{ transition: "all 0.2s" }}
+                type="submit" variant="filled" color='red' rightSection={<FaTrashAlt />}>Delete Drawing</Button>
             </form>
           </Group>
         </Flex>

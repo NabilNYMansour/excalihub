@@ -8,12 +8,10 @@
   }
 }
 
-.drawing footer [class*="App-toolbar"] {
-  border: 5px solid red;
+.drawing div [class*="mobile-misc-tools-container"] {
   display: none;
 }
 
 .drawing {
-  pointer-events: none;
   animation: fadeIn 0.25s ease-in-out;
 }

@@ -15,35 +15,25 @@ import { AiFillGithub } from 'react-icons/ai';
 import Link from 'next/link';
 import { DEVELOPER_URL, GITHUB_URL } from '@/lib/constants';
 
-const DeveloperAction =
-  () => (
-    <Tooltip withArrow openDelay={750}
-      label={<Text fz="xs" lh="md">Developer</Text>}>
-      <ActionIcon
-        component="a"
-        href={DEVELOPER_URL}
-        target='_blank'
-        color='#5a586f'
-        variant='filled' size="xl">
-        <Image style={{ borderRadius: "500px" }} src="/tree.ico" alt="Nabil Mansour" width={30} height={30} />
-      </ActionIcon>
-    </Tooltip>
-  );
-
-const GitHubAction =
-  () => (
-    <Tooltip withArrow openDelay={750}
-      label={<Text fz="xs" lh="md">GitHub Repo</Text>}>
-      <ActionIcon
-        component="a"
-        href={GITHUB_URL}
-        aria-label="GitHub Repo"
-        target='_blank'
-        variant='default' size="xl">
-        <AiFillGithub size="2em" />
-      </ActionIcon>
-    </Tooltip>
-  );
+const ClerkItem = ({ computedColorScheme }: { computedColorScheme: "dark" | "light" }) => {
+  return (
+    <div style={{ scale: "1.25" }} >
+      <ClerkLoading>
+        <Skeleton height={28} circle />
+      </ClerkLoading>
+      <ClerkLoaded>
+        <SignedOut>
+          <SignInAction />
+        </SignedOut>
+        <SignedIn>
+          <UserButton aria-label="Authenticator" userProfileMode='navigation' userProfileUrl='/user-profile' appearance={{
+            baseTheme: computedColorScheme === "dark" ? dark : undefined,
+          }} />
+        </SignedIn>
+      </ClerkLoaded>
+    </div>
+  )
+}
 
 export function Header() {
   const [isHeaderVisible, setHeaderVisible] = useState(true);
@@ -104,41 +94,19 @@ export function Header() {
           <Container size="xl" className={classes.inner}>
 
             <Group w="33%">
-              <div style={{ scale: "1.25" }} >
-                <ClerkLoading>
-                  <Skeleton height={28} circle />
-                </ClerkLoading>
-                <ClerkLoaded>
-                  <SignedOut>
-                    <SignInAction />
-                  </SignedOut>
-                  <SignedIn>
-                    <UserButton aria-label="Authenticator" userProfileMode='navigation' userProfileUrl='/user-profile' appearance={{
-                      baseTheme: computedColorScheme === "dark" ? dark : undefined,
-                    }} />
-                  </SignedIn>
-                </ClerkLoaded>
-              </div>
+              <ClerkItem computedColorScheme={computedColorScheme} />
             </Group>
 
             <Link href="/" className={classes.appTitle}>
               <Group ml="auto" mr="auto" c="main">
-                <SiExcalidraw size={40} aria-label="Excalidraw"/>
+                <SiExcalidraw size={40} aria-label="Excalidraw" />
                 <Group visibleFrom="sm">
                   <h1>ExcaliHub</h1>
                 </Group>
               </Group>
             </Link>
 
-            {/* PC */}
-            <Group justify='right' align='center' gap={10} w="33%" visibleFrom='xs'>
-              <DeveloperAction />
-              <GitHubAction />
-              <ThemeToggle />
-            </Group>
-
-            {/* Phone */}
-            <Group justify='right' align='center' w="33%" hiddenFrom='xs'>
+            <Group justify='right' align='center' w="33%">
               <ThemeToggle />
             </Group>
 

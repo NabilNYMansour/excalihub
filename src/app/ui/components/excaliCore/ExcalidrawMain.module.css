@@ -6,7 +6,7 @@
 
 .actionsWrapper {
   position: absolute;
-  top: 76px;
+  bottom: 76px;
   display: flex;
   justify-content: center;
   align-items: center;

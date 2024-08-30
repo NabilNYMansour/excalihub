@@ -25,7 +25,11 @@ const PaginationControls = ({ currentPage, numberOfPages }: { currentPage: numbe
     handlePageChange(currentPage, false);
   });
 
-  return <Pagination.Root disabled={numberOfPages === 0} total={numberOfPages} value={currentPage}
+  return <Pagination.Root
+    radius="md"
+    disabled={numberOfPages === 0}
+    total={numberOfPages}
+    value={currentPage}
     onChange={(newPage) => {
       handlePageChange(newPage, true);
     }}>
