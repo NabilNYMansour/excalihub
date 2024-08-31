@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { Box, Button, Card, Flex, Group, Text } from "@mantine/core";
+import { Box, Card, Flex, Group, Text } from "@mantine/core";
 import { getUserDrawings, getUserDrawingsCount, getUserIdByClerkId } from "@/db/queries";
 import { createDrawingAction, deleteDrawingAction, togglePublicDrawingAction } from "@/lib/actions";
 import CenterContainer from "./ui/components/other/CenterContainer";
@@ -10,11 +10,10 @@ import DrawingCard from "./ui/components/cards/DrawingCard";
 import PaginationControls from "./ui/components/other/PaginationControls";
 import UserBeingProcessed from "./ui/components/other/UserBeingProcessed";
 import classes from "./page.module.css";
-import { SiBuymeacoffee } from "react-icons/si";
-import { FaGithub } from "react-icons/fa";
+import ActionButtons from "./ui/components/buttons/ActionButtons";
 
 async function HomePageComponent({ searchParams, name, clerkId }: { searchParams: SearchParams, name: string | null, clerkId: string | null }) {
-  if (!name || !clerkId) throw new Error("User not found");
+  if (!name || !clerkId) return <UserBeingProcessed />;
 
   const userIdQuery = await getUserIdByClerkId(clerkId);
   if (userIdQuery.length > 0) {
@@ -29,28 +28,14 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
 
     return (
       <CenterContainer size="xl">
-        <Flex direction="column" align="center" h="100%" w="100%">
+        <Flex direction="column" align="center" h="100%" w="100%" className={classes.slideUp}>
 
           <Flex w="100%" maw={1108} py={15} px={16} align="center" justify="space-between">
             <Text>Hi {name}! 👋</Text>
-
-            <Group gap={10}>
-              <Button style={{ transition: "all 0.2s" }}
-                radius="md" color="gray"
-                component="a" href="https://github.com/NabilNYMansour/excalihub" target="_blank"
-                rightSection={<FaGithub size={20} />}>
-                Contribute on GitHub
-              </Button>
-              <Button style={{ transition: "all 0.2s" }}
-                radius="md" color="green"
-                component="a" href="https://buymeacoffee.com/nabilmansour" target="_blank"
-                rightSection={<SiBuymeacoffee size={20} />}>
-                Support the project
-              </Button>
-            </Group>
+            <ActionButtons/>
           </Flex>
 
-          <Card className={classes.slideUp}
+          <Card
             shadow="xs" radius="md" w="100%" maw={1108}
             bg="light-dark(#fff, #313036)">
             <Flex direction="column" gap={10} w="100%">

@@ -3,6 +3,7 @@
 import { Group, Pagination } from "@mantine/core";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import classes from "./PaginationControls.module.css";
 
 const PaginationControls = ({ currentPage, numberOfPages }: { currentPage: number, numberOfPages: number }) => {
   const searchParams = useSearchParams();
@@ -33,7 +34,7 @@ const PaginationControls = ({ currentPage, numberOfPages }: { currentPage: numbe
     onChange={(newPage) => {
       handlePageChange(newPage, true);
     }}>
-    <Group justify="center" gap={5}>
+    <Group justify="center" gap={5} className={classes.pagination} >
       <Pagination.First />
       <Pagination.Previous />
       <Pagination.Items />

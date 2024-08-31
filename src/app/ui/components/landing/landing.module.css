@@ -1,29 +1,6 @@
 .highlight {
   position: relative;
-  background-color: #8E88D35f;
+  background-color: #8e88d35f;
   border-radius: var(--mantine-radius-sm);
   padding: rem(4px) rem(12px);
-}
-
-@keyframes slideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.card {
-  animation: slideUp 0.25s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-
-@media (pointer: fine) {
-  .card:hover {
-    box-shadow: 0 0 10px var(--mantine-color-main-9);
-  }
 }

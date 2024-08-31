@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import classes from "./FeaturesCards.module.css";
 import { FaCouch, FaMousePointer } from "react-icons/fa";
-import { GiButterfly } from "react-icons/gi";
+import { GiPeaceDove } from "react-icons/gi";
 
 const mockdata = [
   {
@@ -24,7 +24,7 @@ const mockdata = [
     title: "Completely Free",
     description:
     "The aim of ExcaliHub is to provide a free service to all users. No hidden fees, no premium plans.",
-    icon: GiButterfly,
+    icon: GiPeaceDove,
   },
   {
     title: "No ads, no tracking",

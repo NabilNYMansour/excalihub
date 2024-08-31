@@ -16,7 +16,7 @@ export default function Faq() {
         <Accordion.Item className={classes.item} value="🤔">
           <Accordion.Control><Text size='1.5em' span>🤔</Text> So what is the point of ExcaliHub, why is it made?</Accordion.Control>
           <Accordion.Panel>
-            Excalidraw is very useful, but the free version doesn't let you have multiple saved drawings.
+            Excalidraw is very useful, but the free version doesn&apos;t let you have multiple saved drawings.
             So <Text span fw={900} c="light-dark(#2A2843, #9D99C2)">ExcaliHub</Text> was made to solve that problem.
             I needed it so I made it.
           </Accordion.Panel>
@@ -25,7 +25,7 @@ export default function Faq() {
         <Accordion.Item className={classes.item} value="😮">
           <Accordion.Control><Text size='1.5em' span>😮</Text> Oh so you are part of the Excali team?</Accordion.Control>
           <Accordion.Panel>
-            <Text span fw={900} c="red" fz="xl">Nope :D</Text> But I would like to be...
+            <Text span fw={900} c="red" fz="xl">Nope :D</Text>&nbsp;&nbsp;&nbsp;But I would like to be...
           </Accordion.Panel>
         </Accordion.Item>
 
@@ -34,7 +34,7 @@ export default function Faq() {
             <Text size='1.5em' span>👨‍💻</Text> So who are you?
           </Accordion.Control>
           <Accordion.Panel>
-            My name is Nabil, I'm a software engineer. You can know more about me on
+            My name is Nabil, I&apos;m a software engineer. You can know more about me on
             my <Link href="https://nabilmansour.com/" target="_blank" style={{ textDecoration: "none" }}>
               website
             </Link>.
@@ -54,13 +54,13 @@ export default function Faq() {
         <Accordion.Item className={classes.item} value="💸">
           <Accordion.Control><Text size='1.5em' span>💸</Text> Wait so how do you make money?</Accordion.Control>
           <Accordion.Panel>
-            I don't. This is a free service and will always be free.
+            I don&apos;t. This is a free service and will always be free.
             I made this for myself and thought others might find it useful. That being said, if you want to support me, you can
 
             <CoolButton href="https://buymeacoffee.com/nabilmansour"
               target='_blank'
               style={{
-                width: "100%", textTransform: "none", marginTop: 15, marginBottom: 15,
+                width: "100%", textTransform: "none", marginTop: 15, marginBottom: 15, textAlign:"center",
                 paddingTop: 10, paddingBottom: 10, borderRadius: 100, backgroundColor: "var(--mantine-color-main-filled)",
               }}>
               <Text fz="3em" fw={900}>☕️ Buy me coffee ツ</Text>

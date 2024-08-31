@@ -14,18 +14,6 @@ export const theme = createTheme({
       "#5a586f",
       "#4d4b63"
     ],
-    'main-dark': [
-      "#f4f4f5",
-      "#e6e6e6",
-      "#cbcbcb",
-      "#aeaeaf",
-      "#969598",
-      "#86858a",
-      "#7e7d84",
-      "#6d6b73",
-      "#615f67",
-      "#53515c"
-    ],
   },
 
   primaryColor: "main",

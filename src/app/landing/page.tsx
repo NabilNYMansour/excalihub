@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Flex, Text } from '@mantine/core';
-import { RiLinkM } from 'react-icons/ri';
+import { Box, Divider, Flex, Group } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Skeleton, useComputedColorScheme } from "@mantine/core";
 import dynamic from "next/dynamic";
@@ -25,10 +24,10 @@ function LandingExcalidraw() {
 
   return (
     <Flex direction="column" justify="center" align="stretch"
-      w={700} p={20}>
+      w={1000} p={20}>
       <div
         className={classes.drawing}
-        style={{ width: "100%", height: isSmallScreen ? 300 : 600, borderRadius: "12px", overflow: "hidden", marginTop: "25px" }}>
+        style={{ width: "100%", height: isSmallScreen ? 300 : 650, borderRadius: "1.0rem", overflow: "hidden", marginTop: "25px" }}>
         <Excalidraw theme={computedColorScheme}
           UIOptions={{ tools: { image: false } }}
           initialData={{
@@ -43,6 +42,11 @@ function LandingExcalidraw() {
 
 const Page = () => {
   return <Flex direction="column" w="100%" align="center">
+
+    {/* <Divider my="md" size="xs" w="70%" variant='dashed'
+      color="var(--mantine-color-main-filled)"
+      pos="absolute" top="100px" left="0" /> */}
+
     <Flex wrap="wrap" w="100%" mih={900} justify="center" align="center">
       <LandingHero />
       <LandingExcalidraw />
@@ -53,10 +57,9 @@ const Page = () => {
       <FeaturesCards />
     </Flex>
 
-    <Flex wrap="wrap" w="100%" justify="center" align="center">
+    <Flex wrap="wrap" w="100%" justify="center" align="center" id='faq'>
       <Faq />
     </Flex>
-
   </Flex>
 };
 

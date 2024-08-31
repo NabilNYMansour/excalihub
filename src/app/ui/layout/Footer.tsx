@@ -1,11 +1,14 @@
 "use client";
 
-import { Anchor, Divider, Flex, Text } from '@mantine/core';
+import { Divider, Flex, Text } from '@mantine/core';
 import { usePathname } from 'next/navigation';
+
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
 
 export function Footer() {
   const currPath = usePathname();
+  const user = useUser();
 
   if (/\/excalidraw/.test(currPath)) {
     return null;
@@ -16,9 +19,22 @@ export function Footer() {
       <Divider my="md" w="80%" />
 
       <Flex wrap="wrap" justify="center" w="80%" mb={10}>
+        {user.isSignedIn &&
+          <Link href='/' style={{ textDecoration: "none" }}>
+            <Text fz="md" lh="md" mx="xs">
+              Home
+            </Text>
+          </Link>
+        }
         <Link href='/landing' style={{ textDecoration: "none" }}>
           <Text fz="md" lh="md" mx="xs">
             Landing
+          </Text>
+        </Link>
+
+        <Link href='/landing#faq' style={{ textDecoration: "none" }}>
+          <Text fz="md" lh="md" mx="xs">
+            FAQ
           </Text>
         </Link>
 

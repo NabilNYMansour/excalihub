@@ -17,7 +17,6 @@ export function ThemeToggle({ size = "xl", toolTipPos, variant = "subtle", radiu
       <Tooltip
         withArrow
         position={toolTipPos}
-        openDelay={750}
         label="Toggle Theme">
         <ActionIcon
           onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}

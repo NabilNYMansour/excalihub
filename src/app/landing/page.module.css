@@ -15,3 +15,38 @@
 .drawing {
   animation: fadeIn 0.25s ease-in-out;
 }
+
+@-webkit-keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* .hero {
+  background: linear-gradient(
+    62deg,
+    var(--mantine-color-main-filled),
+    var(--mantine-color-main-light),
+    var(--mantine-color-main-light),
+    var(--mantine-color-main-filled)
+  );
+  animation: gradient 30s ease infinite;
+  background-size: 400% 400%;
+} */
