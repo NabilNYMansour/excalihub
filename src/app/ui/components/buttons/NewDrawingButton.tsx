@@ -32,12 +32,13 @@ const NewDrawingButton = ({ clerkId, createDrawingAction }: { clerkId: string, c
     <>
       {isPhone ?
         <Tooltip withArrow label="New Drawing">
-          <ActionIcon onClick={open} size="xl">
+          <ActionIcon onClick={open} size="xl" radius="md">
             <FaCirclePlus size={24} />
           </ActionIcon>
         </Tooltip>
         :
-        <Button size='md' onClick={open} rightSection={<FaPlus />}>New Drawing</Button>
+        <Button style={{ transition: "all 0.2s" }}
+          radius="md" size='lg' onClick={open} rightSection={<FaPlus />}>New Drawing</Button>
       }
 
       {/* Modal */}
@@ -57,7 +58,9 @@ const NewDrawingButton = ({ clerkId, createDrawingAction }: { clerkId: string, c
                 color='green' size='md' onChange={togglePublicDrawing} name='isPublic' />
             </Group>
             <Group justify='right' w="100%">
-              <Button loading={loading} type="submit" variant="light" rightSection={<IoMdSend />}>Create Drawing</Button>
+              <Button
+                style={{ transition: "all 0.2s" }}
+                loading={loading} type="submit" variant="light" rightSection={<IoMdSend />}>Create Drawing</Button>
             </Group>
           </Flex>
         </form>

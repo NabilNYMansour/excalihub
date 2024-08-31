@@ -10,6 +10,22 @@
   }
 }
 
+@keyframes shake {
+  0% {
+    transform: translate(2px, 0);
+  }
+  10% {
+    transform: translate(-2px, 0);
+  }
+  15% {
+    transform: translate(0, 0);
+  }
+}
+
 .slideUp {
   animation: slideUp 0.25s ease-in-out;
+}
+
+.buymecoffee {
+  animation: slideUp 0.25s ease-in-out, shake 1500ms infinite linear;
 }

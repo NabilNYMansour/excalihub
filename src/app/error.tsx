@@ -19,6 +19,7 @@ export default function Error({ error, reset }: {
         </Text>
         <Group justify="center">
           <Button variant='white'
+            style={{ transition: "all 0.2s" }}
             size="md"
             onClick={
               () => reset()

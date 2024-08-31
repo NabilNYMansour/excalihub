@@ -33,7 +33,7 @@ export default function SearchDrawings() {
   return (
     <TextInput
       className={classes.search}
-      size="lg"
+      size="lg" radius="md"
       value={searchValue}
       placeholder='Search Drawings'
       leftSection={<FaMagnifyingGlass />}

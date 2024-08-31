@@ -3,7 +3,7 @@ import { ActionIcon, useMantineColorScheme, useComputedColorScheme, Group, Toolt
 import classes from './ThemeToggle.module.css';
 import { LuMoon, LuSun } from 'react-icons/lu';
 
-export function ThemeToggle({ size = "xl", toolTipPos, variant = "subtle", radius = "sm", ...props }: {
+export function ThemeToggle({ size = "xl", toolTipPos, variant = "subtle", radius = "md", ...props }: {
   size?: "xs" | "sm" | "md" | "lg" | "xl", toolTipPos?: 'top' | 'right' | 'bottom' | 'left',
   variant?: ActionIconVariant,
   radius?: "xs" | "sm" | "md" | "lg" | "xl"
@@ -17,7 +17,6 @@ export function ThemeToggle({ size = "xl", toolTipPos, variant = "subtle", radiu
       <Tooltip
         withArrow
         position={toolTipPos}
-        openDelay={750}
         label="Toggle Theme">
         <ActionIcon
           onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}

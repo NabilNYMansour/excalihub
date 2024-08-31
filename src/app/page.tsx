@@ -10,9 +10,10 @@ import DrawingCard from "./ui/components/cards/DrawingCard";
 import PaginationControls from "./ui/components/other/PaginationControls";
 import UserBeingProcessed from "./ui/components/other/UserBeingProcessed";
 import classes from "./page.module.css";
+import ActionButtons from "./ui/components/buttons/ActionButtons";
 
 async function HomePageComponent({ searchParams, name, clerkId }: { searchParams: SearchParams, name: string | null, clerkId: string | null }) {
-  if (!name || !clerkId) throw new Error("User not found");
+  if (!name || !clerkId) return <UserBeingProcessed />;
 
   const userIdQuery = await getUserIdByClerkId(clerkId);
   if (userIdQuery.length > 0) {
@@ -27,10 +28,16 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
 
     return (
       <CenterContainer size="xl">
-        <Flex direction="column" align="center" h="100%" w="100%" >
-          <Text p={25}>Hi {name}! 👋</Text>
+        <Flex direction="column" align="center" h="100%" w="100%" className={classes.slideUp}>
 
-          <Card className={classes.slideUp} shadow="xs" padding="md" radius="md" w="100%" maw={1108}>
+          <Flex w="100%" maw={1108} py={15} px={16} align="center" justify="space-between">
+            <Text>Hi {name}! 👋</Text>
+            <ActionButtons/>
+          </Flex>
+
+          <Card
+            shadow="xs" radius="md" w="100%" maw={1108}
+            bg="light-dark(#fff, #313036)">
             <Flex direction="column" gap={10} w="100%">
 
               {/*=============Search and new drawing=============*/}

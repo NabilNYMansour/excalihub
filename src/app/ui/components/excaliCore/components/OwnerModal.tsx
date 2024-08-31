@@ -73,7 +73,8 @@ const OwnerModal = ({
         </Group>
         <Group justify='right' w="100%">
           <form action={handleDrawingInfoChange} onSubmit={() => setLoading(true)}>
-            <Button type="submit" variant="filled" loading={loading}
+            <Button style={{ transition: "all 0.2s" }}
+              type="submit" variant="filled" loading={loading}
               disabled={!hasChanged} rightSection={<IoMdSend />}>
               Confirm changes
             </Button>

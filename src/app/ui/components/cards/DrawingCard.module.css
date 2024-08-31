@@ -8,7 +8,7 @@
 }
 
 .drawingCard:hover {
-  transform: translateY(-3px);
+  /* transform: translateY(-3px); */
   box-shadow: 0 0 10px var(--mantine-color-main-9);
 }
 
