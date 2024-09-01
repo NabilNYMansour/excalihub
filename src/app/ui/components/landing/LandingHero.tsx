@@ -49,17 +49,17 @@ const LandingHero = () => {
       </Container>
 
       <Flex direction="column" w="100%" gap={2} pl="md" pr="md">
-        <Button
-          component={Link}
-          href='/sign-up'
-          style={{ transition: "all 0.2s" }}
-          radius="md" w="100%" size='md'>
+        <CoolButton href="/sign-up"
+          style={{
+            width: "100%", textTransform: "none", marginTop: 5, fontWeight: 900,
+            paddingTop: 10, paddingBottom: 10, borderRadius: 8, backgroundColor: "var(--mantine-color-main-filled)"
+          }}>
           Get started right now! It&apos;s &nbsp;
-          <Text fw={900} size="25px" c="lime" style={{ textShadow: "0 0 10px lime" }}>
+          <Text span fw={900} size="25px" c="lime" style={{ textShadow: "0 0 10px lime" }}>
             Free
           </Text>
           &nbsp;&nbsp;🤩
-        </Button>
+        </CoolButton>
       </Flex>
 
 
