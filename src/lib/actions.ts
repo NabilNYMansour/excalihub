@@ -3,6 +3,7 @@
 import * as db from "@/db/queries";
 import * as checks from "./checks";
 import { APP_DESCRIPTION, NEW_DRAWING } from "./constants";
+import {logger} from "@/logger";
 
 export async function createDrawingAction(formData: FormData) {
   try {
@@ -39,9 +40,8 @@ export async function createDrawingAction(formData: FormData) {
     });
 
     return slug;
-  } catch (error) {
-    console.error("Error creating drawing at", new Date().toISOString());
-    console.error(error);
+  } catch (error: any) {
+    logger.error(error.message);
     return "";
   }
 }
@@ -85,9 +85,8 @@ export async function forkDrawingAction(formData: FormData, slug: string) {
     });
 
     return newSlug;
-  } catch (error) {
-    console.error("Error forking drawing at", new Date().toISOString());
-    console.error(error);
+  } catch (error: any) {
+    logger.error(error.message);
     return "";
   }
 }
@@ -127,9 +126,8 @@ export async function forkWelcomeDrawingAction(formData: FormData) {
     });
 
     return newSlug;
-  } catch (error) {
-    console.error("Error forking welcome drawing at", new Date().toISOString());
-    console.error(error);
+  } catch (error: any) {
+    logger.error(error.message);
     return "";
   }
 }
@@ -159,9 +157,8 @@ export async function togglePublicDrawingAction(formData: FormData, slug: string
     checks.slugScheme.parse({ slug });
     await db.togglePublicDrawing(slug);
     return true;
-  } catch (error) {
-    console.error("Error toggling public drawing at", new Date().toISOString());
-    console.error(error);
+  } catch (error: any) {
+    logger.error(error.message);
     return false;
   }
 }
@@ -174,9 +171,8 @@ export async function deleteDrawingAction(formData: FormData, slug: string) {
     checks.slugScheme.parse({ slug });
     await db.deleteDrawing(slug);
     return true;
-  } catch (error) {
-    console.error("Error deleting drawing at", new Date().toISOString());
-    console.error(error);
+  } catch (error: any) {
+    logger.error(error.message);
     return false;
   }
 }
@@ -191,9 +187,8 @@ export async function updateDrawingInfoAction(formData: FormData, slug: string, 
     checks.stringsInDrawingSchema.parse({ name, description });
     await db.updateDrawingInfo(slug, name, description, isPublic);
     return true;
-  } catch (error) {
-    console.error("Error updating drawing info at", new Date().toISOString());
-    console.error(error);
+  } catch (error: any) {
+    logger.error(error.message);
     return false;
   }
 }

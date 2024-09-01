@@ -42,12 +42,12 @@ const NewDrawingButton = ({ clerkId, createDrawingAction }: { clerkId: string, c
       }
 
       {/* Modal */}
-      <Modal centered opened={opened} onClose={close} title={<Text fw={900}>Create New Drawing</Text>}>
+      <Modal radius="md" centered opened={opened} onClose={close} title={<Text fw={900}>Create New Drawing</Text>}>
         <form action={handleNewDrawing} onSubmit={() => setLoading(true)}>
           <Flex gap={10} direction="column">
-            <TextInput size='lg' label="Title" name='title' placeholder="Drawing title" required
+            <TextInput radius="md" size='lg' label="Title" name='title' placeholder="Drawing title" required
               description={<Text size='sm'>min of 1 and max of 100 characters</Text>} />
-            <Textarea size='lg' label="Description" name='description' placeholder="Drawing description"
+            <Textarea radius="md" size='lg' label="Description" name='description' placeholder="Drawing description"
               description={<Text size='sm'>max of 500 characters</Text>} />
             <Group>
               {publicDrawing ?
@@ -59,7 +59,7 @@ const NewDrawingButton = ({ clerkId, createDrawingAction }: { clerkId: string, c
             </Group>
             <Group justify='right' w="100%">
               <Button
-                style={{ transition: "all 0.2s" }}
+                style={{ transition: "all 0.2s" }} radius="md"
                 loading={loading} type="submit" variant="light" rightSection={<IoMdSend />}>Create Drawing</Button>
             </Group>
           </Flex>

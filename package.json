@@ -22,6 +22,7 @@
     "@mantine/hooks": "^7.10.1",
     "@mantine/notifications": "^7.11.1",
     "@types/better-sqlite3": "^7.6.11",
+    "@types/winston": "^2.4.4",
     "axios": "^1.7.2",
     "better-sqlite3": "^11.1.2",
     "drizzle-orm": "^0.31.4",
@@ -33,6 +34,7 @@
     "sharp": "^0.33.4",
     "shiki": "^1.6.4",
     "svix": "^1.24.0",
+    "winston": "^3.14.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

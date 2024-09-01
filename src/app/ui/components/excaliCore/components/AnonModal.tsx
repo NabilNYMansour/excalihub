@@ -12,7 +12,7 @@ const AnonModal = ({ ownerUsername, opened, close, title, description, isDemo }:
 }) => {
 
   return (
-    <Modal opened={opened} onClose={close} title={<Text fw={900} size='xl'>Drawing Info</Text>} centered>
+    <Modal radius="md" opened={opened} onClose={close} title={<Text fw={900} size='xl'>Drawing Info</Text>} centered>
       <Flex gap={10} align="center">
         <Text c="main" size="lg" fw="bolder" span>Title:</Text>
         <Text size='md' span> {title} </Text>
