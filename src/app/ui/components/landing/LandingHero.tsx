@@ -50,7 +50,7 @@ const LandingHero = () => {
       <Flex direction="column" w="100%" gap={2} pl="md" pr="md">
         <CoolButton href="/sign-up"
           style={{
-            width: "100%", textTransform: "none", marginTop: 5, fontWeight: 900,
+            width: "100%", textTransform: "none", marginTop: 5, fontWeight: 900, textAlign: "center",
             paddingTop: 10, paddingBottom: 10, borderRadius: 8, backgroundColor: "var(--mantine-color-main-filled)"
           }}>
           Get started right now! It&apos;s &nbsp;
