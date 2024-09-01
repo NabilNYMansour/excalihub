@@ -17,7 +17,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           # Will assume basic setup has been done on the server
           script: |
-            exit 1
             cd excalihub || exit 1
             git pull || exit 1
             export NVM_DIR=~/.nvm || exit 1
