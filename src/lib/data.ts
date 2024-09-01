@@ -1,11 +1,11 @@
 import * as db from "@/db/queries";
+import { logger } from "@/logger";
 
 export async function fetchAllPublicDrawings() {
   try {
     return await db.getAllPublicDrawingsSlugs();
-  } catch (error) {
-    console.error("Error fetching all public drawings at", new Date().toISOString());
-    console.error(error);
+  } catch (error: any) {
+    logger.error(error.message);
     return [];
   }
 }

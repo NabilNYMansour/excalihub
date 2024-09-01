@@ -51,15 +51,15 @@ const OwnerModal = ({
   }, [title, description, privacy]);
 
   return (
-    <Modal opened={opened} onClose={close} title={<Text fw={900} size='xl'>Drawing Settings</Text>} centered>
+    <Modal radius="md" opened={opened} onClose={close} title={<Text fw={900} size='xl'>Drawing Settings</Text>} centered>
       <Flex gap={10} direction="column">
         <TextInput
-          size="lg"
+          size="lg" radius="md"
           label="Title" name='title'
           placeholder="Drawing title" onChange={(e) => setTitle(e.currentTarget.value)}
           required value={title} />
         <Textarea
-          size="lg"
+          size="lg" radius="md"
           label="Description" name='description'
           placeholder="Drawing description" onChange={(e) => setDescription(e.currentTarget.value)}
           value={description} autosize maxRows={5} />
@@ -73,7 +73,7 @@ const OwnerModal = ({
         </Group>
         <Group justify='right' w="100%">
           <form action={handleDrawingInfoChange} onSubmit={() => setLoading(true)}>
-            <Button style={{ transition: "all 0.2s" }}
+            <Button radius="md" style={{ transition: "all 0.2s" }}
               type="submit" variant="filled" loading={loading}
               disabled={!hasChanged} rightSection={<IoMdSend />}>
               Confirm changes

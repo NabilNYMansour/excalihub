@@ -162,7 +162,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
       </Card>
 
       {/* Delete "are you sure" modal */}
-      <Modal centered opened={opened} onClose={close}
+      <Modal radius="md" centered opened={opened} onClose={close}
         overlayProps={{
           backgroundOpacity: 0.55,
           blur: 3,
@@ -175,10 +175,10 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
         <Flex direction="column" gap={10}>
           <Text>Are you sure you want to delete this drawing?</Text>
           <Group justify='right' w="100%">
-            <Button style={{ transition: "all 0.2s" }}
+            <Button radius="md" style={{ transition: "all 0.2s" }}
               onClick={close} variant="light" rightSection={<MdOutlineCancel />}>Cancel</Button>
             <form action={handleDelete} onSubmit={() => { setLoading(true); close(); }}>
-              <Button style={{ transition: "all 0.2s" }}
+              <Button radius="md" style={{ transition: "all 0.2s" }}
                 type="submit" variant="filled" color='red' rightSection={<FaTrashAlt />}>Delete Drawing</Button>
             </form>
           </Group>

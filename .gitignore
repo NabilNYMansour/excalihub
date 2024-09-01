@@ -38,5 +38,6 @@ next-env.d.ts
 # scripts
 deploy.sh
 
-# database
+# database and others
 .sqlite.db
+app.log
