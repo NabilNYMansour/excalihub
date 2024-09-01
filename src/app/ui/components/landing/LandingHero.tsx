@@ -1,7 +1,6 @@
 import { ActionIcon, Box, Button, Container, Divider, Flex, Group, Text, Title } from "@mantine/core";
 import classes from "./landing.module.css";
 import CoolButton from '../buttons/CoolButton';
-import Link from "next/link";
 import { FaGithub } from "react-icons/fa6";
 import { BsTwitterX } from "react-icons/bs";
 
@@ -62,7 +61,6 @@ const LandingHero = () => {
         </CoolButton>
       </Flex>
 
-
       <CoolButton href="/excalidraw"
         style={{
           width: "100%", textTransform: "none", marginTop: 5,
@@ -71,6 +69,7 @@ const LandingHero = () => {
         <Text fz="lg">Or Try out the <Text fw={700} fz="xl" span>Demo</Text></Text>
       </CoolButton>
       <ContactButtons />
+      <a href="https://www.producthunt.com/posts/excalihub?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-excalihub" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=485726&theme=dark" alt="ExcaliHub - The&#0032;Center&#0032;for&#0032;all&#0032;of&#0032;your&#0032;Ideas&#0032;💡 | Product Hunt" width="250" height="54" /></a>
     </Flex>
   )
 }

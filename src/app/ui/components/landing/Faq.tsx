@@ -63,7 +63,7 @@ export default function Faq() {
                 width: "100%", textTransform: "none", marginTop: 15, marginBottom: 15, textAlign:"center",
                 paddingTop: 10, paddingBottom: 10, borderRadius: 100, backgroundColor: "var(--mantine-color-main-filled)",
               }}>
-              <Text fz="3em" fw={900}>☕️ Buy me coffee ツ</Text>
+              <Text fz="2.5em" fw={900}>☕️ Buy me coffee ツ</Text>
             </CoolButton>
 
           </Accordion.Panel>
