@@ -14,11 +14,9 @@ import ActionButtons from "./ui/components/buttons/ActionButtons";
 import { logger } from "@/logger";
 
 async function HomePageComponent({ searchParams, name, clerkId }: { searchParams: SearchParams, name: string | null, clerkId: string | null }) {
-  if (!name || !clerkId) {
+  if (!clerkId) {
     // Should never happen, but if it does, log it.
-    if (!name && clerkId) logger.error("Home page error: name is null for user " + clerkId);
-    else if (!clerkId && name) logger.error("Home page error: clerkId is null for user " + name);
-    else logger.error("Home page error: clerkId and name are both null");
+    logger.error("Home page error: clerkId is null for user " + name);
     return <UserBeingProcessed />
   };
 
@@ -38,7 +36,7 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
         <Flex direction="column" align="center" h="100%" w="100%" className={classes.slideUp}>
 
           <Flex w="100%" maw={1108} py={15} px={16} align="center" justify="space-between">
-            <Text>Hi {name}! 👋</Text>
+            <Text style={{ visibility: name ? "visible" : "hidden" }}>Hi {name}! 👋</Text>
             <ActionButtons />
           </Flex>
 
