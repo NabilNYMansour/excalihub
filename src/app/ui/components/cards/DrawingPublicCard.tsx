@@ -26,7 +26,7 @@ const DrawingPublicCard = ({ drawing }: {
   const isSmallScreen = useMediaQuery('(max-width: 400px)');
 
   return (
-    <Card withBorder className={classes.drawingCard}>
+    <Card radius="md" withBorder className={classes.drawingCard}>
       <Link href={`/excalidraw/${drawing.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
         <Card.Section withBorder inheritPadding py="xs">
           <Group justify='center'>

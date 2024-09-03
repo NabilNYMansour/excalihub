@@ -79,7 +79,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
 
   return (
     <>
-      <Card withBorder className={classes.drawingCard}>
+      <Card radius="md" withBorder className={classes.drawingCard}>
         <Card.Section withBorder inheritPadding py="xs">
           <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 1 }} />
           <Group justify='space-between'>
@@ -87,7 +87,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
             {drawing.isPublic === 1 ? <MdPublic size={20} color='green' /> : <FaEyeSlash size={20} color='red' />}
             <Text size={isSmallScreen ? "md" : 'xl'} maw={150} fw={700} truncate="end">{drawing.name}</Text>
 
-            <Menu withinPortal position="bottom-end" shadow="sm">
+            <Menu radius="md" withinPortal position="bottom-end" shadow="sm">
               <Menu.Target>
                 <ActionIcon variant="subtle" color="gray" style={{ transition: "all 0.2s" }}>
                   <BsThreeDots size={20} />
