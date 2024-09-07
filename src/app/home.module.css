@@ -21,3 +21,7 @@
   height: fit-content;
   z-index: 5000;
 }
+
+.body * {
+  transition: all 0.2s;
+}

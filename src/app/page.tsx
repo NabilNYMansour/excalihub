@@ -40,8 +40,8 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
             <ActionButtons />
           </Flex>
 
-          <Card
-            shadow="xs" radius="md" w="100%" maw={1108}
+          <Card withBorder
+            shadow="xs" radius="md" w="100%" maw={1110}
             bg="light-dark(#fff, #313036)">
             <Flex direction="column" gap={10} w="100%">
 

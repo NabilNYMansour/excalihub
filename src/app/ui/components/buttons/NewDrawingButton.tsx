@@ -37,7 +37,7 @@ const NewDrawingButton = ({ clerkId, createDrawingAction }: { clerkId: string, c
           </ActionIcon>
         </Tooltip>
         :
-        <Button style={{ transition: "all 0.2s" }}
+        <Button style={{ transition: "all 0.2s" }} variant='default'
           radius="md" size='lg' onClick={open} rightSection={<FaPlus />}>New Drawing</Button>
       }
 

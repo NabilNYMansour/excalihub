@@ -27,7 +27,6 @@ const PaginationControls = ({ currentPage, numberOfPages }: { currentPage: numbe
   });
 
   return <Pagination.Root
-    radius="md"
     disabled={numberOfPages === 0}
     total={numberOfPages}
     value={currentPage}
