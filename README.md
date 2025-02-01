@@ -21,7 +21,13 @@ cd excalihub
 ```bash
 npm install
 ```
-4. Run:
+4. Create a [Clerk](https://clerk.com/) account, generate a private and public key, and place them in a new file called `.env.local`. You can see `.env.example` for the correct format.
+5. To create a local db run:
+```bash
+npm run drizzle:generate
+npm run drizzle:migrate
+```
+5. Finally, to start the app, run:
 ```bash
 npm start
 ```
