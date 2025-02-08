@@ -86,6 +86,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     initTitle={drawing[0].name}
     initDescription={drawing[0].description}
     payload={drawing[0].payload}
+    imgPayload={drawing[0].imgPayload ?? ''}
     clerkId={clerkId}
     initPrivacy={drawing[0].isPublic === 1}
     isOwner={isOwner}

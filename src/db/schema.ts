@@ -20,6 +20,7 @@ export const drawingsTable = sqliteTable('drawings', {
   slug: text('slug').unique().notNull(),
   createAt: text('created_at').notNull(),
   payload: text('payload').notNull(),
+  imgPayload: text('imgPayload')
 });
 
 export type InsertDrawing = typeof drawingsTable.$inferInsert;

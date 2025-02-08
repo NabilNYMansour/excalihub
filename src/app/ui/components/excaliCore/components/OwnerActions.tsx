@@ -1,5 +1,6 @@
 "use client";
 
+import { BinaryFiles } from "@excalidraw/excalidraw/types/types";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { useHotkeys, useIdle } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -7,32 +8,51 @@ import { useEffect, useState } from "react";
 import { IoIosSave } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 
-const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug, elements, setHasChanged }:
-  {
-    hasChanged: boolean, openModal: () => void,
-    clerkId: string, slug: string, elements: string,
-    saveDrawingAction: (formData: FormData, slug: string, elements: string) => Promise<boolean>,
-    setHasChanged: (hasChanged: boolean) => void
-  }
-) => {
+const OwnerActions = ({
+  hasChanged,
+  openModal,
+  clerkId,
+  saveDrawingAction,
+  slug,
+  elements,
+  imgPayload,
+  setHasChanged,
+}: {
+  hasChanged: boolean;
+  openModal: () => void;
+  clerkId: string;
+  slug: string;
+  elements: string;
+  imgPayload: string;
+  saveDrawingAction: (
+    formData: FormData,
+    slug: string,
+    elements: string,
+    imgPayload: string
+  ) => Promise<boolean>;
+  setHasChanged: (hasChanged: boolean) => void;
+}) => {
   const [loadingSave, setLoadingSave] = useState(false);
   const idle = useIdle(2000);
 
   useHotkeys([
-    ['mod+s', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    [
+      "mod+s",
+      (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-      if (hasChanged) {
-        setLoadingSave(true);
-        handleChangesSaved(new FormData());
-      } else {
-        notifications.show({
-          title: 'No changes',
-          message: 'No changes to save',
-        })
-      }
-    }]
+        if (hasChanged) {
+          setLoadingSave(true);
+          handleChangesSaved(new FormData());
+        } else {
+          notifications.show({
+            title: "No changes",
+            message: "No changes to save",
+          });
+        }
+      },
+    ],
   ]);
 
   useEffect(() => {
@@ -43,19 +63,20 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
   }, [idle]);
 
   const handleChangesSaved = async (formData: FormData) => {
-    formData.set('clerkId', clerkId);
-    const res = await saveDrawingAction(formData, slug, elements);
+    formData.set("clerkId", clerkId);
+    console.log(`%cSaving Changes`, "font-size: 14px;");
+    const res = await saveDrawingAction(formData, slug, elements, imgPayload);
     if (res) {
       setHasChanged(false);
       notifications.show({
-        title: 'Saved 💾',
-        message: 'Changes have been saved',
-      })
+        title: "Saved 💾",
+        message: "Changes have been saved",
+      });
     } else {
       alert("Error saving drawing. Please try again.");
     }
     setLoadingSave(false);
-  }
+  };
 
   return (
     <>
@@ -65,12 +86,20 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
         </ActionIcon>
       </Tooltip>
 
-      <Tooltip label={hasChanged ? "Save changes" : "No changes"} position="left" withArrow>
+      <Tooltip
+        label={hasChanged ? "Save changes" : "No changes"}
+        position="left"
+        withArrow
+      >
         <form action={handleChangesSaved} onSubmit={() => setLoadingSave(true)}>
-          <ActionIcon size="lg" radius="md" color='green'
+          <ActionIcon
+            size="lg"
+            radius="md"
+            color="green"
             disabled={!hasChanged}
-            type='submit'
-            loading={loadingSave}>
+            type="submit"
+            loading={loadingSave}
+          >
             <IoIosSave />
           </ActionIcon>
         </form>
