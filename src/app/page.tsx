@@ -1,4 +1,3 @@
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Box, Card, Flex, Group, Text } from "@mantine/core";
 import { getUserDrawings, getUserDrawingsCount, getUserIdByClerkId } from "@/db/queries";
@@ -12,8 +11,13 @@ import UserBeingProcessed from "./ui/components/other/UserBeingProcessed";
 import classes from "./page.module.css";
 import ActionButtons from "./ui/components/buttons/ActionButtons";
 import { logger } from "@/logger";
+import { getCurrentUserFullName, getCurrentUserId, CLERK_AVAILABLE } from "@/auth";
 
 async function HomePageComponent({ searchParams, name, clerkId }: { searchParams: SearchParams, name: string | null, clerkId: string | null }) {
+  if (!clerkId && !CLERK_AVAILABLE) {
+    // Just create a new account for the user
+  }
+  
   if (!clerkId) {
     // Should never happen, but if it does, log it.
     logger.error("Home page error: clerkId is null for user " + name);
@@ -79,12 +83,13 @@ async function HomePageComponent({ searchParams, name, clerkId }: { searchParams
 };
 
 export default async function HomePage({ searchParams }: { searchParams: SearchParams }) {
-  const user = await currentUser();
+  const userId = await getCurrentUserId();
+  const fullName = await getCurrentUserFullName();
   searchParams["page"] = searchParams["page"] ?? "1";
 
-  if (!user) {
+  if (!userId || !fullName) {
     redirect("/landing");
   }
 
-  return <HomePageComponent searchParams={searchParams} name={user.fullName} clerkId={user.id} />
+  return <HomePageComponent searchParams={searchParams} name={fullName} clerkId={userId} />
 }

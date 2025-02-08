@@ -1,10 +1,11 @@
 import { getClerkIdGivenId, getDrawingBySlug, getUserIdByClerkId } from '@/db/queries';
-import { clerkClient, currentUser } from '@clerk/nextjs/server';
+import { clerkClient } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';
 import ExcalidrawMain from '@/app/ui/components/excaliCore/ExcalidrawMain';
 import { forkDrawingAction, saveDrawingAction, updateDrawingInfoAction } from '@/lib/actions';
 import { Metadata } from 'next';
 import { MAIN_URL } from '@/lib/constants';
+import { getCurrentUserId } from '@/auth';
 
 export async function generateMetadata(
   { params }: { params: { slug: string } }
@@ -16,7 +17,7 @@ export async function generateMetadata(
   }
 
   // Check if user is allowed to view drawing
-  const clerkId = (await currentUser())?.id ?? ""; // get user clerk id
+  const clerkId = await getCurrentUserId() ?? ""; // get user clerk id
   const userId = (await getUserIdByClerkId(clerkId))?.[0]?.id; // get user id
   const isOwner = userId === drawing[0].userId;
   if (drawing[0].isPublic !== 1 && !isOwner) { // if user is not the owner and drawing is not public
@@ -67,7 +68,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   // Check if user is allowed to view drawing
-  const clerkId = (await currentUser())?.id ?? ""; // get user clerk id
+  const clerkId = await getCurrentUserId() ?? ""; // get user clerk id
   const userId = (await getUserIdByClerkId(clerkId))?.[0]?.id; // get user id
   const isOwner = userId === drawing[0].userId;
   if (drawing[0].isPublic !== 1 && !isOwner) { // if user is not the owner and drawing is not public

@@ -1,10 +1,10 @@
 import ExcalidrawMain from '@/app/ui/components/excaliCore/ExcalidrawMain';
+import { getCurrentUserId } from '@/auth';
 import { forkWelcomeDrawingAction, saveDrawingAction, updateDrawingInfoAction } from '@/lib/actions';
 import { WELCOME_EXCALI_DATA } from '@/lib/constants';
-import { currentUser } from '@clerk/nextjs/server';
 
 export default async function Page() {
-  const clerkId = (await currentUser())?.id ?? ""; // get user clerk id
+  const clerkId = await getCurrentUserId() ?? ""; // get user clerk id
 
   return <ExcalidrawMain
     slug={""}
