@@ -132,14 +132,15 @@ export async function forkWelcomeDrawingAction(formData: FormData) {
   }
 }
 
-export const saveDrawingAction = async (formData: FormData, slug: string, payload: string) => {
+export const saveDrawingAction = async (formData: FormData, slug: string, payload: string, imgPayload?: string) => {
   try {
     if (!await checks.isAuthorized(slug, formData.get('clerkId') as string)) {
       console.error("Unauthorized access to save drawing at", new Date().toISOString());
       return false;
     }
     checks.updateDrawingSchema.parse({ slug, payload });
-    await db.updateDrawingPayload(slug, payload);
+    console.log("%c SAVING ACTION TRIGGER", "font-size: 14px;")
+    await db.updateDrawingPayload(slug, payload, imgPayload || "");
   } catch (error) {
     console.error("Error checking authorization to save drawing at", new Date().toISOString());
     console.error(error);

@@ -81,6 +81,7 @@ export async function getDrawingBySlug(slug: string) {
     {
       name: drawingsTable.name,
       payload: drawingsTable.payload,
+      imgPayload: drawingsTable.imgPayload,
       isPublic: drawingsTable.isPublic,
       description: drawingsTable.description,
       userId: drawingsTable.userId,
@@ -92,8 +93,8 @@ export async function deleteDrawing(slug: string) {
   await await db.delete(drawingsTable).where(eq(drawingsTable.slug, slug));
 }
 
-export async function updateDrawingPayload(slug: string, payload: string) {
-  await db.update(drawingsTable).set({ payload }).where(eq(drawingsTable.slug, slug));
+export async function updateDrawingPayload(slug: string, payload: string, imgPayload: string) {
+  await db.update(drawingsTable).set({ payload, imgPayload }).where(eq(drawingsTable.slug, slug));
 }
 
 export async function updateDrawingInfo(slug: string, name: string, description: string, isPublic: boolean) {
