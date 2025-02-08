@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
-import { ActionIcon, Container, Group, Skeleton, Text, Tooltip, useComputedColorScheme } from '@mantine/core';
+import { Container, Group, Skeleton, useComputedColorScheme } from '@mantine/core';
 import { useHover } from '@mantine/hooks';
 import { ThemeToggle } from '../components/buttons/ThemeToggle';
 import classes from './Header.module.css';
@@ -10,10 +10,7 @@ import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import SignInAction from '../components/buttons/SignInAction';
 import { dark } from '@clerk/themes';
 import { SiExcalidraw } from 'react-icons/si';
-import Image from 'next/image';
-import { AiFillGithub } from 'react-icons/ai';
 import Link from 'next/link';
-import { DEVELOPER_URL, GITHUB_URL } from '@/lib/constants';
 
 const ClerkItem = ({ computedColorScheme }: { computedColorScheme: "dark" | "light" }) => {
   return (
