@@ -1,4 +1,6 @@
 export const CLERK_AVAILABLE = process.env.CLERK_WEBHOOK_SECRET !== 'no-clerk';
+export const NO_CLERK_ID = "no-clerk-id";
+export const NO_CLERK_NAME = "no-clerk-name";
 
 export const getCurrentUserId = async () : Promise<string | undefined> => {
   if (CLERK_AVAILABLE) {
@@ -6,7 +8,7 @@ export const getCurrentUserId = async () : Promise<string | undefined> => {
     const user = await currentUser();
     return user?.id;
   }
-  return "no-clerk-id";
+  return NO_CLERK_ID;
 }
 
 export const getCurrentUserFullName = async () : Promise<string | undefined> => {
@@ -15,5 +17,5 @@ export const getCurrentUserFullName = async () : Promise<string | undefined> => 
     const user = await currentUser();
     return user?.fullName ?? undefined;
   }
-  return "no-clerk-name";
+  return NO_CLERK_NAME;
 }

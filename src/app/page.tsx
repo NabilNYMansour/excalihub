@@ -11,13 +11,28 @@ import UserBeingProcessed from "./ui/components/other/UserBeingProcessed";
 import classes from "./page.module.css";
 import ActionButtons from "./ui/components/buttons/ActionButtons";
 import { logger } from "@/logger";
-import { getCurrentUserFullName, getCurrentUserId, CLERK_AVAILABLE } from "@/auth";
+import { getCurrentUserFullName, getCurrentUserId, CLERK_AVAILABLE, NO_CLERK_ID, NO_CLERK_NAME } from "@/auth";
+import * as db from '@/db/queries'
 
-async function HomePageComponent({ searchParams, name, clerkId }: { searchParams: SearchParams, name: string | null, clerkId: string | null }) {
-  if (!clerkId && !CLERK_AVAILABLE) {
-    // Just create a new account for the user
+async function HomePageComponent({
+  searchParams,
+  name,
+  clerkId
+}: {
+  searchParams: SearchParams,
+  name: string | null,
+  clerkId: string | null
+}) {
+  if (clerkId === NO_CLERK_ID && !CLERK_AVAILABLE && ((await getUserIdByClerkId(clerkId)).length === 0)) {
+    await db.createUser({
+      email: "email",
+      name: NO_CLERK_NAME,
+      clerkId: NO_CLERK_ID,
+      createAt: new Date().toISOString()
+    });
+    return <UserBeingProcessed />
   }
-  
+
   if (!clerkId) {
     // Should never happen, but if it does, log it.
     logger.error("Home page error: clerkId is null for user " + name);

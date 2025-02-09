@@ -5,7 +5,7 @@ import ExcalidrawMain from '@/app/ui/components/excaliCore/ExcalidrawMain';
 import { forkDrawingAction, saveDrawingAction, updateDrawingInfoAction } from '@/lib/actions';
 import { Metadata } from 'next';
 import { MAIN_URL } from '@/lib/constants';
-import { getCurrentUserId } from '@/auth';
+import { CLERK_AVAILABLE, getCurrentUserId, NO_CLERK_NAME } from '@/auth';
 
 export async function generateMetadata(
   { params }: { params: { slug: string } }
@@ -23,11 +23,14 @@ export async function generateMetadata(
   if (drawing[0].isPublic !== 1 && !isOwner) { // if user is not the owner and drawing is not public
     notFound(); // not found
   }
-
-  const ownerClerkId = (await getClerkIdGivenId(drawing[0].userId))[0].clerkId;
-  const owerUserObject = await clerkClient().users.getUser(ownerClerkId);
-  const ownerUsername = owerUserObject.username!;
-
+  let ownerUsername;
+  if (CLERK_AVAILABLE) {
+    const ownerClerkId = (await getClerkIdGivenId(drawing[0].userId))[0].clerkId;
+    const ownerUserObject = await clerkClient().users.getUser(ownerClerkId);
+    ownerUsername = ownerUserObject.username!;
+  } else {
+    ownerUsername = NO_CLERK_NAME;
+  }
   const title = drawing[0].name + " by " + ownerUsername;
   const description = drawing[0].description;
   const imageLink = `${MAIN_URL}/ExcalihubLogoTitle.png`;
