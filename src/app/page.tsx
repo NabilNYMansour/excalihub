@@ -72,12 +72,13 @@ async function HomePageComponent({
 
               {/*=============The drawings=============*/}
               <Group justify="center" gap={10}>
-                {drawings.length > 0 ? drawings.map((drawing, i) => <DrawingCard drawing={drawing}
-                  key={drawing.name + drawing.isPublic + drawing.slug + i}
-                  deleteAction={deleteDrawingAction}
-                  toggleAction={togglePublicDrawingAction}
-                  clerkId={clerkId} />) :
-                  <Text size='xl' fw={900}>
+                {drawings.length > 0 ? drawings.map((drawing, i) =>
+                  <DrawingCard drawing={drawing}
+                    key={drawing.name + drawing.isPublic + drawing.slug + i}
+                    deleteAction={deleteDrawingAction}
+                    toggleAction={togglePublicDrawingAction}
+                    clerkId={clerkId} />)
+                  : <Text size='xl' fw={900}>
                     Time to make some drawings... ᕕ(ᐛ)ᕗ
                   </Text>
                 }
