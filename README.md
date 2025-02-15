@@ -42,3 +42,4 @@ I find Excalidraw useful but the free version doesn't let you have multiple save
 ## License
 
 ExcaliHub is licensed under the [MIT License](LICENSE).
+
