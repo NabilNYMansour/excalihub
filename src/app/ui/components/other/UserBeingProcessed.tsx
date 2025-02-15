@@ -11,7 +11,9 @@ const UserBeingProcessed = () => {
     }, 1000);
   });
 
-  return <CenterContainer><Loader /></CenterContainer>
+  return <CenterContainer>
+    <Loader />
+  </CenterContainer>
 };
 
 export default UserBeingProcessed;

@@ -18,7 +18,7 @@ const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,
   {
     ssr: false,
-    loading: () => <Skeleton height="100%" width="100%" />
+    loading: () => <Skeleton height="100%" width="100%" radius={0}/>
   },
 );
 

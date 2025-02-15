@@ -11,6 +11,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Notifications } from "@mantine/notifications";
 import { Metadata } from "next";
 import { APP_DESCRIPTION, MAIN_URL } from "@/lib/constants";
+import { CLERK_AVAILABLE } from "@/auth";
 
 const CaviarDreams = localFont({ src: '../../public/CaviarDreams.ttf' });
 
@@ -68,7 +69,7 @@ export default function RootLayout({
         <body className={cx(classes.body, CaviarDreams.className)}>
           <MantineProvider defaultColorScheme="dark" theme={theme}>
             <Notifications className={classes.notifications} />
-            <Header />
+            <Header useClerk={CLERK_AVAILABLE} />
             <div className={classes.app}>
               {children}
             </div>
