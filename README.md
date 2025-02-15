@@ -26,11 +26,14 @@ npm install
 npm run drizzle:generate
 npm run drizzle:migrate
 ```
-5. Create a [Clerk](https://clerk.com/) account, generate a private and public key, and place them in a new file called `.env.local`. You can see `.env.example` for the correct format.
-6. Finally, start the app by running:
+5. Finally, start the app by running:
 ```bash
 npm start
 ```
+
+## Local support
+
+ExcaliHub can work entirely locally by following the steps above.
 
 ## Purpose
 
