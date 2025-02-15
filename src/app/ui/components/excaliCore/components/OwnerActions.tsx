@@ -7,14 +7,22 @@ import { useEffect, useState } from "react";
 import { IoIosSave } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 
-const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug, elements, setHasChanged }:
-  {
-    hasChanged: boolean, openModal: () => void,
-    clerkId: string, slug: string, elements: string,
-    saveDrawingAction: (formData: FormData, slug: string, elements: string) => Promise<boolean>,
-    setHasChanged: (hasChanged: boolean) => void
-  }
-) => {
+const OwnerActions = ({
+  hasChanged,
+  openModal,
+  clerkId,
+  saveDrawingAction,
+  slug,
+  elements,
+  setHasChanged,
+  triggerSave,
+}: {
+  hasChanged: boolean, openModal: () => void;
+  clerkId: string, slug: string, elements: string;
+  saveDrawingAction: (formData: FormData, slug: string, elements: string) => Promise<boolean>;
+  setHasChanged: (hasChanged: boolean) => void;
+  triggerSave: boolean;
+}) => {
   const [loadingSave, setLoadingSave] = useState(false);
   const idle = useIdle(2000);
 
@@ -41,6 +49,13 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
       handleChangesSaved(new FormData());
     }
   }, [idle]);
+
+  useEffect(() => {
+    if (hasChanged) {
+      setLoadingSave(true);
+      handleChangesSaved(new FormData());
+    }
+  }, [triggerSave]);
 
   const handleChangesSaved = async (formData: FormData) => {
     formData.set('clerkId', clerkId);
@@ -70,7 +85,8 @@ const OwnerActions = ({ hasChanged, openModal, clerkId, saveDrawingAction, slug,
           <ActionIcon size="lg" radius="md" color='green'
             disabled={!hasChanged}
             type='submit'
-            loading={loadingSave}>
+            loading={loadingSave}
+          >
             <IoIosSave />
           </ActionIcon>
         </form>
