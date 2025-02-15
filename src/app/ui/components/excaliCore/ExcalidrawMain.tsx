@@ -49,6 +49,8 @@ const ExcalidrawMain = (
 
   const [loadingFork, setLoadingFork] = useState(false);
 
+  const [triggerSave, setTriggerSave] = useState(false);
+
   const pathname = usePathname();
 
   useEffect(() => {
@@ -96,6 +98,22 @@ const ExcalidrawMain = (
     setIsPublic(isPublic);
   }
 
+  // We use a useEffect instead of a mantine hook because it doesn't seem to work with it
+  // We are also doing this because if you are in text edit mode and press ctrl+s, the html
+  // save text dialog will show up. This is a workaround to prevent that.
+  useEffect(() => {
+    const handleCtrlS = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+        event.preventDefault();
+        setTriggerSave((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleCtrlS);
+    return () => {
+      window.removeEventListener('keydown', handleCtrlS);
+    };
+  }, []);
+
   return (
     <>
       {/* Main */}
@@ -111,8 +129,10 @@ const ExcalidrawMain = (
               <OwnerActions
                 clerkId={clerkId} slug={slug} elements={elements}
                 saveDrawingAction={saveDrawingAction} setHasChanged={setHasChanged}
-                hasChanged={hasChanged} openModal={open} /> :
-              <AnonActions loadingFork={loadingFork} setLoadingFork={setLoadingFork} handleForkDrawing={handleForkDrawing} openModal={open} clerkIdExists={clerkId !== ""} />}
+                hasChanged={hasChanged} openModal={open}
+                triggerSave={triggerSave}
+              />
+              : <AnonActions loadingFork={loadingFork} setLoadingFork={setLoadingFork} handleForkDrawing={handleForkDrawing} openModal={open} clerkIdExists={clerkId !== ""} />}
             <Tooltip label="Share Drawing" position="left" withArrow>
               <ActionIcon size="lg" radius="md" variant='default' onClick={handleShareDrawing}>
                 <IoMdShare />
@@ -128,7 +148,8 @@ const ExcalidrawMain = (
           initialData={{
             elements: JSON.parse(payload).elements,
             scrollToContent: true
-          }} />
+          }}
+        />
       </Box>
 
       {/* Modal */}
@@ -136,9 +157,11 @@ const ExcalidrawMain = (
         <OwnerModal opened={opened} close={close} initTitle={title}
           clerkId={clerkId} slug={slug} initDescription={description} initPrivacy={isPublic}
           updateDrawingInfoAction={updateDrawingInfoAction}
-          handleInfoStatesChange={handleInfoStatesChange} /> :
-        <AnonModal isDemo={pathname === "/excalidraw"} ownerUsername={ownerUsername!} opened={opened} // we can be certain ownerUsername is defined
-          close={close} title={title} description={description} />}
+          handleInfoStatesChange={handleInfoStatesChange}
+        />
+        : <AnonModal isDemo={pathname === "/excalidraw"} ownerUsername={ownerUsername!} opened={opened} // we can be certain ownerUsername is defined
+          close={close} title={title} description={description}
+        />}
     </>
   );
 };
