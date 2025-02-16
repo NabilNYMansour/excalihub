@@ -57,7 +57,14 @@ export async function POST(req: Request) {
       clerkId = evt.data.id;
       const email = JSON.parse(body).data.email_addresses[0].email_address;
       const name = (evt.data as UserJSON).first_name + ' ' + (evt.data as UserJSON).last_name;
-      await db.createUser({ email: email, name: name, clerkId: clerkId, createAt: new Date().toISOString() });
+      try {
+        const userQuery = await db.getUserIdByClerkId(clerkId);
+        if (userQuery.length === 0) {
+          await db.createUser({ email: email, name: name, clerkId: clerkId, createAt: new Date().toISOString() });
+        }
+      } catch (err) {
+        console.error('Error creating user:', err);
+      }
       break;
 
     case 'user.deleted':

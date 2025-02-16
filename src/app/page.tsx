@@ -13,6 +13,7 @@ import ActionButtons from "./ui/components/buttons/ActionButtons";
 import { logger } from "@/logger";
 import { getCurrentUserFullName, getCurrentUserId, CLERK_AVAILABLE, NO_CLERK_ID, NO_CLERK_NAME } from "@/auth";
 import * as db from '@/db/queries'
+import { currentUser } from "@clerk/nextjs/server";
 
 async function HomePageComponent({
   searchParams,
@@ -94,6 +95,10 @@ async function HomePageComponent({
       </CenterContainer>
     );
   } else { // if a clerkId exists but a userId does not. Then the webhook is potentially still processing the user creation.
+    const user = await currentUser();
+    const email = user!.emailAddresses[0].emailAddress;
+    const name = user!.fullName ?? "User";
+    await db.createUser({ email: email, name: name, clerkId: clerkId, createAt: new Date().toISOString() });
     return <UserBeingProcessed />; // will reload the page after 1 second
   }
 };
