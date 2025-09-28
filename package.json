@@ -1,6 +1,6 @@
 {
   "name": "excalihub",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,6 +14,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.49.0",
     "@clerk/nextjs": "^5.2.2",
     "@clerk/themes": "^2.1.10",
     "@excalidraw/excalidraw": "^0.17.6",
@@ -24,6 +25,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "axios": "^1.7.2",
     "better-sqlite3": "^12.4.1",
+    "clsx": "^2.1.1",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
     "drizzle-zod": "^0.5.1",
