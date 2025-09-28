@@ -62,10 +62,6 @@ const OwnerActions = ({
     const res = await saveDrawingAction(formData, slug, elements);
     if (res) {
       setHasChanged(false);
-      notifications.show({
-        title: 'Saved 💾',
-        message: 'Changes have been saved',
-      })
     } else {
       alert("Error saving drawing. Please try again.");
     }

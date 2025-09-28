@@ -66,7 +66,9 @@ async function HomePageComponent({
 
               {/*=============Search and new drawing=============*/}
               <Flex w="100%" gap={10} align="center">
-                <Box flex={4}><SearchDrawings /></Box>
+                <Box flex={4}>
+                  <SearchDrawings />
+                </Box>
                 <NewDrawingButton clerkId={clerkId} createDrawingAction={createDrawingAction} />
               </Flex>
 
