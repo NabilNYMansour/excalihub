@@ -1,5 +1,7 @@
-import { BetterSQLite3Database, drizzle } from 'drizzle-orm/better-sqlite3';
-import Database from 'better-sqlite3';
+import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
 
-const betterSqlite = new Database('.sqlite.db');
-export const db: BetterSQLite3Database = drizzle(betterSqlite);
+const sql = neon(process.env.DATABASE_URL!);
+const db = drizzle(sql);
+
+export { db };
