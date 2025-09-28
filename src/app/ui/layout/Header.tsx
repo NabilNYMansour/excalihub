@@ -5,8 +5,7 @@ import { Container, Group, Skeleton, ThemeIcon, useComputedColorScheme } from '@
 import { useHover } from '@mantine/hooks';
 import { ThemeToggle } from '../components/buttons/ThemeToggle';
 import classes from './Header.module.css';
-import { UserButton, ClerkLoading, ClerkLoaded } from '@clerk/nextjs';
-import { SignedIn, SignedOut } from '@clerk/clerk-react';
+import { UserButton, ClerkLoading, ClerkLoaded, SignedOut, SignedIn } from '@clerk/nextjs';
 import SignInAction from '../components/buttons/SignInAction';
 import { dark } from '@clerk/themes';
 import { SiExcalidraw } from 'react-icons/si';

@@ -14,7 +14,6 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.49.0",
     "@clerk/nextjs": "^5.2.2",
     "@clerk/themes": "^2.1.10",
     "@excalidraw/excalidraw": "^0.17.6",
