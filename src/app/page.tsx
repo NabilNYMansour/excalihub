@@ -10,7 +10,6 @@ import PaginationControls from "./ui/components/other/PaginationControls";
 import UserBeingProcessed from "./ui/components/other/UserBeingProcessed";
 import classes from "./page.module.css";
 import ActionButtons from "./ui/components/buttons/ActionButtons";
-import { logger } from "@/logger";
 import { getCurrentUserFullName, getCurrentUserId, CLERK_AVAILABLE, NO_CLERK_ID, NO_CLERK_NAME } from "@/auth";
 import * as db from '@/db/queries'
 import { currentUser } from "@clerk/nextjs/server";
@@ -36,7 +35,7 @@ async function HomePageComponent({
 
   if (!clerkId) {
     // Should never happen, but if it does, log it.
-    logger.error("Home page error: clerkId is null for user " + name);
+    console.error("Home page error: clerkId is null for user " + name);
     return <UserBeingProcessed />
   };
 

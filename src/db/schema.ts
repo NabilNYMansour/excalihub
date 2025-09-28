@@ -1,7 +1,7 @@
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, pgTable, varchar as text } from "drizzle-orm/pg-core";
 
-export const usersTable = sqliteTable('users', {
-  id: integer('id').primaryKey(),
+export const usersTable = pgTable('users', {
+  id: integer('id').primaryKey().generatedByDefaultAsIdentity(),
   name: text('name').notNull(),
   email: text('email').notNull(),
   clerkId: text('clerkId').unique().notNull(),
@@ -11,8 +11,8 @@ export const usersTable = sqliteTable('users', {
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
 
-export const drawingsTable = sqliteTable('drawings', {
-  id: integer('id').primaryKey(),
+export const drawingsTable = pgTable('drawings', {
+  id: integer('id').primaryKey().generatedByDefaultAsIdentity(),
   userId: integer('userId').notNull().references(() => usersTable.id),
   name: text('name').notNull(),
   description: text('description').notNull(),
@@ -25,8 +25,8 @@ export const drawingsTable = sqliteTable('drawings', {
 export type InsertDrawing = typeof drawingsTable.$inferInsert;
 export type SelectDrawing = typeof drawingsTable.$inferSelect;
 
-export const eventsTable = sqliteTable('events', {
-  eventId: integer('event_id').primaryKey(),
+export const eventsTable = pgTable('events', {
+  eventId: integer('event_id').primaryKey().generatedByDefaultAsIdentity(),
   payload: text('payload').notNull(),
   createAt: text('created_at').notNull(),
 });

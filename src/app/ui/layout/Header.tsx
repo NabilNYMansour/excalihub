@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
-import { ActionIcon, Container, Group, Skeleton, ThemeIcon, useComputedColorScheme } from '@mantine/core';
+import { Container, Group, Skeleton, ThemeIcon, useComputedColorScheme } from '@mantine/core';
 import { useHover } from '@mantine/hooks';
 import { ThemeToggle } from '../components/buttons/ThemeToggle';
 import classes from './Header.module.css';
