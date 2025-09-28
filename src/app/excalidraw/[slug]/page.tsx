@@ -6,6 +6,9 @@ import { forkDrawingAction, saveDrawingAction, updateDrawingInfoAction } from '@
 import { Metadata } from 'next';
 import { MAIN_URL } from '@/lib/constants';
 import { CLERK_AVAILABLE, getCurrentUserId, NO_CLERK_NAME } from '@/auth';
+import { unstable_noStore as noStore } from 'next/cache';
+
+noStore(); // ensure no caching
 
 export async function generateMetadata(
   { params }: { params: { slug: string } }

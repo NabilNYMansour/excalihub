@@ -102,9 +102,17 @@ async function migrateEventsTable() {
   console.log("migrate> Events table migration done");
 }
 
+async function resetSequences() {
+  console.log("migrate> Resetting sequences");
+  await postgresSql`SELECT setval(pg_get_serial_sequence('users', 'id'), (SELECT MAX(id) FROM users))`;
+  await postgresSql`SELECT setval(pg_get_serial_sequence('drawings', 'id'), (SELECT MAX(id) FROM drawings))`;
+  await postgresSql`SELECT setval(pg_get_serial_sequence('events', 'event_id'), (SELECT MAX(event_id) FROM events))`;
+  console.log("migrate> Sequences reset");
+}
+
 clearAllTables().then(async () => {
   await migrateUserTable().then(async () => await migrateDrawingsTable());
   await migrateEventsTable();
-});
+}).then(async () => await resetSequences());
 
 
