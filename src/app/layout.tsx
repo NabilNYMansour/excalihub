@@ -12,6 +12,7 @@ import { Notifications } from "@mantine/notifications";
 import { Metadata } from "next";
 import { APP_DESCRIPTION, MAIN_URL } from "@/lib/constants";
 import { CLERK_AVAILABLE } from "@/auth";
+import { Analytics } from '@vercel/analytics/next';
 
 const CaviarDreams = localFont({ src: '../../public/CaviarDreams.ttf' });
 
@@ -75,6 +76,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </MantineProvider>
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
