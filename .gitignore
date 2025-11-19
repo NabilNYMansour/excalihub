@@ -42,3 +42,6 @@ deploy.sh
 # database and others
 .sqlite.db
 app.log
+
+# VS Code settings
+.vscode/
