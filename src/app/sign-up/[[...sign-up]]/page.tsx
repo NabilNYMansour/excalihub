@@ -9,6 +9,6 @@ export default function Page() {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
   return <CenterContainer>
-    <SignUp appearance={{ baseTheme: computedColorScheme === "dark" ? dark : undefined }} />
+    <SignUp appearance={{ baseTheme: computedColorScheme === "dark" ? dark : undefined }} forceRedirectUrl={"/home"} />
   </CenterContainer>
 }

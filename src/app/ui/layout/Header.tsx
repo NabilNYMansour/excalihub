@@ -267,7 +267,7 @@ export function Header({
               <ClerkItem computedColorScheme={computedColorScheme} useClerk={useClerk} />
             </Group>
 
-            <Link href="/" className={classes.appTitle}>
+            <Link href="/home" className={classes.appTitle}>
               <Group ml="auto" mr="auto" c="main">
                 <SiExcalidraw size={40} aria-label="Excalidraw" />
                 <Group visibleFrom="sm">

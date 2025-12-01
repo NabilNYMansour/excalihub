@@ -26,13 +26,13 @@ export function Footer() {
             </Text>
           </Link>
         }
-        <Link href='/landing' style={{ textDecoration: "none" }}>
+        <Link href='/' style={{ textDecoration: "none" }}>
           <Text fz="md" lh="md" mx="xs">
             Landing
           </Text>
         </Link>
 
-        <Link href='/landing#faq' style={{ textDecoration: "none" }}>
+        <Link href='/#faq' style={{ textDecoration: "none" }}>
           <Text fz="md" lh="md" mx="xs">
             FAQ
           </Text>
