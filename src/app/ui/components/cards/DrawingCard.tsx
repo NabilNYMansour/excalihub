@@ -146,7 +146,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
         </Card.Section>
         <Card.Section withBorder inheritPadding p={0}
           style={{ display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
-          <Link href={`/excalidraw/${drawing.slug}`} >
+          <a href={`/excalidraw/${drawing.slug}`} >
             <div className={classes.drawing}
               style={{ width: "350px", height: "200px" }}>
               <Excalidraw theme={computedColorScheme}
@@ -157,7 +157,7 @@ const DrawingCard = ({ drawing, toggleAction, deleteAction, clerkId }: {
                   appState: { zoom: { value: 0.25 as any } }
                 }} viewModeEnabled />
             </div>
-          </Link>
+          </a>
         </Card.Section>
       </Card>
 
